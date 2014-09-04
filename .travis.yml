@@ -6,7 +6,16 @@ android:
     - sys-img-armeabi-v7a-android-19
 
 before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - gem install calabash-android
   - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
+
+script:
+  - ./gradlew build connectedCheck
+  - ./gradlew build
+  - calabash-android resign app/build/outputs/apk/app-release-unsigned.apk
+  - calabash-android run app/build/outputs/apk/app-release-unsigned.apk
