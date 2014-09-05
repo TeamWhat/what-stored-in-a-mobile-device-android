@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">What is stored in a mobile device</string>
     <string name="title_activity_main_screen">What is stored in a mobile device</string>
     <string name="hello_world">Hello world!</string>
@@ -12,6 +11,5 @@
     <string name="gender">What is your gender?</string>
     <string name="country">Where are you from?</string>
     <string name="age">How old are you?</string>
-
-
+    <string name="kappa">kappa</string>
 </resources>
