@@ -64,4 +64,8 @@ public class Questions extends FragmentActivity {
         }
     }
 
+    public ViewPager getPager(){
+        return mPager;
+    }
+
 }
