@@ -7,5 +7,5 @@
 .idea
 *~
 screenshot*
-test-servers/
+test_servers/
 *.iml
