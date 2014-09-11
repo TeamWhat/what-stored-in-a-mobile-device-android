@@ -2,8 +2,8 @@
 <resources>
     <string-array name="ages_array">
         <item>Under 18</item>
-        <item>18-25</item>
-        <item>25-35</item>
+        <item>18–25</item>
+        <item>25–35</item>
         <item>35+</item>
     </string-array>
 </resources>

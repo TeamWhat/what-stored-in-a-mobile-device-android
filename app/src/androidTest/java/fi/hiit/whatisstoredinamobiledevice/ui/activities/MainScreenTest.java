@@ -1,14 +1,11 @@
 package fi.hiit.whatisstoredinamobiledevice.ui.activities;
 
-import android.app.Application;
 import android.content.Intent;
 import android.test.ActivityUnitTestCase;
-import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.widget.Button;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
-
 
 public class MainScreenTest extends ActivityUnitTestCase<MainScreen> {
     private Intent mLaunchIntent;

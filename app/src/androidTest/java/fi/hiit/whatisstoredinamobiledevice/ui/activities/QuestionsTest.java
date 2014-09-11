@@ -40,7 +40,7 @@ public class QuestionsTest extends ActivityInstrumentationTestCase2<Questions> {
 
         pressBack();
 
-        // need to wait until backpress is finished
+        // need to wait until back press is finished
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
