@@ -1,5 +1,6 @@
 package fi.hiit.whatisstoredinamobiledevice.ui.activities;
 
+import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
 import android.app.Instrumentation;
@@ -22,7 +23,6 @@ import fi.hiit.whatisstoredinamobiledevice.ui.fragments.Question1;
 
 
 public class QuestionsTest extends ActivityInstrumentationTestCase2<Questions> {
-    private Intent mLaunchIntent;
     private Questions questions;
 
     public QuestionsTest() {
@@ -41,8 +41,6 @@ public class QuestionsTest extends ActivityInstrumentationTestCase2<Questions> {
     public void testOnBackPressedReturnsToFirstFragmentWhenOnSecondFragment() {
         swipeToRight();
         pressBack();
-        Question1 question1 = new Question1();
-        assertFalse(question1.isVisible());
         assertEquals(0, getActivity().getPager().getCurrentItem());
     }
 
@@ -62,6 +60,15 @@ public class QuestionsTest extends ActivityInstrumentationTestCase2<Questions> {
     @MediumTest
     public void testGetPagerReturnsPager() {
         assertTrue(questions.getPager().getClass() == ViewPager.class);
+    }
+
+    @MediumTest
+    public void testOnBackPressedReturnsToMainScreenWhenOnFirstFragment() {
+
+        pressBack();
+
+        Question1 question1 = new Question1();
+        assertFalse(questions.hasWindowFocus());
     }
 
 }
