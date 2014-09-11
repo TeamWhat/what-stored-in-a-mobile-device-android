@@ -4,6 +4,7 @@ import android.app.Application;
 import android.support.v4.app.Fragment;
 import android.app.Instrumentation;
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.ActivityUnitTestCase;
 import android.test.ApplicationTestCase;
@@ -56,6 +57,11 @@ public class QuestionsTest extends ActivityInstrumentationTestCase2<Questions> {
 
     private void pressBack() {
         this.sendKeys(KeyEvent.KEYCODE_BACK);
+    }
+
+    @MediumTest
+    public void testGetPagerReturnsPager() {
+        assertTrue(questions.getPager().getClass() == ViewPager.class);
     }
 
 }
