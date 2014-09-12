@@ -3,16 +3,14 @@ package fi.hiit.whatisstoredinamobiledevice.preferences;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
-import android.preference.Preference;
 import android.preference.PreferenceFragment;
-
-import java.util.prefs.PreferenceChangeEvent;
-import java.util.prefs.PreferenceChangeListener;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private ListPreference genderSetting;
+    private ListPreference genderSettings;
+    private ListPreference ageSettings;
+    private ListPreference frequencySettings;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,15 +43,19 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     private void setPreferenceItemsToFields() {
-        genderSetting = (ListPreference) findPreference("settings_user_gender");
+        genderSettings = (ListPreference) findPreference("settings_user_gender");
+        ageSettings = (ListPreference) findPreference("settings_user_age");
+        frequencySettings = (ListPreference) findPreference("settings_data_sending_frequency");
     }
 
     private void setCurrentValuesForSettingsSummaries() {
-        setGenderSettingSummary();
+        setListPreferenceSummary(frequencySettings);
+        setListPreferenceSummary(ageSettings);
+        setListPreferenceSummary(genderSettings);
     }
 
-    private void setGenderSettingSummary() {
-        genderSetting.setSummary(genderSetting.getEntry());
+    private void setListPreferenceSummary(ListPreference lp) {
+        lp.setSummary(lp.getEntry());
     }
 
     @Override

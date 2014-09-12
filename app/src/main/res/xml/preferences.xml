@@ -6,9 +6,26 @@
 
         <ListPreference
             android:key="settings_user_gender"
-            android:title="@string/settings_gender"
+            android:title="@string/settings_gender_title"
             android:entries="@array/gender_array"
             android:entryValues="@array/gender_array_values" />
+
+        <ListPreference
+            android:key="settings_user_age"
+            android:title="@string/settings_age_title"
+            android:entries="@array/ages_array"
+            android:entryValues="@array/ages_array_values" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/settings_data_sending_title">
+
+        <ListPreference
+            android:key="settings_data_sending_frequency"
+            android:title="@string/settings_data_sending_frequency_title"
+            android:entries="@array/frequency_array"
+            android:entryValues="@array/frequency_array_values" />
 
     </PreferenceCategory>
 
