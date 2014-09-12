@@ -22,6 +22,10 @@
             android:name=".ui.activities.Questions"
             android:label="@string/title_activity_questions" >
         </activity>
+        <activity
+            android:name=".preferences.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>

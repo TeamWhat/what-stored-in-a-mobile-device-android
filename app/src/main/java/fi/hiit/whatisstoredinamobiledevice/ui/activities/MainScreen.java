@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 
 public class MainScreen extends Activity {
 
@@ -31,6 +32,8 @@ public class MainScreen extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Intent selectedMenuOptionIntent = new Intent(this, SettingsActivity.class);
+        startActivity(selectedMenuOptionIntent);
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 

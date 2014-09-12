@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/settings_user_info_title">
+
+        <ListPreference
+            android:key="settings_user_gender"
+            android:title="@string/settings_gender"
+            android:entries="@array/gender_array"
+            android:entryValues="@array/gender_array_values" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>
