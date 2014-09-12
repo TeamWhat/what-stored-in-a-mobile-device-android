@@ -4,4 +4,4 @@ Feature: Fill information
   Scenario: Inputting information
     Given I press the "Input your info" button
     Then I press "Male"
-    Then I select "25-35" from "ageSelectionSpinner"
+    Then I select "25–35" from "ageSelectionSpinner"
