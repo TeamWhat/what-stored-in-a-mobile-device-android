@@ -33,7 +33,7 @@ public class Questions extends FragmentActivity {
         setContentView(R.layout.activity_questions);
 
         mPager = (ViewPager) findViewById(R.id.questions);
-        mPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new QuestionsPagerAdapter(getFragmentManager());
         mPager.setAdapter(mPagerAdapter);
     }
 

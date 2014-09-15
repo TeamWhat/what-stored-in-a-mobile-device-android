@@ -1,13 +1,14 @@
 package fi.hiit.whatisstoredinamobiledevice.ui.fragments.utilities;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+;
+
+import android.app.Fragment;
+import android.app.FragmentManager;
 
 import fi.hiit.whatisstoredinamobiledevice.ui.fragments.Question1;
 import fi.hiit.whatisstoredinamobiledevice.ui.fragments.Question2;
 
-public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
+public class QuestionsPagerAdapter extends FragmentPagerAdapter {
 
     public QuestionsPagerAdapter(FragmentManager fm) {
         super(fm);
