@@ -7,6 +7,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 
+import com.robotium.solo.Solo;
+
+import fi.hiit.whatisstoredinamobiledevice.R;
+
 public class MockUserActions {
 
     public void pressBack(ActivityInstrumentationTestCase2 aitc2) {
@@ -33,5 +37,10 @@ public class MockUserActions {
             Log.wtf("MockUserActions", "Thread sleep failed for some reason");
             e.printStackTrace();
         }
+    }
+
+    public void selectOption(Solo solo, Activity activity, int categoryId, int optionId) {
+        solo.clickOnText(activity.getString(categoryId));
+        solo.clickOnText(activity.getString(optionId));
     }
 }
