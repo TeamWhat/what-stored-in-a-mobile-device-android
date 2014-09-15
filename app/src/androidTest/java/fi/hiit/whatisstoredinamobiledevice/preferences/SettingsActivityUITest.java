@@ -6,10 +6,12 @@ import android.test.suitebuilder.annotation.MediumTest;
 import com.robotium.solo.Solo;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.testhelpers.MockUserActions;
 
 public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<SettingsActivity> {
 
     private Solo solo;
+    private MockUserActions mua;
 
     public SettingsActivityUITest() {
         super(SettingsActivity.class);
@@ -20,6 +22,7 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
         super.setUp();
         setActivityInitialTouchMode(true);
         solo = new Solo(getInstrumentation(), getActivity());
+        mua = new MockUserActions();
     }
 
     @Override
@@ -50,6 +53,51 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
     @MediumTest
     public void testAgeTitleIsShown() {
         assertTrue(checkTextDisplayed(R.string.settings_age_title));
+    }
+
+    @MediumTest
+    public void testGenderSummaryIsShownAfterSelectingFemale() {
+        selectMale();
+        assertFalse(checkTextDisplayed(R.string.gender_female));
+        selectFemale();
+        assertTrue(checkTextDisplayed(R.string.gender_female));
+    }
+
+    @MediumTest
+    public void testGenderSummaryIsShownAfterSelectingMale() {
+        selectFemale();
+        assertFalse(checkTextDisplayed(R.string.gender_male));
+        selectMale();
+        assertTrue(checkTextDisplayed(R.string.gender_male));
+    }
+
+    @MediumTest
+    public void testGenderOptionsCanOpen() {
+        solo.clickOnText(getActivity().getString(R.string.settings_gender_title));
+        assertTrue(checkTextDisplayed(R.string.gender_male));
+        assertTrue(checkTextDisplayed(R.string.gender_female));
+    }
+
+    @MediumTest
+    public void testSendCheckBoxIsShown() {
+        assertTrue(checkTextDisplayed(R.string.settings_enable_data_sending_title));
+    }
+
+    @MediumTest
+    public void testSendCheckBoxSavesSelectedOption() {
+        assertFalse(solo.isCheckBoxChecked(0));
+        solo.clickOnCheckBox(0);
+        assertTrue(solo.isCheckBoxChecked(0));
+    }
+
+    public void selectFemale() {
+        solo.clickOnText(getActivity().getString(R.string.settings_gender_title));
+        solo.clickOnText(getActivity().getString(R.string.gender_female));
+    }
+
+    public void selectMale() {
+        solo.clickOnText(getActivity().getString(R.string.settings_gender_title));
+        solo.clickOnText(getActivity().getString(R.string.gender_male));
     }
 
     public boolean checkTextDisplayed(int stringId) {
