@@ -21,9 +21,15 @@
     <PreferenceCategory
         android:title="@string/settings_data_sending_title">
 
+        <CheckBoxPreference
+            android:key="settings_enable_data_sending"
+            android:title="@string/settings_enable_data_sending_title" />
+
+
         <ListPreference
             android:key="settings_data_sending_frequency"
             android:title="@string/settings_data_sending_frequency_title"
+            android:dependency="settings_enable_data_sending"
             android:entries="@array/frequency_array"
             android:entryValues="@array/frequency_array_values" />
 

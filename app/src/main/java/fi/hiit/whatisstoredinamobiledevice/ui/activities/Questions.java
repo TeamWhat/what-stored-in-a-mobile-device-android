@@ -2,6 +2,7 @@ package fi.hiit.whatisstoredinamobiledevice.ui.activities;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.os.Build;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 import fi.hiit.whatisstoredinamobiledevice.ui.fragments.Question1;
 import fi.hiit.whatisstoredinamobiledevice.ui.fragments.utilities.QuestionsPagerAdapter;
 
@@ -49,6 +51,8 @@ public class Questions extends FragmentActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Intent selectedMenuOptionIntent = new Intent(this, SettingsActivity.class);
+        startActivity(selectedMenuOptionIntent);
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
