@@ -37,6 +37,7 @@
             android:entries="@array/frequency_array"
             android:entryValues="@array/frequency_array_values" />
 
+
     </PreferenceCategory>
 
 </PreferenceScreen>

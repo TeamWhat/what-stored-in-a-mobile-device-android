@@ -1,13 +1,16 @@
 package fi.hiit.whatisstoredinamobiledevice.ui.fragments;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsFragment;
 
 
 /**
@@ -16,7 +19,7 @@ import fi.hiit.whatisstoredinamobiledevice.R;
  * create an instance of this fragment.
  *
  */
-public class Question1 extends PreferenceFragment {
+public class Question1 extends Fragment {
 
     /**
      * Use this factory method to create a new instance of
@@ -38,11 +41,20 @@ public class Question1 extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_question1, container, false);
+        View view = inflater.inflate(R.layout.fragment_question1, container, false);
+        SettingsFragment settingsFragment = new SettingsFragment();
+        QuestionButton questionButton = new QuestionButton();
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.add(R.id.preference_fragment, settingsFragment);
+        transaction.add(R.id.button_fragment, questionButton);
+        transaction.commit();
+        return view;
     }
+
+
 }
