@@ -32,3 +32,13 @@ Feature: Fill information
     Then I should not see "Monthly"
     Then I should not see "Daily"
     
+  Scenario: Information persists after switching screens
+    Given I press the menu key
+    Then I press "Settings"
+    Then I press "Gender"
+    Then I press "Female"
+    Then I go back
+    Then I press the menu key
+    Then I press "Settings"
+    Then I should see "Female"
+    

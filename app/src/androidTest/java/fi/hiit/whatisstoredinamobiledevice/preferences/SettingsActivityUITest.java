@@ -123,7 +123,6 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
     public void testFrequencySummaryIsShownAfterSelectingWeekly() {
         if (!solo.isCheckBoxChecked(0)) {
             solo.clickOnCheckBox(0);
-
         }
 
         selectMonthly();
