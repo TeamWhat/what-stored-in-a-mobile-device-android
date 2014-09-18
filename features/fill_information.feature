@@ -8,23 +8,26 @@ Feature: Fill information
     
   Scenario: Inputting gender
     Given I press the menu key
-    Then I press "Settings" button
-    Then I select "Male" from "settingsUserGenderListPreference"
+    Then I press "Settings"
+    Then I press "Gender"
+    Then I press "Male"
     Then I should see "Male"
-    Then I should not see "Female"
+    Then I should not see "Cancel"
     
   Scenario: Inputting age
     Given I press the menu key
-    Then I press "Settings" button
-    Then I select "Over 35" from "settingsUserAgeListPreference"
+    Then I press "Settings"
+    Then I press "Age"
+    Then I press "Over 35"
     Then I should see "Over 35"
     Then I should not see "Under 18"
     
   Scenario: Inputting frequency
     Given I press the menu key
-    Then I press "Settings" button
-    Then I toggle checkbox number 0
-    Then I select "Weekly" from "settingsDataSendingFrequencyListPreference"
+    Then I press "Settings"
+    Then I press "Send anonymous data for research periodically"
+    Then I press "Data sending frequency"
+    Then I press "Weekly"
     Then I should see "Weekly"
     Then I should not see "Monthly"
     Then I should not see "Daily"
