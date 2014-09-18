@@ -13,6 +13,11 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     private ListPreference frequencySettings;
     private ListPreference countrySettings;
 
+    public static final String KEY_SETTINGS_USER_GENDER = "settings_user_gender";
+    public static final String KEY_SETTINGS_USER_AGE = "settings_user_age";
+    public static final String KEY_SETTINGS_USER_COUNTRY = "settings_user_country";
+    public static final String KEY_SETTINGS_DATA_SENDING_FREQUENCY = "settings_data_sending_frequency";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,17 +49,17 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     private void setPreferenceItemsToFields() {
-        genderSettings = (ListPreference) findPreference("settings_user_gender");
-        ageSettings = (ListPreference) findPreference("settings_user_age");
-        frequencySettings = (ListPreference) findPreference("settings_data_sending_frequency");
-        countrySettings = (ListPreference) findPreference("settings_user_country");
+        genderSettings = (ListPreference) findPreference(KEY_SETTINGS_USER_GENDER);
+        ageSettings = (ListPreference) findPreference(KEY_SETTINGS_USER_AGE);
+        countrySettings = (ListPreference) findPreference(KEY_SETTINGS_USER_COUNTRY);
+        frequencySettings = (ListPreference) findPreference(KEY_SETTINGS_DATA_SENDING_FREQUENCY);
     }
 
     private void setCurrentValuesForSettingsSummaries() {
-        setListPreferenceSummary(frequencySettings);
-        setListPreferenceSummary(ageSettings);
         setListPreferenceSummary(genderSettings);
+        setListPreferenceSummary(ageSettings);
         setListPreferenceSummary(countrySettings);
+        setListPreferenceSummary(frequencySettings);
     }
 
     private void setListPreferenceSummary(ListPreference lp) {
