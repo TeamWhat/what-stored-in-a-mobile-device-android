@@ -11,6 +11,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     private ListPreference genderSettings;
     private ListPreference ageSettings;
     private ListPreference frequencySettings;
+    private ListPreference countrySettings;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,12 +47,14 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         genderSettings = (ListPreference) findPreference("settings_user_gender");
         ageSettings = (ListPreference) findPreference("settings_user_age");
         frequencySettings = (ListPreference) findPreference("settings_data_sending_frequency");
+        countrySettings = (ListPreference) findPreference("settings_user_country");
     }
 
     private void setCurrentValuesForSettingsSummaries() {
         setListPreferenceSummary(frequencySettings);
         setListPreferenceSummary(ageSettings);
         setListPreferenceSummary(genderSettings);
+        setListPreferenceSummary(countrySettings);
     }
 
     private void setListPreferenceSummary(ListPreference lp) {

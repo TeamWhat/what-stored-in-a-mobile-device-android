@@ -18,6 +18,12 @@
             android:entries="@array/ages_array"
             android:entryValues="@array/ages_array_values" />
 
+        <ListPreference
+            android:key="settings_user_country"
+            android:title="@string/settings_country_title"
+            android:entries="@array/country_array"
+            android:entryValues="@array/country_array_values" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

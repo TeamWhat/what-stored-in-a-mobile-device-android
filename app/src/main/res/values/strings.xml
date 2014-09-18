@@ -18,6 +18,7 @@
     <string name="title_activity_settings">Settings</string>
     <string name="settings_gender_title">Gender</string>
     <string name="settings_user_info_title">Personal Info</string>
+    <string name="settings_country_title">Country</string>
 
     <string name="gender_female">Female</string>
     <string name="gender_male">Male</string>
