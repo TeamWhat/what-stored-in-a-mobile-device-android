@@ -46,21 +46,45 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
     public void testGenderSelectionMaleIsSaved() {
         selectMale();
 
-        assertTrue("Selecting gender male was not saved to shared preferences", true);
+        String valueInSharedPrefs = sharedPrefs.getString(SettingsFragment.KEY_SETTINGS_USER_GENDER, "");
+        String valueDefinedInXML = getActivity().getString(R.string.gender_male_value);
+
+        assertTrue("Selecting gender male was not saved to shared preferences", valueInSharedPrefs.equals(valueDefinedInXML));
+    }
+
+    @MediumTest
+    public void testGenderSelectionMaleIsSavedAndValueNotFemale() {
+        selectMale();
+
+        String valueInSharedPrefs = sharedPrefs.getString(SettingsFragment.KEY_SETTINGS_USER_GENDER, "");
+        String valueDefinedInXML = getActivity().getString(R.string.gender_female_value);
+
+        assertFalse("Gender male was selected, but value was female in SharedPrefs", valueInSharedPrefs.equals(valueDefinedInXML));
+    }
+
+    @MediumTest
+    public void testGenderSelectionFirstMaleThanChangeFemale() {
+        // TODO
     }
 
 
+    public void mockSelections(int categoryId, int optionId) {
+        mua.selectOption(solo, getActivity(), categoryId, optionId);
+    }
+
+    public void selectMonthly() {
+        mockSelections(R.string.settings_data_sending_frequency_title, R.string.frequency_monthly);
+    }
+
+    public void selectWeekly() {
+        mockSelections(R.string.settings_data_sending_frequency_title, R.string.frequency_weekly);
+    }
+
     public void selectFemale() {
-        solo.clickOnText(getActivity().getString(R.string.settings_gender_title));
-        solo.clickOnText(getActivity().getString(R.string.gender_female));
+        mockSelections(R.string.settings_gender_title, R.string.gender_female);
     }
 
     public void selectMale() {
-        solo.clickOnText(getActivity().getString(R.string.settings_gender_title));
-        solo.clickOnText(getActivity().getString(R.string.gender_male));
-    }
-
-    public boolean checkTextDisplayed(int stringId) {
-        return solo.searchText(getActivity().getString(stringId));
+        mockSelections(R.string.settings_gender_title, R.string.gender_male);
     }
 }
