@@ -56,6 +56,11 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
     }
 
     @MediumTest
+    public void testCountryTitleIsShown() {
+        assertTrue(checkTextDisplayed(R.string.settings_country_title));
+    }
+
+    @MediumTest
     public void testGenderSummaryIsShownAfterSelectingFemale() {
         selectMale();
         assertFalse(checkTextDisplayed(R.string.gender_female));
@@ -69,6 +74,12 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
         assertFalse(checkTextDisplayed(R.string.gender_male));
         selectMale();
         assertTrue(checkTextDisplayed(R.string.gender_male));
+    }
+
+    @MediumTest
+    public void testCountrySummaryIsShownAfterSelectingSierraLeone() {
+        mua.selectOption(solo, getActivity(), R.string.settings_country_title, R.string.country_sierra_leone);
+        assertTrue(checkTextDisplayed(R.string.country_sierra_leone));
     }
 
     @MediumTest
