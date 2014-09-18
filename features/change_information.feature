@@ -1,31 +1,29 @@
-Feature: Fill information
-  This feature allows the user to input his personal information to the app.
-
-  Scenario: Inputting information
-    Given I press the "Input your info" button
-    Then I press "Male"
-    Then I select "25–35" from "ageSelectionSpinner"
-    
-  Scenario: Inputting gender
+Feature: Change information
+  This feature allows the user to change his personal information in the app.
+  
+  Scenario: Changing gender
     Given I press the menu key
     Then I press "Settings" button
     Then I select "Male" from "settingsUserGenderListPreference"
-    Then I should see "Male"
-    Then I should not see "Female"
+    Then I select "Female" from "settingsUserGenderListPreference"
+    Then I should see "Female"
+    Then I should not see "Male"
     
   Scenario: Inputting age
     Given I press the menu key
     Then I press "Settings" button
     Then I select "Over 35" from "settingsUserAgeListPreference"
-    Then I should see "Over 35"
-    Then I should not see "Under 18"
+    Then I select "Under 18" from "settingsUserAgeListPreference"
+    Then I should not see "Over 35"
+    Then I should see "Under 18"
     
   Scenario: Inputting frequency
     Given I press the menu key
     Then I press "Settings" button
     Then I toggle checkbox number 0
     Then I select "Weekly" from "settingsDataSendingFrequencyListPreference"
-    Then I should see "Weekly"
+    Then I select "Daily" from "settingsDataSendingFrequencyListPreference"
+    Then I should not see "Weekly"
     Then I should not see "Monthly"
-    Then I should not see "Daily"
+    Then I should see "Daily"
     

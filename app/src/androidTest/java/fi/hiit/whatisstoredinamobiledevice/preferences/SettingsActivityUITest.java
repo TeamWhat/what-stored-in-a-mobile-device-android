@@ -1,9 +1,5 @@
 package fi.hiit.whatisstoredinamobiledevice.preferences;
 
-import android.app.Instrumentation;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.MediumTest;
 
@@ -32,13 +28,6 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
     @Override
     public void tearDown() throws Exception {
         solo.finishOpenedActivities();
-    }
-
-
-    // EI TOIMI
-    public void clearPreferences() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        preferences.edit().clear().commit();
     }
 
     @MediumTest
@@ -103,16 +92,12 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
     }
 
 
-    // EI TOIMI
-    /*@MediumTest
+    @MediumTest
     public void testFrequencyUnavailableIfCheckBoxNotSelected() {
-        clearPreferences();
         ensureCheckBoxNotChecked();
         solo.clickOnText(getActivity().getString(R.string.settings_data_sending_frequency_title));
-        assertFalse(checkTextDisplayed(R.string.frequency_daily));
-        assertFalse(checkTextDisplayed(R.string.frequency_weekly));
-        assertFalse(checkTextDisplayed(R.string.frequency_monthly));
-    }*/
+        assertFalse(checkTextDisplayed(R.string.frequency_daily) && checkTextDisplayed(R.string.frequency_daily) && checkTextDisplayed(R.string.frequency_monthly));
+    }
 
     @MediumTest
     public void testFrequencyAvailableIfCheckBoxIsSelected() {
