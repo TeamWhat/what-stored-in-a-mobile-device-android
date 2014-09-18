@@ -1,11 +1,6 @@
 Feature: Fill information
   This feature allows the user to input his personal information to the app.
 
-  Scenario: Inputting information
-    Given I press the "Input your info" button
-    Then I press "Male"
-    Then I select "25–35" from "ageSelectionSpinner"
-    
   Scenario: Inputting gender
     Given I press the menu key
     Then I press "Settings"
@@ -31,6 +26,14 @@ Feature: Fill information
     Then I should see "Weekly"
     Then I should not see "Monthly"
     Then I should not see "Daily"
+    
+  Scenario: Inputting country
+    Given I press the menu key
+    Then I press "Settings"
+    Then I press "Country"
+    Then I press "Antigua and Barbuda"
+    Then I should see "Antigua and Barbuda"
+    Then I should not see "Cancel"
     
   Scenario: Information persists after switching screens
     Given I press the menu key

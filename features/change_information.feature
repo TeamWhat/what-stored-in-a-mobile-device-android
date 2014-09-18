@@ -38,3 +38,14 @@ Feature: Change information
     Then I should not see "Daily"
     Then I should not see "Cancel"
     
+  Scenario: Changing country
+    Given I press the menu key
+    Then I press "Settings"
+    Then I press "Country"
+    Then I press "Antigua and Barbuda"
+    Then I press "Country"
+    Then I press "The Bahamas"
+    Then I should not see "Antigua and Barbuda"
+    Then I should see "The Bahamas"
+    Then I should not see "Cancel"
+    
