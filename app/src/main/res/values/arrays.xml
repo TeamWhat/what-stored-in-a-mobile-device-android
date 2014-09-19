@@ -8,10 +8,10 @@
     </string-array>
 
     <string-array name="ages_array_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
+        <item>@string/age_group_under18_value</item>
+        <item>@string/age_group_18to25_value</item>
+        <item>@string/age_group_25to35_value</item>
+        <item>@string/age_group_over35_value</item>
     </string-array>
 
     <string-array name="gender_array">
@@ -32,9 +32,9 @@
     </string-array>
 
     <string-array name="frequency_array_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+        <item>@string/frequency_daily_value</item>
+        <item>@string/frequency_weekly_value</item>
+        <item>@string/frequency_monthly_value</item>
     </string-array>
 
 

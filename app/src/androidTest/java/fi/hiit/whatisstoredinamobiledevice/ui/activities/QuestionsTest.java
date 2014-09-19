@@ -4,12 +4,15 @@ import android.support.v4.view.ViewPager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.MediumTest;
 
+import com.robotium.solo.Solo;
+
 import fi.hiit.whatisstoredinamobiledevice.testhelpers.MockUserActions;
 
 
 public class QuestionsTest extends ActivityInstrumentationTestCase2<Questions> {
     private Questions questions;
     private MockUserActions mockUserActions;
+    private Solo solo;
 
     public QuestionsTest() {
         super(Questions.class);
@@ -20,13 +23,14 @@ public class QuestionsTest extends ActivityInstrumentationTestCase2<Questions> {
         super.setUp();
         setActivityInitialTouchMode(true);
         questions = getActivity();
-        mockUserActions = new MockUserActions();
+        solo = new Solo(getInstrumentation(), getActivity());
+        mockUserActions = new MockUserActions(getActivity(), solo);
     }
 
     @MediumTest
     public void testOnBackPressedReturnsToFirstFragmentWhenOnSecondFragment() {
-        mockUserActions.swipeToRight(questions, this);
-        mockUserActions.pressBack(this);
+        mockUserActions.swipeToRight(this);
+        solo.goBack();
         assertEquals(0, getActivity().getPager().getCurrentItem());
     }
 
@@ -37,7 +41,7 @@ public class QuestionsTest extends ActivityInstrumentationTestCase2<Questions> {
 
     @MediumTest
     public void testOnBackPressedReturnsToMainScreenWhenOnFirstFragment() {
-        mockUserActions.pressBack(this);
+        solo.goBack();
         assertFalse(questions.hasWindowFocus());
     }
 
