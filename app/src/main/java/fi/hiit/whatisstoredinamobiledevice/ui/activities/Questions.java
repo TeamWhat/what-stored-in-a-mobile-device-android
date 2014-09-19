@@ -1,5 +1,6 @@
 package fi.hiit.whatisstoredinamobiledevice.ui.activities;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 
@@ -13,13 +14,14 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
+import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsFragment;
+import fi.hiit.whatisstoredinamobiledevice.ui.fragments.QuestionButton;
 import fi.hiit.whatisstoredinamobiledevice.ui.fragments.utilities.QuestionsPagerAdapter;
 
 public class Questions extends FragmentActivity {
 
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
-    private CirclePageIndicator mIndicator;
 
 
     @Override
@@ -31,8 +33,13 @@ public class Questions extends FragmentActivity {
         mPagerAdapter = new QuestionsPagerAdapter(getFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 
-        mIndicator = (CirclePageIndicator)findViewById(R.id.circles_indicator);
-        mIndicator.setViewPager(mPager);
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        QuestionButton questionButton = new QuestionButton();
+        SettingsFragment settingsFragment = new SettingsFragment();
+        questionButton.setPager(mPager);
+        transaction.add(R.id.button_fragment, questionButton);
+        transaction.commit();
     }
 
 

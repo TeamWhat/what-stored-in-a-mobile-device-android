@@ -1,7 +1,6 @@
 package fi.hiit.whatisstoredinamobiledevice.ui.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -48,10 +47,6 @@ public class PersonalQuestions extends Fragment {
         SettingsFragment settingsFragment = new SettingsFragment();
         QuestionButton questionButton = new QuestionButton();
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.preference_fragment, settingsFragment);
-        //transaction.add(R.id.button_fragment, questionButton);
-        transaction.commit();
         return view;
     }
 

@@ -3,6 +3,7 @@ package fi.hiit.whatisstoredinamobiledevice.ui.fragments.utilities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 
+import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsFragment;
 import fi.hiit.whatisstoredinamobiledevice.ui.fragments.PersonalQuestions;
 import fi.hiit.whatisstoredinamobiledevice.ui.fragments.WelcomeScreen;
 
@@ -18,7 +19,7 @@ public class QuestionsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new WelcomeScreen();
             case 1:
-                return new PersonalQuestions();
+                return new SettingsFragment();
         }
         return null;
     }

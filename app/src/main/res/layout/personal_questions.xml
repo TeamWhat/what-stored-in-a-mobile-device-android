@@ -8,10 +8,4 @@
         android:id="@+id/preference_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
-    <FrameLayout
-        android:id="@+id/button_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
 </RelativeLayout>
