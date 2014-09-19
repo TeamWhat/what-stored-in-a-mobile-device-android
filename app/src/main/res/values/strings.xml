@@ -35,6 +35,7 @@
     <string name="frequency_weekly">Weekly</string>
     <string name="frequency_monthly">Monthly</string>
     <string name="settings_enable_data_sending_title">Send anonymous data for research periodically</string>
+    <string name="skip_button">Skip</string>
 
 
 </resources>

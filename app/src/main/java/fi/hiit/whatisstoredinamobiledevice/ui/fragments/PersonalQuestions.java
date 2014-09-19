@@ -50,7 +50,7 @@ public class PersonalQuestions extends Fragment {
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.add(R.id.preference_fragment, settingsFragment);
-        transaction.add(R.id.button_fragment, questionButton);
+        //transaction.add(R.id.button_fragment, questionButton);
         transaction.commit();
         return view;
     }

@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.viewpagerindicator.CirclePageIndicator;
+
 import fi.hiit.whatisstoredinamobiledevice.R;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 import fi.hiit.whatisstoredinamobiledevice.ui.fragments.utilities.QuestionsPagerAdapter;
@@ -17,6 +19,8 @@ public class Questions extends FragmentActivity {
 
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
+    private CirclePageIndicator mIndicator;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,9 @@ public class Questions extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.questions);
         mPagerAdapter = new QuestionsPagerAdapter(getFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+
+        mIndicator = (CirclePageIndicator)findViewById(R.id.circles_indicator);
+        mIndicator.setViewPager(mPager);
     }
 
 
