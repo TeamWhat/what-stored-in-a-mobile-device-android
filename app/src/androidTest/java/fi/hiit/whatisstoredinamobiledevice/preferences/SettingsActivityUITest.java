@@ -22,7 +22,7 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
         super.setUp();
         solo = new Solo(getInstrumentation(), getActivity());
         setActivityInitialTouchMode(true);
-        mua = new MockUserActions();
+        mua = new MockUserActions(getActivity(), solo);
     }
 
     @Override
@@ -62,17 +62,17 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
 
     @MediumTest
     public void testGenderSummaryIsShownAfterSelectingFemale() {
-        selectMale();
+        mua.selectMale();
         assertFalse(checkTextDisplayed(R.string.gender_female));
-        selectFemale();
+        mua.selectFemale();
         assertTrue(checkTextDisplayed(R.string.gender_female));
     }
 
     @MediumTest
     public void testGenderSummaryIsShownAfterSelectingMale() {
-        selectFemale();
+        mua.selectFemale();
         assertFalse(checkTextDisplayed(R.string.gender_male));
-        selectMale();
+        mua.selectMale();
         assertTrue(checkTextDisplayed(R.string.gender_male));
     }
 
@@ -126,10 +126,10 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
 
         }
 
-        selectMonthly();
+        mua.selectMonthly();
         assertFalse(checkTextDisplayed(R.string.frequency_weekly));
 
-        selectWeekly();
+        mua.selectWeekly();
         assertTrue(checkTextDisplayed(R.string.frequency_weekly));
     }
 
@@ -143,26 +143,6 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
         if (!solo.isCheckBoxChecked(0)) {
             solo.clickOnCheckBox(0);
         }
-    }
-
-    public void mockSelections(int categoryId, int optionId) {
-        mua.selectOption(solo, getActivity(), categoryId, optionId);
-    }
-
-    public void selectMonthly() {
-        mockSelections(R.string.settings_data_sending_frequency_title, R.string.frequency_monthly);
-    }
-
-    public void selectWeekly() {
-        mockSelections(R.string.settings_data_sending_frequency_title, R.string.frequency_weekly);
-    }
-
-    public void selectFemale() {
-        mockSelections(R.string.settings_gender_title, R.string.gender_female);
-    }
-
-    public void selectMale() {
-        mockSelections(R.string.settings_gender_title, R.string.gender_male);
     }
 
     public boolean checkTextDisplayed(int stringId) {

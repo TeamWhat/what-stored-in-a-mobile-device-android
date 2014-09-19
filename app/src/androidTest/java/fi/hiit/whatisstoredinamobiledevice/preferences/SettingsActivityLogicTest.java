@@ -1,12 +1,15 @@
 package fi.hiit.whatisstoredinamobiledevice.preferences;
 
 import android.content.SharedPreferences;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
 
 import android.test.suitebuilder.annotation.MediumTest;
+import android.test.suitebuilder.annotation.SmallTest;
+
+import com.robotium.solo.Condition;
 import com.robotium.solo.Solo;
+
 
 import fi.hiit.whatisstoredinamobiledevice.R;
 import fi.hiit.whatisstoredinamobiledevice.testhelpers.MockUserActions;
@@ -16,6 +19,9 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
     private Solo solo;
     private MockUserActions mua;
     private SharedPreferences sharedPrefs;
+    private SharedPreferences.OnSharedPreferenceChangeListener listener;
+    private Condition isSharedPrefsChangeCommited;
+    private boolean isSharedPrefsChangeCommitedMutex;
 
     public SettingsActivityLogicTest() {
         super(SettingsActivity.class);
@@ -26,10 +32,36 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         super.setUp();
         setActivityInitialTouchMode(true);
         solo = new Solo(getInstrumentation(), getActivity());
-        mua = new MockUserActions();
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        mua = new MockUserActions(getActivity(), solo);
+
+        setUpSharedPrefsAndItsTools();
+
     }
 
+    private void setUpSharedPrefsAndItsTools() {
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        setUpSharedPrefsChangeMutex();
+        setUpSharedPrefsListener();
+    }
+
+    private void setUpSharedPrefsChangeMutex() {
+        isSharedPrefsChangeCommitedMutex = false;
+        isSharedPrefsChangeCommited = new Condition() {
+            @Override
+            public boolean isSatisfied() {
+                return isSharedPrefsChangeCommitedMutex;
+            }
+        };
+    }
+
+    private void setUpSharedPrefsListener() {
+        listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                isSharedPrefsChangeCommitedMutex = true;
+            }
+        };
+        sharedPrefs.registerOnSharedPreferenceChangeListener(listener);
+    }
 
 
     @Override
@@ -37,54 +69,157 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         solo.finishOpenedActivities();
     }
 
-    @MediumTest
-    public void testDefaultSharedPreferancesExist() {
-        assertTrue("Default Shared Preferences does not exist", sharedPrefs != null);
+    @SmallTest
+    public void testDefaultSharedPreferencesExist() {
+        assertTrue("Default SharedPreferences does not exist", sharedPrefs != null);
     }
 
     @MediumTest
     public void testGenderSelectionMaleIsSaved() {
-        selectMale();
+        selectMaleAndSetSharedPrefsMutex();
 
-        String valueInSharedPrefs = sharedPrefs.getString(SettingsFragment.KEY_SETTINGS_USER_GENDER, "");
-        String valueDefinedInXML = getActivity().getString(R.string.gender_male_value);
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_GENDER);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.gender_male_value);
 
-        assertTrue("Selecting gender male was not saved to shared preferences", valueInSharedPrefs.equals(valueDefinedInXML));
+        assertEquals("Selecting gender male was not saved to SharedPreferences", valueDefinedInXML, valueInSharedPrefs);
     }
 
     @MediumTest
     public void testGenderSelectionMaleIsSavedAndValueNotFemale() {
-        selectMale();
+        selectMaleAndSetSharedPrefsMutex();
 
-        String valueInSharedPrefs = sharedPrefs.getString(SettingsFragment.KEY_SETTINGS_USER_GENDER, "");
-        String valueDefinedInXML = getActivity().getString(R.string.gender_female_value);
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_GENDER);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.gender_female_value);
 
-        assertFalse("Gender male was selected, but value was female in SharedPrefs", valueInSharedPrefs.equals(valueDefinedInXML));
+        assertFalse("Gender male was selected, but value was female in SharedPreferences", valueInSharedPrefs.equals(valueDefinedInXML));
     }
 
     @MediumTest
-    public void testGenderSelectionFirstMaleThanChangeFemale() {
-        // TODO
+    public void testGenderSelectionFirstMaleThenChangeFemale() {
+        String femaleValueDefinedInXML = getStringValueDefinedInXML(R.string.gender_female_value);
+        String maleValueDefinedInXML = getStringValueDefinedInXML(R.string.gender_male_value);
+
+        selectMaleAndSetSharedPrefsMutex();
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_GENDER);
+
+        assertEquals("Selecting gender male was not saved to SharedPreferences", maleValueDefinedInXML, valueInSharedPrefs);
+
+        selectFemaleAndSetSharedPrefsMutex();
+        valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_GENDER);
+
+        assertEquals("Changing gender selection to female was not saved to SharedPreferences", femaleValueDefinedInXML, valueInSharedPrefs);
+    }
+
+    @MediumTest
+    public void testAgeSelectionUnder18IsSaved() {
+        selectUnder18AndSetSharedPrefsMutex();
+
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_AGE);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_under18_value);
+
+        assertEquals("Selecting age Under 18 was not saved in SharedPreferences", valueDefinedInXML, valueInSharedPrefs);
+    }
+
+    @MediumTest
+    public void testAgeSelectionUnder18IsSavedAndValueNotOver35() {
+        selectUnder18AndSetSharedPrefsMutex();
+
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_AGE);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_over35_value);
+
+        assertFalse("Age Under 18 was selected, but Over 35 was saved in SharedPreferences", valueInSharedPrefs == valueDefinedInXML);
+    }
+
+    @MediumTest
+    public void testAgeSelectionFirstUnder18ThenChangeOver35() {
+        String under18ValueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_under18_value);
+        String over35ValueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_over35_value);
+
+        selectUnder18AndSetSharedPrefsMutex();
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_AGE);
+
+        assertEquals("Selecting age Under 18 was not saved in SharedPreferences", under18ValueDefinedInXML, valueInSharedPrefs);
+
+        selectOver35AndSetSharedPrefsMutex();
+        valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_AGE);
+
+        assertEquals("Changing age selection to Over 35 was not saved in SharedPreferences", over35ValueDefinedInXML, valueInSharedPrefs);
     }
 
 
-    public void mockSelections(int categoryId, int optionId) {
-        mua.selectOption(solo, getActivity(), categoryId, optionId);
+    @MediumTest
+    public void testCountrySelectionTheBahamasIsSaved() {
+        selectTheBahamasAndSetSharedPrefsMutex();
+
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_COUNTRY);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.country_the_bahamas_value);
+
+        assertEquals("Selecting country The Bahamas was not saved in SharedPreferences", valueDefinedInXML, valueInSharedPrefs);
     }
 
-    public void selectMonthly() {
-        mockSelections(R.string.settings_data_sending_frequency_title, R.string.frequency_monthly);
+
+    @MediumTest
+    public void testCountrySelectionTheBahamasIsSavedAndValueNotAlbania() {
+        selectTheBahamasAndSetSharedPrefsMutex();
+
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_COUNTRY);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.country_albania_value);
+
+        assertFalse("Country The Bahamas was selected, but Albania was saved in SharedPreferences", valueInSharedPrefs == valueDefinedInXML);
     }
 
-    public void selectWeekly() {
-        mockSelections(R.string.settings_data_sending_frequency_title, R.string.frequency_weekly);
+    @MediumTest
+    public void testCountrySelectionFirstTheBahamasThenChangeAlbania() {
+        String theBahamasValueDefinedInXML = getStringValueDefinedInXML(R.string.country_the_bahamas_value);
+        String albaniaValueDefinedInXML = getStringValueDefinedInXML(R.string.country_albania_value);
+
+        selectTheBahamasAndSetSharedPrefsMutex();
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_COUNTRY);
+
+        assertEquals("Selecting country The Bahamas was not saved in SharedPreferences", theBahamasValueDefinedInXML, valueInSharedPrefs);
+
+        selectAlbaniaAndSetSharedPrefsMutex();
+        valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_COUNTRY);
+
+        assertEquals("Changing country selection to Albania was not saved in SharedPreferences", albaniaValueDefinedInXML, valueInSharedPrefs);
     }
 
-    public void selectFemale() {
-        mockSelections(R.string.settings_gender_title, R.string.gender_female);
+    private String getStringValueDefinedInXML(int stringId) {
+        return getActivity().getString(stringId);
     }
 
-    public void selectMale() {
-        mockSelections(R.string.settings_gender_title, R.string.gender_male);
+    private String getSharedPrefsStringValue(String key) {
+        solo.waitForCondition(isSharedPrefsChangeCommited, 10000);
+        return sharedPrefs.getString(key, "");
+    }
+
+    private void selectMaleAndSetSharedPrefsMutex() {
+        isSharedPrefsChangeCommitedMutex = false;
+        mua.selectMale();
+    }
+
+    private void selectFemaleAndSetSharedPrefsMutex() {
+        isSharedPrefsChangeCommitedMutex = false;
+        mua.selectFemale();
+    }
+
+    private void selectUnder18AndSetSharedPrefsMutex() {
+        isSharedPrefsChangeCommitedMutex = false;
+        mua.selectUnder18();
+    }
+
+    private void selectOver35AndSetSharedPrefsMutex() {
+        isSharedPrefsChangeCommitedMutex = false;
+        mua.selectOver35();
+    }
+
+    private void selectTheBahamasAndSetSharedPrefsMutex() {
+        isSharedPrefsChangeCommitedMutex = false;
+        mua.selectTheBahamas();
+    }
+
+    private void selectAlbaniaAndSetSharedPrefsMutex() {
+        isSharedPrefsChangeCommitedMutex = false;
+        mua.selectAlbania();
     }
 }

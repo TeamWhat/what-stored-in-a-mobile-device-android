@@ -36,9 +36,19 @@
     <string name="age_group_25to35">25–35</string>
     <string name="age_group_over35">Over 35</string>
 
+    <string name="age_group_under18_value">1</string>
+    <string name="age_group_18to25_value">2</string>
+    <string name="age_group_25to35_value">3</string>
+    <string name="age_group_over35_value">4</string>
+
     <string name="frequency_daily">Daily</string>
     <string name="frequency_weekly">Weekly</string>
     <string name="frequency_monthly">Monthly</string>
+
+    <string name="frequency_daily_value">1</string>
+    <string name="frequency_weekly_value">2</string>
+    <string name="frequency_monthly_value">3</string>
+
     <string name="settings_enable_data_sending_title">Send anonymous data for research periodically</string>
 
 
