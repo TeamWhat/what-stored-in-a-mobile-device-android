@@ -1,12 +1,10 @@
 package fi.hiit.whatisstoredinamobiledevice.ui.fragments.utilities;
 
-;
-
 import android.app.Fragment;
 import android.app.FragmentManager;
 
-import fi.hiit.whatisstoredinamobiledevice.ui.fragments.Question1;
-import fi.hiit.whatisstoredinamobiledevice.ui.fragments.Question2;
+import fi.hiit.whatisstoredinamobiledevice.ui.fragments.PersonalQuestions;
+import fi.hiit.whatisstoredinamobiledevice.ui.fragments.WelcomeScreen;
 
 public class QuestionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -18,9 +16,9 @@ public class QuestionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch(position) {
             case 0:
-                return new Question1();
+                return new WelcomeScreen();
             case 1:
-                return new Question2();
+                return new PersonalQuestions();
         }
         return null;
     }
