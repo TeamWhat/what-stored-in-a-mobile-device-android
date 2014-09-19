@@ -32,71 +32,71 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
 
     @MediumTest
     public void testMainTitleIsShown() {
-        assertTrue(checkTextDisplayed(R.string.title_activity_settings));
+        assertTrue(mua.checkTextDisplayed(R.string.title_activity_settings));
     }
 
     @MediumTest
     public void testPersonalInfoCategoryTitleIsShown() {
-        assertTrue(checkTextDisplayed(R.string.settings_user_info_title));
+        assertTrue(mua.checkTextDisplayed(R.string.settings_user_info_title));
     }
 
     @MediumTest
     public void testDataSendingCategoryTitleIsShown() {
-        assertTrue(checkTextDisplayed(R.string.settings_data_sending_title));
+        assertTrue(mua.checkTextDisplayed(R.string.settings_data_sending_title));
     }
 
     @MediumTest
     public void testGenderTitleIsShown() {
-        assertTrue(checkTextDisplayed(R.string.settings_gender_title));
+        assertTrue(mua.checkTextDisplayed(R.string.settings_gender_title));
     }
 
     @MediumTest
     public void testAgeTitleIsShown() {
-        assertTrue(checkTextDisplayed(R.string.settings_age_title));
+        assertTrue(mua.checkTextDisplayed(R.string.settings_age_title));
     }
 
     @MediumTest
     public void testCountryTitleIsShown() {
-        assertTrue(checkTextDisplayed(R.string.settings_country_title));
+        assertTrue(mua.checkTextDisplayed(R.string.settings_country_title));
     }
 
     @MediumTest
     public void testGenderSummaryIsShownAfterSelectingFemale() {
         mua.selectMale();
-        assertFalse(checkTextDisplayed(R.string.gender_female));
+        assertFalse(mua.checkTextDisplayed(R.string.gender_female));
         mua.selectFemale();
-        assertTrue(checkTextDisplayed(R.string.gender_female));
+        assertTrue(mua.checkTextDisplayed(R.string.gender_female));
     }
 
     @MediumTest
     public void testGenderSummaryIsShownAfterSelectingMale() {
         mua.selectFemale();
-        assertFalse(checkTextDisplayed(R.string.gender_male));
+        assertFalse(mua.checkTextDisplayed(R.string.gender_male));
         mua.selectMale();
-        assertTrue(checkTextDisplayed(R.string.gender_male));
+        assertTrue(mua.checkTextDisplayed(R.string.gender_male));
     }
 
     @MediumTest
     public void testCountrySummaryIsShownAfterSelectingSierraLeone() {
         mua.selectOption(solo, getActivity(), R.string.settings_country_title, R.string.country_sierra_leone);
-        assertTrue(checkTextDisplayed(R.string.country_sierra_leone));
+        assertTrue(mua.checkTextDisplayed(R.string.country_sierra_leone));
     }
 
     @MediumTest
     public void testGenderOptionsCanOpen() {
         solo.clickOnText(getActivity().getString(R.string.settings_gender_title));
-        assertTrue(checkTextDisplayed(R.string.gender_male));
-        assertTrue(checkTextDisplayed(R.string.gender_female));
+        assertTrue(mua.checkTextDisplayed(R.string.gender_male));
+        assertTrue(mua.checkTextDisplayed(R.string.gender_female));
     }
 
     @MediumTest
     public void testSendCheckBoxIsShown() {
-        assertTrue(checkTextDisplayed(R.string.settings_enable_data_sending_title));
+        assertTrue(mua.checkTextDisplayed(R.string.settings_enable_data_sending_title));
     }
 
     @MediumTest
     public void testSendCheckBoxSavesSelectedOption() {
-        ensureCheckBoxNotChecked();
+        mua.ensureCheckBoxNotChecked();
         assertFalse(solo.isCheckBoxChecked(0));
         solo.clickOnCheckBox(0);
         assertTrue(solo.isCheckBoxChecked(0));
@@ -105,46 +105,29 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
 
     @MediumTest
     public void testFrequencyUnavailableIfCheckBoxNotSelected() {
-        ensureCheckBoxNotChecked();
+        mua.ensureCheckBoxNotChecked();
         solo.clickOnText(getActivity().getString(R.string.settings_data_sending_frequency_title));
-        assertFalse(checkTextDisplayed(R.string.frequency_daily) && checkTextDisplayed(R.string.frequency_daily) && checkTextDisplayed(R.string.frequency_monthly));
+        assertFalse(mua.checkTextDisplayed(R.string.frequency_daily) && mua.checkTextDisplayed(R.string.frequency_daily) && mua.checkTextDisplayed(R.string.frequency_monthly));
     }
 
     @MediumTest
     public void testFrequencyAvailableIfCheckBoxIsSelected() {
-        ensureCheckBoxChecked();
+        mua.ensureCheckBoxChecked();
         solo.clickOnText(getActivity().getString(R.string.settings_data_sending_frequency_title));
-        assertTrue(checkTextDisplayed(R.string.frequency_daily));
-        assertTrue(checkTextDisplayed(R.string.frequency_weekly));
-        assertTrue(checkTextDisplayed(R.string.frequency_monthly));
+        assertTrue(mua.checkTextDisplayed(R.string.frequency_daily));
+        assertTrue(mua.checkTextDisplayed(R.string.frequency_weekly));
+        assertTrue(mua.checkTextDisplayed(R.string.frequency_monthly));
     }
 
     @MediumTest
     public void testFrequencySummaryIsShownAfterSelectingWeekly() {
-        if (!solo.isCheckBoxChecked(0)) {
-            solo.clickOnCheckBox(0);
-        }
+        mua.ensureCheckBoxChecked();
 
         mua.selectMonthly();
-        assertFalse(checkTextDisplayed(R.string.frequency_weekly));
+        assertFalse(mua.checkTextDisplayed(R.string.frequency_weekly));
 
         mua.selectWeekly();
-        assertTrue(checkTextDisplayed(R.string.frequency_weekly));
+        assertTrue(mua.checkTextDisplayed(R.string.frequency_weekly));
     }
 
-    public void ensureCheckBoxNotChecked() {
-        if (solo.isCheckBoxChecked(0)) {
-            solo.clickOnCheckBox(0);
-        }
-    }
-
-    public void ensureCheckBoxChecked() {
-        if (!solo.isCheckBoxChecked(0)) {
-            solo.clickOnCheckBox(0);
-        }
-    }
-
-    public boolean checkTextDisplayed(int stringId) {
-        return solo.searchText(getActivity().getString(stringId));
-    }
 }

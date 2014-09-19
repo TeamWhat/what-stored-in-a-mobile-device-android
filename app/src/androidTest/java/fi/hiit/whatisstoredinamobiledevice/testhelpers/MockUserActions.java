@@ -70,4 +70,23 @@ public class MockUserActions {
     public void selectAlbania() {
         mockSelections(R.string.settings_country_title, R.string.country_albania);
     }
+
+
+    public void ensureCheckBoxNotChecked() {
+        if (testSoloObject.isCheckBoxChecked(0)) {
+            testSoloObject.clickOnCheckBox(0);
+        }
+    }
+
+    public void ensureCheckBoxChecked() {
+        if (!testSoloObject.isCheckBoxChecked(0)) {
+            testSoloObject.clickOnCheckBox(0);
+        }
+    }
+
+
+    public boolean checkTextDisplayed(int stringId) {
+        return testSoloObject.searchText(testActivity.getString(stringId));
+    }
+
 }

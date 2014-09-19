@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
 
+import android.test.suitebuilder.annotation.LargeTest;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.test.suitebuilder.annotation.SmallTest;
 
@@ -34,6 +35,7 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         solo = new Solo(getInstrumentation(), getActivity());
         mua = new MockUserActions(getActivity(), solo);
 
+        // TODO: Muuta sharedPrefs listener/mutex systeemi omaksi helper-luokaksi
         setUpSharedPrefsAndItsTools();
 
     }
@@ -63,16 +65,19 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         sharedPrefs.registerOnSharedPreferenceChangeListener(listener);
     }
 
-
     @Override
     public void tearDown() throws Exception {
         solo.finishOpenedActivities();
     }
 
+
+
     @SmallTest
     public void testDefaultSharedPreferencesExist() {
         assertTrue("Default SharedPreferences does not exist", sharedPrefs != null);
     }
+
+
 
     @MediumTest
     public void testGenderSelectionMaleIsSaved() {
@@ -82,6 +87,21 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         String valueDefinedInXML = getStringValueDefinedInXML(R.string.gender_male_value);
 
         assertEquals("Selecting gender male was not saved to SharedPreferences", valueDefinedInXML, valueInSharedPrefs);
+    }
+
+    @MediumTest
+    public void testGenderSelectionMaleIsSavedWhenSelectedTwice() {
+        selectMaleAndSetSharedPrefsMutex();
+
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_GENDER);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.gender_male_value);
+
+        assertEquals("Selecting gender male was not saved to SharedPreferences", valueDefinedInXML, valueInSharedPrefs);
+
+        selectMaleAndSetSharedPrefsMutex();
+        valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_GENDER);
+
+        assertEquals("Selecting gender male was not saved to SharedPreferences when selected again", valueDefinedInXML, valueInSharedPrefs);
     }
 
     @MediumTest
@@ -96,19 +116,21 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
     @MediumTest
     public void testGenderSelectionFirstMaleThenChangeFemale() {
-        String femaleValueDefinedInXML = getStringValueDefinedInXML(R.string.gender_female_value);
-        String maleValueDefinedInXML = getStringValueDefinedInXML(R.string.gender_male_value);
+        String firstValueDefinedInXML = getStringValueDefinedInXML(R.string.gender_male_value);
+        String secondValueDefinedInXML = getStringValueDefinedInXML(R.string.gender_female_value);
 
         selectMaleAndSetSharedPrefsMutex();
         String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_GENDER);
 
-        assertEquals("Selecting gender male was not saved to SharedPreferences", maleValueDefinedInXML, valueInSharedPrefs);
+        assertEquals("Selecting gender male was not saved to SharedPreferences", firstValueDefinedInXML, valueInSharedPrefs);
 
         selectFemaleAndSetSharedPrefsMutex();
         valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_GENDER);
 
-        assertEquals("Changing gender selection to female was not saved to SharedPreferences", femaleValueDefinedInXML, valueInSharedPrefs);
+        assertEquals("Changing gender selection to female was not saved to SharedPreferences", secondValueDefinedInXML, valueInSharedPrefs);
     }
+
+
 
     @MediumTest
     public void testAgeSelectionUnder18IsSaved() {
@@ -118,6 +140,21 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         String valueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_under18_value);
 
         assertEquals("Selecting age Under 18 was not saved in SharedPreferences", valueDefinedInXML, valueInSharedPrefs);
+    }
+
+    @MediumTest
+    public void testAgeSelectionUnder18IsSavedWhenSelectedTwice() {
+        selectUnder18AndSetSharedPrefsMutex();
+
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_AGE);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_under18_value);
+
+        assertEquals("Selecting age Under 18 was not saved in SharedPreferences", valueDefinedInXML, valueInSharedPrefs);
+
+        selectUnder18AndSetSharedPrefsMutex();
+        valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_AGE);
+
+        assertEquals("Selecting age Under 18 was not saved in SharedPreferences when selected again", valueDefinedInXML, valueInSharedPrefs);
     }
 
     @MediumTest
@@ -132,19 +169,20 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
     @MediumTest
     public void testAgeSelectionFirstUnder18ThenChangeOver35() {
-        String under18ValueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_under18_value);
-        String over35ValueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_over35_value);
+        String firstValueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_under18_value);
+        String secondValueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_over35_value);
 
         selectUnder18AndSetSharedPrefsMutex();
         String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_AGE);
 
-        assertEquals("Selecting age Under 18 was not saved in SharedPreferences", under18ValueDefinedInXML, valueInSharedPrefs);
+        assertEquals("Selecting age Under 18 was not saved in SharedPreferences", firstValueDefinedInXML, valueInSharedPrefs);
 
         selectOver35AndSetSharedPrefsMutex();
         valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_AGE);
 
-        assertEquals("Changing age selection to Over 35 was not saved in SharedPreferences", over35ValueDefinedInXML, valueInSharedPrefs);
+        assertEquals("Changing age selection to Over 35 was not saved in SharedPreferences", secondValueDefinedInXML, valueInSharedPrefs);
     }
+
 
 
     @MediumTest
@@ -157,6 +195,20 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         assertEquals("Selecting country The Bahamas was not saved in SharedPreferences", valueDefinedInXML, valueInSharedPrefs);
     }
 
+    @MediumTest
+    public void testCountrySelectionTheBahamasIsSavedWhenSelectedTwice() {
+        selectTheBahamasAndSetSharedPrefsMutex();
+
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_COUNTRY);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.country_the_bahamas_value);
+
+        assertEquals("Selecting country The Bahamas was not saved in SharedPreferences", valueDefinedInXML, valueInSharedPrefs);
+
+        selectTheBahamasAndSetSharedPrefsMutex();
+        valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_COUNTRY);
+
+        assertEquals("Selecting country The Bahamas was not saved in SharedPreferences when selected again", valueDefinedInXML, valueInSharedPrefs);
+    }
 
     @MediumTest
     public void testCountrySelectionTheBahamasIsSavedAndValueNotAlbania() {
@@ -170,27 +222,149 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
     @MediumTest
     public void testCountrySelectionFirstTheBahamasThenChangeAlbania() {
-        String theBahamasValueDefinedInXML = getStringValueDefinedInXML(R.string.country_the_bahamas_value);
-        String albaniaValueDefinedInXML = getStringValueDefinedInXML(R.string.country_albania_value);
+        String firstValueDefinedInXML = getStringValueDefinedInXML(R.string.country_the_bahamas_value);
+        String secondValueDefinedInXML = getStringValueDefinedInXML(R.string.country_albania_value);
 
         selectTheBahamasAndSetSharedPrefsMutex();
         String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_COUNTRY);
 
-        assertEquals("Selecting country The Bahamas was not saved in SharedPreferences", theBahamasValueDefinedInXML, valueInSharedPrefs);
+        assertEquals("Selecting country The Bahamas was not saved in SharedPreferences", firstValueDefinedInXML, valueInSharedPrefs);
 
         selectAlbaniaAndSetSharedPrefsMutex();
         valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_COUNTRY);
 
-        assertEquals("Changing country selection to Albania was not saved in SharedPreferences", albaniaValueDefinedInXML, valueInSharedPrefs);
+        assertEquals("Changing country selection to Albania was not saved in SharedPreferences", secondValueDefinedInXML, valueInSharedPrefs);
     }
 
-    private String getStringValueDefinedInXML(int stringId) {
-        return getActivity().getString(stringId);
+
+
+    @MediumTest
+    public void testDataSendingEnabledOptionIsSaved() {
+        ensureCheckBoxCheckedAndSetSharedPrefsMutex();
+
+        assertTrue("Shared Preferences boolean value for enable data sending is not true even though checkbox is checked",
+                getSharedPrefsBoolValue(SettingsFragment.KEY_SETTINGS_ENABLE_DATA_SENDING));
+    }
+
+    @MediumTest
+    public void testDataSendingDisabledOptionIsSaved() {
+        ensureCheckBoxNotCheckedAndSetSharedPrefsMutex();
+
+        assertFalse("Shared Preferences boolean value for enable data sending is not false even though checkbox is not checked",
+                getSharedPrefsBoolValue(SettingsFragment.KEY_SETTINGS_ENABLE_DATA_SENDING));
+    }
+
+    @MediumTest
+    public void testDataSendingFirstEnabledThanDisabled() {
+        ensureCheckBoxCheckedAndSetSharedPrefsMutex();
+
+        assertTrue("Shared Preferences boolean value for enable data sending is not true even though checkbox is checked",
+                getSharedPrefsBoolValue(SettingsFragment.KEY_SETTINGS_ENABLE_DATA_SENDING));
+
+        clickCheckBoxAndSetSharedPrefsMutex();
+
+        assertFalse("Shared Preferences boolean value for enable data sending is not false even though checkbox was clicked after being checked",
+                getSharedPrefsBoolValue(SettingsFragment.KEY_SETTINGS_ENABLE_DATA_SENDING));
+    }
+
+
+
+    @MediumTest
+    public void testDataSendingFrequencySelectionMonthlyIsSavedWhenDataSendingEnabled() {
+        ensureCheckBoxCheckedAndSetSharedPrefsMutex();
+        selectMonthlyAndSetSharedPrefsMutex();
+
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.frequency_monthly_value);
+
+        assertEquals("Selecting data sending frequency Monthly is not saved in Shared Preferences", valueDefinedInXML, valueInSharedPrefs);
+    }
+
+    @MediumTest
+    public void testDataSendingFrequencySelectionMonthlyIsSavedWhenSelectedTwiceAndDataSendingEnabled() {
+        ensureCheckBoxCheckedAndSetSharedPrefsMutex();
+
+        selectMonthlyAndSetSharedPrefsMutex();
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.frequency_monthly_value);
+
+        assertEquals("Selecting data sending frequency Monthly is not saved in Shared Preferences", valueDefinedInXML, valueInSharedPrefs);
+
+
+        selectMonthlyAndSetSharedPrefsMutex();
+        valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
+
+        assertEquals("Selecting data sending frequency Monthly is not saved in Shared Preferences when selected again", valueDefinedInXML, valueInSharedPrefs);
+    }
+
+    @MediumTest
+    public void testDataSendingFrequencySelectionMonthlyIsSavedAndValueNotWeeklyWhenDataSendingEnabled() {
+        ensureCheckBoxCheckedAndSetSharedPrefsMutex();
+        selectMonthlyAndSetSharedPrefsMutex();
+
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.frequency_weekly_value);
+
+        assertFalse("Data sending frequency Monthly was selected, but value Weekly was saved in Shared Preferences", valueInSharedPrefs.equals(valueDefinedInXML));
+    }
+
+    @MediumTest
+    public void testDataSendingFrequencySelectionFirstMonthlyThanChangedToWeeklyWhenDataSendingEnabled() {
+        ensureCheckBoxCheckedAndSetSharedPrefsMutex();
+
+        String firstValueDefinedInXML = getStringValueDefinedInXML(R.string.frequency_monthly_value);
+        String secondValueDefinedInXML = getStringValueDefinedInXML(R.string.frequency_weekly_value);
+
+        selectMonthlyAndSetSharedPrefsMutex();
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
+
+        assertEquals("Value was not Monthly in Shared Preferences after selecting Monthly", firstValueDefinedInXML, valueInSharedPrefs);
+
+        selectWeeklyAndSetSharedPrefsMutex();
+        valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
+
+        assertEquals("Value was not Weekly in Shared Preferences after changing selection from Monthly to Weekly", secondValueDefinedInXML, valueInSharedPrefs);
+    }
+
+    // TODO: Siivoa tama testi
+    @LargeTest
+    public void testDataSendingFrequencySelectionCannotBeChangedWhenDataSendingDisabled() {
+        ensureCheckBoxCheckedAndSetSharedPrefsMutex();
+
+        selectWeeklyAndSetSharedPrefsMutex();
+        String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
+        String frequencyValueSetWhenDataSendingEnabled = getStringValueDefinedInXML(R.string.frequency_weekly_value);
+
+        assertEquals("Selecting data sending frequency Weekly is not saved in Shared Preferences", frequencyValueSetWhenDataSendingEnabled, valueInSharedPrefs);
+
+
+        ensureCheckBoxNotCheckedAndSetSharedPrefsMutex();
+
+        solo.clickOnText(getActivity().getString(R.string.settings_data_sending_frequency_title));
+        if (mua.checkTextDisplayed(R.string.frequency_monthly)) {
+            isSharedPrefsChangeCommitedMutex = false;
+            mua.selectMonthly();
+        }
+
+        String valueInSharedPrefsAfterDataSendingDisabled = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
+
+        assertEquals("Data sending frequency was changed in Shared Preferences even though data sending was disabled", frequencyValueSetWhenDataSendingEnabled, valueInSharedPrefsAfterDataSendingDisabled);
+
+    }
+
+
+    private boolean getSharedPrefsBoolValue(String key) {
+        solo.waitForCondition(isSharedPrefsChangeCommited, 10000);
+        return sharedPrefs.getBoolean(key, false);
     }
 
     private String getSharedPrefsStringValue(String key) {
         solo.waitForCondition(isSharedPrefsChangeCommited, 10000);
-        return sharedPrefs.getString(key, "");
+        return sharedPrefs.getString(key, "String not found in Shared Preferences");
+    }
+
+    private String getStringValueDefinedInXML(int stringId) {
+        return getActivity().getString(stringId);
     }
 
     private void selectMaleAndSetSharedPrefsMutex() {
@@ -222,4 +396,31 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         isSharedPrefsChangeCommitedMutex = false;
         mua.selectAlbania();
     }
+
+    private void selectMonthlyAndSetSharedPrefsMutex() {
+        isSharedPrefsChangeCommitedMutex = false;
+        mua.selectMonthly();
+    }
+
+    private void selectWeeklyAndSetSharedPrefsMutex() {
+        isSharedPrefsChangeCommitedMutex = false;
+        mua.selectWeekly();
+    }
+
+    private void ensureCheckBoxCheckedAndSetSharedPrefsMutex() {
+        isSharedPrefsChangeCommitedMutex = false;
+        mua.ensureCheckBoxChecked();
+    }
+
+    private void ensureCheckBoxNotCheckedAndSetSharedPrefsMutex() {
+        isSharedPrefsChangeCommitedMutex = false;
+        mua.ensureCheckBoxNotChecked();
+    }
+
+    private void clickCheckBoxAndSetSharedPrefsMutex() {
+        isSharedPrefsChangeCommitedMutex = false;
+        // TODO: Tama klikkaus olettaa etta Settings nakymassa on vain yksi checkbox
+        solo.clickOnCheckBox(0);
+    }
+
 }

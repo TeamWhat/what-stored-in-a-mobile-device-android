@@ -16,6 +16,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String KEY_SETTINGS_USER_GENDER = "settings_user_gender";
     public static final String KEY_SETTINGS_USER_AGE = "settings_user_age";
     public static final String KEY_SETTINGS_USER_COUNTRY = "settings_user_country";
+
+    public static final String KEY_SETTINGS_ENABLE_DATA_SENDING = "settings_enable_data_sending";
     public static final String KEY_SETTINGS_DATA_SENDING_FREQUENCY = "settings_data_sending_frequency";
 
     @Override
