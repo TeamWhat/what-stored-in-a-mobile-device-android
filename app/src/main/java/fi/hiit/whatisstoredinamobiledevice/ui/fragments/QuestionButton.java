@@ -14,7 +14,7 @@ public class QuestionButton extends Fragment{
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment Question2.
+     * @return A new instance of fragment WelcomeScreen.
      */
     public static QuestionButton newInstance() {
         QuestionButton fragment = new QuestionButton();
