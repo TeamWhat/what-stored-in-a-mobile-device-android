@@ -320,7 +320,7 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
         assertEquals("Value was not Monthly in Shared Preferences after selecting Monthly", firstValueDefinedInXML, valueInSharedPrefs);
 
-        selectWeeklyAndSetSharedPrefsMutex();
+
         valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
 
         assertEquals("Value was not Weekly in Shared Preferences after changing selection from Monthly to Weekly", secondValueDefinedInXML, valueInSharedPrefs);
@@ -357,12 +357,12 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
 
     private boolean getSharedPrefsBoolValue(String key) {
-        solo.waitForCondition(isSharedPrefsChangeCommited, 10000);
+        solo.waitForCondition(isSharedPrefsChangeCommited, 1000000);
         return sharedPrefs.getBoolean(key, false);
     }
 
     private String getSharedPrefsStringValue(String key) {
-        solo.waitForCondition(isSharedPrefsChangeCommited, 10000);
+        solo.waitForCondition(isSharedPrefsChangeCommited, 1000000);
         return sharedPrefs.getString(key, "String not found in Shared Preferences");
     }
 
