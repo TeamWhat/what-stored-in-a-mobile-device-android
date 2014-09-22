@@ -30,6 +30,7 @@ public class MockUserActions {
 
     public void selectOption(Solo solo, Activity activity, int categoryId, int optionId) {
         solo.clickOnText(activity.getString(categoryId));
+        solo.waitForText("Cancel");
         solo.scrollListToTop(0);
         solo.clickOnText(activity.getString(optionId));
     }
