@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsFragment;
-import fi.hiit.whatisstoredinamobiledevice.ui.fragments.PersonalQuestions;
 import fi.hiit.whatisstoredinamobiledevice.ui.fragments.WelcomeScreen;
 
 public class QuestionsPagerAdapter extends FragmentPagerAdapter {

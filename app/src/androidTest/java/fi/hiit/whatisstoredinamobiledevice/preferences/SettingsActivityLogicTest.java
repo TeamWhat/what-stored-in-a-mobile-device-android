@@ -332,6 +332,9 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         ensureCheckBoxCheckedAndSetSharedPrefsMutex();
 
         selectWeeklyAndSetSharedPrefsMutex();
+
+        solo.waitForDialogToClose();
+
         String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
         String frequencyValueSetWhenDataSendingEnabled = getStringValueDefinedInXML(R.string.frequency_weekly_value);
 
