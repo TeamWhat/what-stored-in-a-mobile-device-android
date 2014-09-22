@@ -16,7 +16,7 @@ before_script:
   - sleep 20
 
 script:
-  - ./gradlew build connectedCheck
+  - ./gradlew connectedCheck --info
   - ./gradlew build
   - calabash-android resign app/build/outputs/apk/app-release-unsigned.apk
   - calabash-android run app/build/outputs/apk/app-release-unsigned.apk
