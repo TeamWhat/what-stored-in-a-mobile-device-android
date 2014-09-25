@@ -11,6 +11,7 @@ public class DataHandlerIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-
+        DataHandler dataHandler = new DataHandler(this);
+        dataHandler.collectAllData();
     }
 }
