@@ -13,7 +13,7 @@ public class DataHandlerIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        DataHandler dataHandler = new DataHandler(this, new SQLiteDatabaseAccessor());
+        DataHandler dataHandler = new DataHandler(this, new SQLiteDatabaseAccessor(this));
         dataHandler.collectAllData();
     }
 }
