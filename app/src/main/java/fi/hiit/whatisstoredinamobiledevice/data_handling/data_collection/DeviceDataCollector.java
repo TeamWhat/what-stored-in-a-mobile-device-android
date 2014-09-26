@@ -5,7 +5,7 @@ import android.os.Build;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DeviceDataCollector implements DataCollector{
+public class DeviceDataCollector implements DataCollector {
 
     @Override
     public Map getData() {
