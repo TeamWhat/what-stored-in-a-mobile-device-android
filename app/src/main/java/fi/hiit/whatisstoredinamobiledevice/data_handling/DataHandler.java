@@ -18,10 +18,15 @@ public class DataHandler {
     private List<DataCollector> mCollectorList;
     private DatabaseAccessor mDatabaseAccessor;
 
-    public DataHandler(Context context) {
+    public DataHandler(Context context, DatabaseAccessor databaseAccessor) {
         mIntentServiceContext = context;
         mDatabaseAccessor = new SQLiteDatabaseAccessor(context);
         initCollectorList();
+    }
+
+    public boolean collectAllData() {
+        Map<String, Map<String, String>> allData = goThroughCollectors();
+        return mDatabaseAccessor.saveAllData(allData);
     }
 
     private void initCollectorList() {
@@ -32,31 +37,12 @@ public class DataHandler {
         mCollectorList.add(deviceDataCollector);
     }
 
-    public void collectAllData() {
-        if (mCollectorList == null) {
-            throw new IllegalStateException("You must initialize the collector list first, it was null");
-        }
-
-        if (mCollectorList.isEmpty()) {
-            throw new IllegalStateException("You must add collectors to the collector list first, it was empty");
-        }
-
-        try {
-            goThroughCollectors();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void goThroughCollectors() throws Exception {
+    private Map<String, Map<String, String>> goThroughCollectors() {
         Map<String, Map<String, String>> allData = new HashMap<String, Map<String, String>>();
         for(DataCollector dataCollector : mCollectorList) {
             // put the data into the allData map
             allData.put(dataCollector.getTableNameForData(), dataCollector.getData());
         }
-
-        if (!mDatabaseAccessor.saveAllData(allData)) {
-            throw new Exception("Saving to database failed.");
-        }
+        return allData;
     }
 }
