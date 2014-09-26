@@ -17,4 +17,9 @@ public class DeviceDataCollector implements DataCollector {
         data.put("Serial", Build.SERIAL);
         return data;
     }
+
+    @Override
+    public String getTableNameForData() {
+        return "device_info_data";
+    }
 }
