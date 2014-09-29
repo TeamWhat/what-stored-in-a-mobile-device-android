@@ -362,7 +362,7 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
     }
 
     private String getSharedPrefsStringValue(String key) {
-        assertTrue("waiting for shared prefs mutex timed out", solo.waitForCondition(isSharedPrefsChangeCommited, 60000));
+        solo.waitForCondition(isSharedPrefsChangeCommited, 60000);
         return sharedPrefs.getString(key, "String not found in Shared Preferences");
     }
 
