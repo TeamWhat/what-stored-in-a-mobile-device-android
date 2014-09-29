@@ -20,7 +20,7 @@ public class DataHandler {
 
     public DataHandler(Context context, DatabaseAccessor databaseAccessor) {
         mIntentServiceContext = context;
-        mDatabaseAccessor = new SQLiteDatabaseAccessor(context);
+        mDatabaseAccessor = databaseAccessor;
         initCollectorList();
     }
 
