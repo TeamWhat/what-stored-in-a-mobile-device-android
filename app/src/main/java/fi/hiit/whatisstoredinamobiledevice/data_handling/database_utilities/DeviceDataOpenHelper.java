@@ -23,7 +23,7 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
                     DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE + TEXT_TYPE + COMMA_SEP +
                     DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL + TEXT_TYPE + COMMA_SEP +
                     DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT + TEXT_TYPE + COMMA_SEP +
-                    DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL + TEXT_TYPE + COMMA_SEP +
+                    DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL + TEXT_TYPE +
             " )";
 
 

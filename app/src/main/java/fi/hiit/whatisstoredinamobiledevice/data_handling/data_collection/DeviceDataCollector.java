@@ -20,6 +20,6 @@ public class DeviceDataCollector implements DataCollector {
 
     @Override
     public String getTableNameForData() {
-        return "device_info_data";
+        return "device_info";
     }
 }

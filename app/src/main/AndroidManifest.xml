@@ -26,6 +26,13 @@
             android:name=".preferences.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity android:name=".ui.activities.DeviceData"
+            android:label="@string/title_activity_device_data" >
+        </activity>
+        <service
+            android:name=".data_handling.DataHandlerIntentService"
+            android:exported="false"
+            />
     </application>
 
 </manifest>

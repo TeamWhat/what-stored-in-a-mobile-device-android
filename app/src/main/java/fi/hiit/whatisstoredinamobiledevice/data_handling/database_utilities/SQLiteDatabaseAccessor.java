@@ -32,7 +32,7 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
 
         db.close();
 
-        // todo: return true if successful, false otherwise
+        // todo: return true if successful, false otherwise, find out how to know if it was successful or not!
         return false;
     }
 
