@@ -51,6 +51,7 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
     }
 
     public void queryDatabase() {
+        // todo: refactor query
         TextView deviceDataText = new TextView(this);
         deviceDataText = (TextView)findViewById(R.id.deviceDataText);
 
@@ -66,6 +67,8 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
                 DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL
         };
 
+        String sortOrder = DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME + " DESC";
+
         Cursor c = db.query(
                 DeviceDataContract.DeviceInfoEntry.TABLE_NAME,
                 projection,
@@ -73,14 +76,25 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
                 null,
                 null,
                 null,
-                null
+                sortOrder
         );
 
         c.moveToFirst();
-        //String datetime = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME));
+        String datetime = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME));
         String brand = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND));
+        String device = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE));
+        String model = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL));
+        String product = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT));
+        String serial = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL));
 
-        deviceDataText.setText(brand);
+        deviceDataText.setText(
+                "Date collected: " + datetime + "\n" +
+                "Brand: " + brand + "\n" +
+                "Device: " + device + "\n" +
+                "Model: " + model + "\n" +
+                "Product: " + product + "\n" +
+                "Serial: " + serial + "\n"
+        );
     }
 
     @Override

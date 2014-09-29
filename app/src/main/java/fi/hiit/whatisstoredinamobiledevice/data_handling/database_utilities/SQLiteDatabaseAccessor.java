@@ -57,14 +57,9 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
     }
 
     private void insertValues(String tableName, Map<String, Map<String, String>> map, ContentValues values) {
+        values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, datetime());
         for(String columnName : map.get(tableName).keySet()) {
-            if (columnName.equals("entryid")) {
-                continue;
-            } else if (columnName.equals("datetime")) {
-                values.put(columnName, datetime());
-            } else {
-                values.put(columnName, map.get(tableName).get(columnName));
-            }
+            values.put(columnName, map.get(tableName).get(columnName));
         }
     }
 
