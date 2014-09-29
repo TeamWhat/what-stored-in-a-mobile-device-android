@@ -59,6 +59,7 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
                 isSharedPrefsChangeCommitedMutex = true;
+                assertTrue("SharedPrefsChangeMutex wasnt changed to true in the listener", isSharedPrefsChangeCommitedMutex);
             }
         };
         sharedPrefs.registerOnSharedPreferenceChangeListener(listener);
@@ -361,7 +362,7 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
     }
 
     private String getSharedPrefsStringValue(String key) {
-        System.out.println("false if wait for condition timed out: " + solo.waitForCondition(isSharedPrefsChangeCommited, 10000));
+        assertTrue("waiting for shared prefs mutex timed out", solo.waitForCondition(isSharedPrefsChangeCommited, 10000));
         return sharedPrefs.getString(key, "String not found in Shared Preferences");
     }
 
