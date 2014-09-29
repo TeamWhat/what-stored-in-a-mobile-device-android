@@ -362,7 +362,8 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
     }
 
     private String getSharedPrefsStringValue(String key) {
-        solo.waitForCondition(isSharedPrefsChangeCommited, 60000);
+        boolean timeoutFail = solo.waitForCondition(isSharedPrefsChangeCommited, 60000);
+        assertTrue("waitForCondition returned false (timeout)", timeoutFail);
         return sharedPrefs.getString(key, "String not found in Shared Preferences");
     }
 
