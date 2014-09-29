@@ -31,8 +31,10 @@ public class MockUserActions {
     public void selectOption(Solo solo, Activity activity, int categoryId, int optionId) {
         solo.clickOnText(activity.getString(categoryId));
         solo.waitForText("Cancel");
+        System.out.println("Is 'Settings' text shown when selection dialog open? " + checkTextDisplayed(R.string.title_activity_settings));
         solo.scrollListToTop(0);
         solo.clickOnText(activity.getString(optionId));
+        System.out.println("Is 'Settings' text found with waitForText after setting selection? (false if timeout) " + solo.waitForText(activity.getString(R.string.title_activity_settings)));
     }
 
     private void mockSelections(int categoryId, int optionId) {

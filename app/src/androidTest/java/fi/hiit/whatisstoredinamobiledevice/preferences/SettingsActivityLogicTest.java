@@ -41,6 +41,10 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
     private void setUpSharedPrefsAndItsTools() {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.clear();
+        editor.commit();
+
         setUpSharedPrefsChangeMutex();
         setUpSharedPrefsListener();
     }
@@ -327,13 +331,11 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
     }
 
     // TODO: Siivoa tama testi
-    @LargeTest
+    @MediumTest
     public void testDataSendingFrequencySelectionCannotBeChangedWhenDataSendingDisabled() {
         ensureCheckBoxCheckedAndSetSharedPrefsMutex();
 
         selectWeeklyAndSetSharedPrefsMutex();
-
-        solo.waitForDialogToClose();
 
         String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
         String frequencyValueSetWhenDataSendingEnabled = getStringValueDefinedInXML(R.string.frequency_weekly_value);
@@ -345,7 +347,6 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
         solo.clickOnText(getActivity().getString(R.string.settings_data_sending_frequency_title));
         if (mua.checkTextDisplayed(R.string.frequency_monthly)) {
-            isSharedPrefsChangeCommitedMutex = false;
             mua.selectMonthly();
         }
 
@@ -357,13 +358,13 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
 
     private boolean getSharedPrefsBoolValue(String key) {
-        solo.waitForCondition(isSharedPrefsChangeCommited, 10000);
+        boolean timeoutFail = solo.waitForCondition(isSharedPrefsChangeCommited, 10000);
+        System.out.println("waitForCondition returned (false if timeout): " + timeoutFail);
+
         return sharedPrefs.getBoolean(key, false);
     }
 
     private String getSharedPrefsStringValue(String key) {
-        boolean timeoutFail = solo.waitForCondition(isSharedPrefsChangeCommited, 60000);
-        assertTrue("waitForCondition returned false (timeout)", timeoutFail);
         return sharedPrefs.getString(key, "String not found in Shared Preferences");
     }
 
@@ -372,42 +373,34 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
     }
 
     private void selectMaleAndSetSharedPrefsMutex() {
-        isSharedPrefsChangeCommitedMutex = false;
         mua.selectMale();
     }
 
     private void selectFemaleAndSetSharedPrefsMutex() {
-        isSharedPrefsChangeCommitedMutex = false;
         mua.selectFemale();
     }
 
     private void selectUnder18AndSetSharedPrefsMutex() {
-        isSharedPrefsChangeCommitedMutex = false;
         mua.selectUnder18();
     }
 
     private void selectOver35AndSetSharedPrefsMutex() {
-        isSharedPrefsChangeCommitedMutex = false;
         mua.selectOver35();
     }
 
     private void selectTheBahamasAndSetSharedPrefsMutex() {
-        isSharedPrefsChangeCommitedMutex = false;
         mua.selectTheBahamas();
     }
 
     private void selectAlbaniaAndSetSharedPrefsMutex() {
-        isSharedPrefsChangeCommitedMutex = false;
         mua.selectAlbania();
     }
 
     private void selectMonthlyAndSetSharedPrefsMutex() {
-        isSharedPrefsChangeCommitedMutex = false;
         mua.selectMonthly();
     }
 
     private void selectWeeklyAndSetSharedPrefsMutex() {
-        isSharedPrefsChangeCommitedMutex = false;
         mua.selectWeekly();
     }
 
