@@ -2,7 +2,6 @@ package fi.hiit.whatisstoredinamobiledevice.data_handling;
 
 import android.content.Context;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Map;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DeviceDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DatabaseAccessor;
-import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
 
 public class DataHandler {
     private Context mIntentServiceContext;
