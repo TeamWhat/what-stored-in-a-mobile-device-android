@@ -16,7 +16,7 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
     // SQL commands
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + DeviceDataContract.DeviceInfoEntry.TABLE_NAME + " (" +
-                    DeviceDataContract.DeviceInfoEntry._ID + " INTEGER PRIMARY KEY," +
+                    DeviceDataContract.DeviceInfoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
                     DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME + TEXT_TYPE + COMMA_SEP +
                     DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND + TEXT_TYPE + COMMA_SEP +

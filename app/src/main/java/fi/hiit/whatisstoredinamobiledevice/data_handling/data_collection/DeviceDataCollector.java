@@ -10,11 +10,11 @@ public class DeviceDataCollector implements DataCollector {
     @Override
     public Map getData() {
         HashMap<String, String> data = new HashMap<String, String>();
-        data.put("Brand", Build.BRAND);
-        data.put("Device", Build.DEVICE);
-        data.put("Model", Build.MODEL);
-        data.put("Product", Build.PRODUCT);
-        data.put("Serial", Build.SERIAL);
+        data.put("brand", Build.BRAND);
+        data.put("device", Build.DEVICE);
+        data.put("model", Build.MODEL);
+        data.put("product", Build.PRODUCT);
+        data.put("serial", Build.SERIAL);
         return data;
     }
 
