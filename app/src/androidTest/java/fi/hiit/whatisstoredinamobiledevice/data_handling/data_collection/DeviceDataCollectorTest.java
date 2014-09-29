@@ -4,6 +4,8 @@ import junit.framework.TestCase;
 
 import java.util.HashMap;
 
+import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
+
 public class DeviceDataCollectorTest extends TestCase {
     private DeviceDataCollector ddc;
     private HashMap<String,String> data;
@@ -15,42 +17,42 @@ public class DeviceDataCollectorTest extends TestCase {
     }
 
     public void testBrandHasBeenCollected() {
-        assertTrue(data.containsKey("Brand"));
+        assertTrue(data.containsKey(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND));
     }
 
     public void testDeviceHasBeenCollected() {
-        assertTrue(data.containsKey("Device"));
+        assertTrue(data.containsKey(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE));
     }
 
     public void testModelHasBeenCollected() {
-        assertTrue(data.containsKey("Model"));
+        assertTrue(data.containsKey(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL));
     }
 
     public void testProductHasBeenCollected() {
-        assertTrue(data.containsKey("Product"));
+        assertTrue(data.containsKey(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT));
     }
 
     public void testSerialHasBeenCollected() {
-        assertTrue(data.containsKey("Serial"));
+        assertTrue(data.containsKey(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL));
     }
 
     public void testBrandNotEmpty() {
-        assertFalse(data.get("Brand").isEmpty());
+        assertFalse(data.get(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND).isEmpty());
     }
 
     public void testDeviceNotEmpty() {
-        assertFalse(data.get("Device").isEmpty());
+        assertFalse(data.get(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE).isEmpty());
     }
 
     public void testModelNotEmpty() {
-        assertFalse(data.get("Model").isEmpty());
+        assertFalse(data.get(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL).isEmpty());
     }
 
     public void testProductNotEmpty() {
-        assertFalse(data.get("Product").isEmpty());
+        assertFalse(data.get(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT).isEmpty());
     }
 
     public void testSerialNotEmpty() {
-        assertFalse(data.get("Serial").isEmpty());
+        assertFalse(data.get(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL).isEmpty());
     }
 }
