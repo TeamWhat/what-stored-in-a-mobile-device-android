@@ -1,18 +1,22 @@
 package fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities;
 
 
+import android.test.InstrumentationTestCase;
+
 import junit.framework.TestCase;
 
 import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandler;
+import fi.hiit.whatisstoredinamobiledevice.testhelpers.TestSetup;
 
 import static org.mockito.Mockito.*;
 
-public class DataHandlerTest extends TestCase {
+public class DataHandlerTest extends InstrumentationTestCase {
 
     private DataHandler mDataHandler;
     private DatabaseAccessor databaseAccessor;
 
     protected void setUp() {
+        TestSetup.setupMockito(this);
         databaseAccessor = mock(SQLiteDatabaseAccessor.class);
         mDataHandler = new DataHandler(null, databaseAccessor);
     }
