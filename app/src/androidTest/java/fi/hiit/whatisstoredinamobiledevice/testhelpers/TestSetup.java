@@ -1,14 +1,15 @@
 package fi.hiit.whatisstoredinamobiledevice.testhelpers;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteClosable;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.test.InstrumentationTestCase;
 
-import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DataHandlerTest;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
 
 public class TestSetup {
-    public static void setupMockito(DataHandlerTest dataHandlerTest) {
+    public static void setupMockito(InstrumentationTestCase dataHandlerTest) {
         System.setProperty(
                 "dexmaker.dexcache",
                 dataHandlerTest.getInstrumentation().getTargetContext().getCacheDir().getPath());

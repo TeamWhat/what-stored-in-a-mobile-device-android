@@ -17,6 +17,7 @@ public class DataHandlerIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         DataHandler dataHandler = new DataHandler(this, new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(this)));
+        // todo: handle return value
         dataHandler.collectAllData();
         ResultReceiver rec = intent.getParcelableExtra("receiver");
         Bundle b = new Bundle();
