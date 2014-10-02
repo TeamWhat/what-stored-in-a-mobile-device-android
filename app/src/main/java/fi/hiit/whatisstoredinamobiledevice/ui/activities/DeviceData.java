@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import fi.hiit.whatisstoredinamobiledevice.DataResultReceiver;
 import fi.hiit.whatisstoredinamobiledevice.R;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentService;
@@ -19,6 +22,14 @@ import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.Devi
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 
 public class DeviceData extends Activity implements DataResultReceiver.Receiver {
+    private final static String[] deviceInfoProjection = {
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME,
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND,
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE,
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL,
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT,
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,27 +61,50 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onReceiveResult() {
+        queryDatabase();
+    }
+
+    // todo: after deciding "real" UI layout, use data from this cursor to display device info
+    private Cursor getDeviceInfoCursor(SQLiteDatabase db) {
+        String sortOrder = DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME + " DESC";
+
+        return initCursor(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, db, deviceInfoProjection, sortOrder);
+    }
+
+    // todo: change textview to real UI layout
     public void queryDatabase() {
-        // todo: refactor query
-        TextView deviceDataText = new TextView(this);
-        deviceDataText = (TextView)findViewById(R.id.deviceDataText);
+        TextView deviceDataText = (TextView)findViewById(R.id.deviceDataText);
 
         DeviceDataOpenHelper deviceDataOpenHelper = new DeviceDataOpenHelper(this);
         SQLiteDatabase db = deviceDataOpenHelper.getReadableDatabase();
 
-        String[] projection = {
-                DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME,
-                DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND,
-                DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE,
-                DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL,
-                DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT,
-                DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL
-        };
+        getDeviceInfoAndSetDeviceInfoTextField(deviceDataText, db);
+    }
 
-        String sortOrder = DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME + " DESC";
+    // Temporary demo UI methods below
 
+    private String getStringFromCursor(Cursor c, String columnName) {
+        return c.getString(c.getColumnIndexOrThrow(columnName));
+    }
+
+    private void setTextViewText(TextView deviceDataText, Cursor c, Map textViewStrings) {
+        String textViewText = buildTextViewText(textViewStrings);
+        deviceDataText.setText(textViewText);
+    }
+
+    private String buildTextViewText(Map<String, String> textViewStrings) {
+        String textViewText = "";
+        for(String key : textViewStrings.keySet()) {
+            textViewText += key + textViewStrings.get(key) + "\n";
+        }
+        return textViewText;
+    }
+
+    public Cursor initCursor(String tablename, SQLiteDatabase db, String[] projection, String sortOrder) {
         Cursor c = db.query(
-                DeviceDataContract.DeviceInfoEntry.TABLE_NAME,
+                tablename,
                 projection,
                 null,
                 null,
@@ -78,27 +112,34 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
                 null,
                 sortOrder
         );
-
         c.moveToFirst();
-        String datetime = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME));
-        String brand = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND));
-        String device = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE));
-        String model = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL));
-        String product = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT));
-        String serial = c.getString(c.getColumnIndexOrThrow(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL));
-
-        deviceDataText.setText(
-                "Date collected: " + datetime + "\n" +
-                "Brand: " + brand + "\n" +
-                "Device: " + device + "\n" +
-                "Model: " + model + "\n" +
-                "Product: " + product + "\n" +
-                "Serial: " + serial + "\n"
-        );
+        return c;
     }
 
-    @Override
-    public void onReceiveResult() {
-        queryDatabase();
+    private Map<String, String> getDeviceInfoTextViewStrings(Cursor c) {
+        HashMap<String, String> textViewStrings = new HashMap<String, String>();
+
+        String datetime = getStringFromCursor(c, DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME);
+        String brand = getStringFromCursor(c, DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND);
+        String device = getStringFromCursor(c, DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE);
+        String model = getStringFromCursor(c, DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL);
+        String product = getStringFromCursor(c, DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT);
+        String serial = getStringFromCursor(c, DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL);
+
+        textViewStrings.put("Date collected: ", datetime);
+        textViewStrings.put("Brand: ", brand);
+        textViewStrings.put("Device: ", device);
+        textViewStrings.put("Model: ", model);
+        textViewStrings.put("Product: ", product);
+        textViewStrings.put("Serial: ", serial);
+
+        return textViewStrings;
+    }
+
+    private void getDeviceInfoAndSetDeviceInfoTextField(TextView deviceDataText, SQLiteDatabase db) {
+        Cursor deviceInfoCursor = getDeviceInfoCursor(db);
+
+        Map<String, String> textViewStrings = getDeviceInfoTextViewStrings(deviceInfoCursor);
+        setTextViewText(deviceDataText, deviceInfoCursor, textViewStrings);
     }
 }

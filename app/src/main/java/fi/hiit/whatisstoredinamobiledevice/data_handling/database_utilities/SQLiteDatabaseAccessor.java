@@ -28,21 +28,21 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
     public boolean saveAllData(Map<String, Map<String, String>> map) {
         db = mDeviceDataOpenHelper.getWritableDatabase();
 
-        saveAll(map);
+        boolean saveSuccessful = saveAll(map);
 
         db.close();
 
-        // todo: return true if successful, false otherwise, find out how to know if it was successful or not!
-        return false;
+        return saveSuccessful;
     }
 
-    private void saveAll(Map<String, Map<String, String>> map) {
+    private boolean saveAll(Map<String, Map<String, String>> map) {
         for(String tableName : map.keySet()) {
-            saveRow(tableName, map);
+            if (!saveRow(tableName, map)) return false;
         }
+        return true;
     }
 
-    private void saveRow(String tableName, Map<String, Map<String, String>> map) {
+    private boolean saveRow(String tableName, Map<String, Map<String, String>> map) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
 
@@ -54,6 +54,7 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
                 tableName,
                 null,
                 values);
+        return newRowId != -1;
     }
 
     private void insertValues(String tableName, Map<String, Map<String, String>> map, ContentValues values) {
