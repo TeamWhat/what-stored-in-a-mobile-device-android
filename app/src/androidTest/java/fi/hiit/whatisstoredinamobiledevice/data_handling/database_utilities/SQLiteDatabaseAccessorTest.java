@@ -10,24 +10,29 @@ import java.util.Map;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DeviceDataCollector;
 
+import static fi.hiit.whatisstoredinamobiledevice.testhelpers.TestSetup.*;
+
 
 public class SQLiteDatabaseAccessorTest extends AndroidTestCase {
     DatabaseAccessor databaseAccessor;
+    Map<String, Map<String, String>> hm;
 
     protected void setUp() {
-        databaseAccessor = new SQLiteDatabaseAccessor(getContext());
+        databaseAccessor = new SQLiteDatabaseAccessor(new TestDeviceDataOpenHelper(getContext()));
+        DataCollector ddc = new DeviceDataCollector();
+        hm = new HashMap<String, Map<String, String>>();
+        Map<String, String> testData = new HashMap<String, String>();
+        testData.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND, "testBrand");
+        hm.put(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, testData);
     }
 
-    public Cursor readDatabase() {
-        DeviceDataOpenHelper mDbHelper = new DeviceDataOpenHelper(getContext());
+    public Cursor readDeviceDataFromDatabase() {
+        TestDeviceDataOpenHelper mDbHelper = new TestDeviceDataOpenHelper(getContext());
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String[] projection = {
                 DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND,
-                DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE,
-                DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL,
-                DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT,
-                DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL
+                DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME
         };
 
         Cursor c = db.query(
@@ -42,12 +47,19 @@ public class SQLiteDatabaseAccessorTest extends AndroidTestCase {
         return c;
     }
 
-    public void testDeviceDataIsSaved() {
-        DataCollector ddc = new DeviceDataCollector();
-        Map<String, Map<String, String>> hm = new HashMap<String, Map<String, String>>();
-        hm.put(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, ddc.getData());
+    public void testDeviceDataBrandIsSaved() {
         databaseAccessor.saveAllData(hm);
-        Cursor c = readDatabase();
-        assertTrue(c.getColumnCount() > 0);
+        Cursor c = readDeviceDataFromDatabase();
+        c.moveToFirst();
+        assertTrue(c.getString(c.getColumnIndex(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND)).equals("testBrand"));
     }
+
+    public void testDeviceDataDateTime() {
+        databaseAccessor.saveAllData(hm);
+        Cursor c = readDeviceDataFromDatabase();
+        c.moveToFirst();
+        assertTrue(c.getString(c.getColumnIndex(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME)).matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}"));
+    }
+
+
 }
