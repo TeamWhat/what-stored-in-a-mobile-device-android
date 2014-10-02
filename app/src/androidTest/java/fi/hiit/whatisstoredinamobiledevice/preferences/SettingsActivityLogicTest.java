@@ -1,10 +1,10 @@
 package fi.hiit.whatisstoredinamobiledevice.preferences;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
 
-import android.test.suitebuilder.annotation.LargeTest;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.test.suitebuilder.annotation.SmallTest;
 
@@ -30,23 +30,32 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
     @Override
     protected void setUp() throws Exception {
+
+        // TODO: Muuta sharedPrefs listener/mutex systeemi omaksi helper-luokaksi
+        setUpSharedPrefsAndItsTools();
+
         super.setUp();
         setActivityInitialTouchMode(true);
         solo = new Solo(getInstrumentation(), getActivity());
         mua = new MockUserActions(getActivity(), solo);
 
-        // TODO: Muuta sharedPrefs listener/mutex systeemi omaksi helper-luokaksi
-        setUpSharedPrefsAndItsTools();
     }
 
     private void setUpSharedPrefsAndItsTools() {
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        setUpSharedPrefs();
+        setUpSharedPrefsChangeMutex();
+        setUpSharedPrefsListener();
+    }
+
+    private void setUpSharedPrefs() {
+        Context context = getInstrumentation().getTargetContext();
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
         SharedPreferences.Editor editor = sharedPrefs.edit();
         editor.clear();
         editor.commit();
 
-        setUpSharedPrefsChangeMutex();
-        setUpSharedPrefsListener();
+        PreferenceManager.setDefaultValues(context, R.xml.preferences, true);
     }
 
     private void setUpSharedPrefsChangeMutex() {
@@ -240,6 +249,11 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         assertEquals("Changing country selection to Albania was not saved in SharedPreferences", secondValueDefinedInXML, valueInSharedPrefs);
     }
 
+
+    @MediumTest
+    public void testDataSendingIsDisabledByDefault() {
+        assertFalse("Data sending was not disabled by default (value not false in SharedPreferences)", sharedPrefs.getBoolean(SettingsFragment.KEY_SETTINGS_ENABLE_DATA_SENDING, true));
+    }
 
 
     @MediumTest

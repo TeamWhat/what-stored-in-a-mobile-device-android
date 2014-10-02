@@ -9,20 +9,23 @@
             android:title="@string/settings_gender_title"
             android:id="@+id/settings_user_gender_list_preference"
             android:entries="@array/gender_array"
-            android:entryValues="@array/gender_array_values" />
+            android:entryValues="@array/gender_array_values"
+            android:defaultValue="" />
 
         <ListPreference
             android:key="settings_user_age"
             android:title="@string/settings_age_title"
             android:id="@+id/settings_user_age_list_preference"
             android:entries="@array/ages_array"
-            android:entryValues="@array/ages_array_values" />
+            android:entryValues="@array/ages_array_values"
+            android:defaultValue="" />
 
         <ListPreference
             android:key="settings_user_country"
             android:title="@string/settings_country_title"
             android:entries="@array/country_array"
-            android:entryValues="@array/country_array_values" />
+            android:entryValues="@array/country_array_values"
+            android:defaultValue="" />
 
     </PreferenceCategory>
 
@@ -32,7 +35,8 @@
         <CheckBoxPreference
             android:key="settings_enable_data_sending"
             android:title="@string/settings_enable_data_sending_title"
-            android:id="@+id/settings_enable_data_sending_check_box" />
+            android:id="@+id/settings_enable_data_sending_check_box"
+            android:defaultValue="false" />
 
 
         <ListPreference
@@ -41,7 +45,8 @@
             android:id="@+id/settings_data_sending_frequency_list_preference"
             android:dependency="settings_enable_data_sending"
             android:entries="@array/frequency_array"
-            android:entryValues="@array/frequency_array_values" />
+            android:entryValues="@array/frequency_array_values"
+            android:defaultValue="" />
 
 
     </PreferenceCategory>
