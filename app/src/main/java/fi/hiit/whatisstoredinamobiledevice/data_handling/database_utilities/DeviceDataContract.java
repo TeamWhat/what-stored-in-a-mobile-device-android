@@ -21,6 +21,8 @@ public final class DeviceDataContract {
 
     public static abstract class ImageDataEntry implements BaseColumns {
         // todo: image constants here
+        public static final String TABLE_NAME = "image_info";
+
     }
 
     // todo: more tables here

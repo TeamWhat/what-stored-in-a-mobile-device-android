@@ -5,6 +5,8 @@ import android.os.Build;
 import java.util.HashMap;
 import java.util.Map;
 
+import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
+
 public class DeviceDataCollector implements DataCollector {
 
     @Override
@@ -20,6 +22,6 @@ public class DeviceDataCollector implements DataCollector {
 
     @Override
     public String getTableNameForData() {
-        return "device_info";
+        return DeviceDataContract.DeviceInfoEntry.TABLE_NAME;
     }
 }
