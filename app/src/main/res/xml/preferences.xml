@@ -10,7 +10,7 @@
             android:id="@+id/settings_user_gender_list_preference"
             android:entries="@array/gender_array"
             android:entryValues="@array/gender_array_values"
-            android:defaultValue="" />
+            android:defaultValue="@string/empty_string" />
 
         <ListPreference
             android:key="settings_user_age"

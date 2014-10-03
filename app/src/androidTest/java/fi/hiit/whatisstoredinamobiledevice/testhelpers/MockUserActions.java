@@ -30,11 +30,10 @@ public class MockUserActions {
 
     public void selectOption(int categoryId, int optionId) {
         testSoloObject.clickOnText(testActivity.getString(categoryId));
-        testSoloObject.waitForText("Cancel");
-        System.out.println("Is 'Settings' text shown when selection dialog open? " + checkTextDisplayed(R.string.title_activity_settings));
+        testSoloObject.waitForText("Cancel"); // todo; HARDCODE
         testSoloObject.scrollListToTop(0);
         testSoloObject.clickOnText(testActivity.getString(optionId));
-        System.out.println("Is 'Settings' text found with waitForText after setting selection? (false if timeout) " + testSoloObject.waitForText(testActivity.getString(R.string.title_activity_settings)));
+        testSoloObject.waitForText(testActivity.getString(R.string.title_activity_settings));
     }
 
 
@@ -75,21 +74,19 @@ public class MockUserActions {
         testSoloObject.clickOnText(testActivity.getString(R.string.settings_enable_data_sending_title));
     }
 
-
+    // todo: Assumes only one check box in view
     public void ensureCheckBoxNotChecked() {
         if (testSoloObject.isCheckBoxChecked(0)) {
-            //testSoloObject.clickOnCheckBox(0);
             clickOnCheckBoxText();
         }
     }
 
+    // todo: Assumes only one check box in view
     public void ensureCheckBoxChecked() {
         if (!testSoloObject.isCheckBoxChecked(0)) {
-            //testSoloObject.clickOnCheckBox(0);
             clickOnCheckBoxText();
         }
     }
-
 
     public boolean checkTextDisplayed(int stringId) {
         return testSoloObject.searchText(testActivity.getString(stringId));
