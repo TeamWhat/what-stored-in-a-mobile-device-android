@@ -41,4 +41,9 @@ public class MainScreen extends Activity {
         Intent intent = new Intent(this, Questions.class);
         startActivity(intent);
     }
+
+    public void openDeviceData(View view) {
+        Intent intent = new Intent(this, DeviceData.class);
+        startActivity(intent);
+    }
 }

@@ -37,7 +37,6 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
         // TODO: Muuta sharedPrefs listener/mutex systeemi omaksi helper-luokaksi
         setUpSharedPrefsAndItsTools();
-
     }
 
     private void setUpSharedPrefsAndItsTools() {
