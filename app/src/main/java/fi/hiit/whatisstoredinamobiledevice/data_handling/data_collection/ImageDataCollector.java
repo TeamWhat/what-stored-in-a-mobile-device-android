@@ -11,6 +11,16 @@ public class ImageDataCollector extends MediaDataCollector {
     public ImageDataCollector(Context appContext) {
         super(appContext);
     }
+    public static final String[] imageColumnNames =
+            {
+                    DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_TAKEN,
+                    DeviceDataContract.ImageDataEntry.COLUMN_NAME_IS_PRIVATE,
+                    DeviceDataContract.ImageDataEntry.COLUMN_NAME_LATITUDE,
+                    DeviceDataContract.ImageDataEntry.COLUMN_NAME_LONGITUDE,
+                    DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATA_ADDED,
+                    DeviceDataContract.ImageDataEntry.COLUMN_NAME_SIZE,
+                    DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED
+            };
 
     @Override
     public Map getData() {
@@ -24,7 +34,7 @@ public class ImageDataCollector extends MediaDataCollector {
                         MediaStore.Images.ImageColumns.SIZE,
                         MediaStore.Images.ImageColumns.DATE_MODIFIED
                 };
-        return super.collectMediaData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mProjection, null, null, null);
+        return super.collectMediaData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mProjection, null, null, null, imageColumnNames);
     }
 
     @Override

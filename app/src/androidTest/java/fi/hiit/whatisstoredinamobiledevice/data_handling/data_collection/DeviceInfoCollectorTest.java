@@ -6,13 +6,13 @@ import java.util.HashMap;
 
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
 
-public class DeviceDataCollectorTest extends TestCase {
-    private DeviceDataCollector ddc;
+public class DeviceInfoCollectorTest extends TestCase {
+    private DeviceInfoCollector ddc;
     private HashMap<String,String> data;
 
 
     protected void setUp() {
-        ddc = new DeviceDataCollector();
+        ddc = new DeviceInfoCollector();
         data = (HashMap)ddc.getData();
     }
 

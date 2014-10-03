@@ -23,32 +23,33 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
 
     /**
      * Saves the data in the map to the database
-     * @param map map of data to be saved
+     * @param allDataMap map of data to be saved
      * @return true if save successful, false otherwise
      */
     @Override
-    public boolean saveAllData(Map<String, Map<String, String>> map) {
+    public boolean saveAllData(Map<String, Map<String, Map<String, String>>> allDataMap) {
         db = mDeviceDataOpenHelper.getWritableDatabase();
 
-        boolean saveSuccessful = saveAll(map);
+        boolean saveSuccessful = saveAll(allDataMap);
 
         db.close();
 
         return saveSuccessful;
     }
 
-    private boolean saveAll(Map<String, Map<String, String>> map) {
-        for(String tableName : map.keySet()) {
-            if (!saveRow(tableName, map)) return false;
+    private boolean saveAll(Map<String, Map<String, Map<String, String>>> allDataMap) {
+        for(String tableName : allDataMap.keySet()) {
+            for(String tempRowIndex : allDataMap.get(tableName).keySet()) {
+                if (!saveRow(tableName, tempRowIndex, allDataMap.get(tableName))) return false;
+            }
         }
         return true;
     }
 
-    private boolean saveRow(String tableName, Map<String, Map<String, String>> map) {
+    private boolean saveRow(String tableName, String tempRowIndex, Map<String, Map<String, String>> tableMap) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-
-        insertValues(tableName, map, values);
+        insertValues(tempRowIndex, tableMap, values);
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId;
@@ -59,10 +60,10 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         return newRowId != -1;
     }
 
-    private void insertValues(String tableName, Map<String, Map<String, String>> map, ContentValues values) {
+    private void insertValues(String tempRowIndex, Map<String, Map<String, String>> tableMap, ContentValues values) {
         values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, datetime());
-        for(String columnName : map.get(tableName).keySet()) {
-            values.put(columnName, map.get(tableName).get(columnName));
+        for(String columnName : tableMap.get(tempRowIndex).keySet()) {
+            values.put(columnName, tableMap.get(tempRowIndex).get(columnName));
         }
     }
 

@@ -15,27 +15,27 @@ public abstract class MediaDataCollector implements DataCollector {
         this.mAppContext = appContext;
     }
 
-    public HashMap<String, HashMap<String, String>> collectMediaData(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    public HashMap<String, HashMap<String, String>> collectMediaData(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder, String[] ownColumnNames) {
         mCursor = mAppContext.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
         HashMap<String, HashMap<String, String>> data = new HashMap<String, HashMap<String, String>>();
-        putImageDataIntoHashMap(data);
+        putImageDataIntoHashMap(data, ownColumnNames);
         mCursor.close();
         return data;
     }
 
-    private void putImageDataIntoHashMap(HashMap<String, HashMap<String, String>> data) {
-        String[] cNames = mCursor.getColumnNames();
+    private void putImageDataIntoHashMap(HashMap<String, HashMap<String, String>> data, String[] ownColumnNames) {
+        String[] androidColumnNames = mCursor.getColumnNames();
         int imageCounter = 0;
         while (mCursor.moveToNext()) {
-            data.put("" + imageCounter, getSingleImageHashMap(cNames));
+            data.put("" + imageCounter, getSingleImageHashMap(androidColumnNames, ownColumnNames));
             imageCounter++;
         }
     }
 
-    private HashMap<String, String> getSingleImageHashMap(String[] cNames) {
+    private HashMap<String, String> getSingleImageHashMap(String[] androidColumnNames, String[] ownColumnNames) {
         HashMap<String, String> imageData = new HashMap<String, String>();
-        for (int i=0; i<cNames.length; i++) {
-            imageData.put(cNames[i], mCursor.getString(mCursor.getColumnIndex(cNames[i])));
+        for (int i=0; i<androidColumnNames.length; i++) {
+            imageData.put(ownColumnNames[i], mCursor.getString(mCursor.getColumnIndex(androidColumnNames[i])));
         }
         return imageData;
     }
