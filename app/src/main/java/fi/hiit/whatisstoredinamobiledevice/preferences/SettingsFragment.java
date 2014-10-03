@@ -28,6 +28,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
 
+
         setPreferenceItemsToFields();
 
         setCurrentValuesForSettingsSummaries();
@@ -72,4 +73,5 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         setCurrentValuesForSettingsSummaries();
     }
+
 }

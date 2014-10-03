@@ -49,5 +49,7 @@
     <string name="DeviceDataButton">Show device data</string>
     <string name="title_activity_device_data">Device Data</string>
 
+    <string name="empty_string"></string>
+
 
 </resources>

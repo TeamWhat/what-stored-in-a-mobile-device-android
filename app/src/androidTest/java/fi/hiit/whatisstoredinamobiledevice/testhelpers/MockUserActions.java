@@ -28,63 +28,65 @@ public class MockUserActions {
         TouchUtils.drag(aitc2, width - 30, 30, height / 2, height / 2, 5);
     }
 
-    public void selectOption(Solo solo, Activity activity, int categoryId, int optionId) {
-        solo.clickOnText(activity.getString(categoryId));
-        solo.waitForText("Cancel");
-        solo.scrollListToTop(0);
-        solo.clickOnText(activity.getString(optionId));
+    public void selectOption(int categoryId, int optionId) {
+        testSoloObject.clickOnText(testActivity.getString(categoryId));
+        testSoloObject.waitForText("Cancel"); // todo; HARDCODE
+        testSoloObject.scrollListToTop(0);
+        testSoloObject.clickOnText(testActivity.getString(optionId));
+        testSoloObject.waitForText(testActivity.getString(R.string.title_activity_settings));
     }
 
-    private void mockSelections(int categoryId, int optionId) {
-        selectOption(testSoloObject, testActivity, categoryId, optionId);
-    }
 
 
     public void selectMonthly() {
-        mockSelections(R.string.settings_data_sending_frequency_title, R.string.frequency_monthly);
+        selectOption(R.string.settings_data_sending_frequency_title, R.string.frequency_monthly);
     }
 
     public void selectWeekly() {
-        mockSelections(R.string.settings_data_sending_frequency_title, R.string.frequency_weekly);
+        selectOption(R.string.settings_data_sending_frequency_title, R.string.frequency_weekly);
     }
 
     public void selectFemale() {
-        mockSelections(R.string.settings_gender_title, R.string.gender_female);
+        selectOption(R.string.settings_gender_title, R.string.gender_female);
     }
 
     public void selectMale() {
-        mockSelections(R.string.settings_gender_title, R.string.gender_male);
+        selectOption(R.string.settings_gender_title, R.string.gender_male);
     }
 
     public void selectUnder18() {
-        mockSelections(R.string.settings_age_title, R.string.age_group_under18);
+        selectOption(R.string.settings_age_title, R.string.age_group_under18);
     }
 
     public void selectOver35() {
-        mockSelections(R.string.settings_age_title, R.string.age_group_over35);
+        selectOption(R.string.settings_age_title, R.string.age_group_over35);
     }
 
     public void selectTheBahamas() {
-        mockSelections(R.string.settings_country_title, R.string.country_the_bahamas);
+        selectOption(R.string.settings_country_title, R.string.country_the_bahamas);
     }
 
     public void selectAlbania() {
-        mockSelections(R.string.settings_country_title, R.string.country_albania);
+        selectOption(R.string.settings_country_title, R.string.country_albania);
     }
 
+    public void clickOnCheckBoxText() {
+        testSoloObject.clickOnText(testActivity.getString(R.string.settings_enable_data_sending_title));
+    }
 
+    // todo: Assumes only one check box in view
     public void ensureCheckBoxNotChecked() {
         if (testSoloObject.isCheckBoxChecked(0)) {
-            testSoloObject.clickOnCheckBox(0);
+            clickOnCheckBoxText();
         }
     }
 
+    // todo: Assumes only one check box in view
     public void ensureCheckBoxChecked() {
         if (!testSoloObject.isCheckBoxChecked(0)) {
-            testSoloObject.clickOnCheckBox(0);
+            clickOnCheckBoxText();
         }
     }
-
 
     public boolean checkTextDisplayed(int stringId) {
         return testSoloObject.searchText(testActivity.getString(stringId));

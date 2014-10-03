@@ -78,7 +78,7 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
 
     @MediumTest
     public void testCountrySummaryIsShownAfterSelectingSierraLeone() {
-        mua.selectOption(solo, getActivity(), R.string.settings_country_title, R.string.country_sierra_leone);
+        mua.selectOption(R.string.settings_country_title, R.string.country_sierra_leone);
         assertTrue(mua.checkTextDisplayed(R.string.country_sierra_leone));
     }
 
