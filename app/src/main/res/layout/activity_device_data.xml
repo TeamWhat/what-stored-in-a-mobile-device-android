@@ -18,7 +18,7 @@
         android:paddingLeft="10dp"
         android:paddingEnd="10dp"
         android:paddingRight="10dp"
-        android:lines="7"
+        android:scrollbars = "vertical"
         android:id="@+id/deviceDataText"
         android:text="@string/loading_text_during_collection"
         android:typeface="serif"
