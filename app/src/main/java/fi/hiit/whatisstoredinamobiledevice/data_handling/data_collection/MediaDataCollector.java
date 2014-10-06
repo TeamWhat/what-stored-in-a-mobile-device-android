@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class MediaDataCollector implements DataCollector {
     private Context mAppContext;
@@ -15,15 +16,22 @@ public abstract class MediaDataCollector implements DataCollector {
         this.mAppContext = appContext;
     }
 
-    public HashMap<String, HashMap<String, String>> collectMediaData(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder, String[] ownColumnNames) {
-        mCursor = mAppContext.getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
-        HashMap<String, HashMap<String, String>> data = new HashMap<String, HashMap<String, String>>();
-        putImageDataIntoHashMap(data, ownColumnNames);
+    public Map<String, Map<String, String>> getData() {
+        mCursor = mAppContext.getContentResolver().query(getUri(), getProjection(), getSelection(), getSelectionArgs(), getSortOrder());
+        Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
+        putImageDataIntoHashMap(data, getOwnColumnNames());
         mCursor.close();
         return data;
     }
 
-    private void putImageDataIntoHashMap(HashMap<String, HashMap<String, String>> data, String[] ownColumnNames) {
+    protected abstract Uri getUri();
+    protected abstract String[] getProjection();
+    protected abstract String getSelection();
+    protected abstract String[] getSelectionArgs();
+    protected abstract String getSortOrder();
+    protected abstract String[] getOwnColumnNames();
+
+    private void putImageDataIntoHashMap(Map<String, Map<String, String>> data, String[] ownColumnNames) {
         String[] androidColumnNames = mCursor.getColumnNames();
         int imageCounter = 0;
         while (mCursor.moveToNext()) {
