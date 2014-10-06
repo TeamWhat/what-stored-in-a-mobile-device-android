@@ -17,11 +17,20 @@ public abstract class MediaDataCollector implements DataCollector {
     }
 
     public Map<String, Map<String, String>> getData() {
-        mCursor = mAppContext.getContentResolver().query(getUri(), getProjection(), getSelection(), getSelectionArgs(), getSortOrder());
+        mCursor = getCursor();
         Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
-        putImageDataIntoHashMap(data, getOwnColumnNames());
+        putDataIntoHashMap(data, getOwnColumnNames());
         mCursor.close();
         return data;
+    }
+
+    public Cursor getCursor() {
+        return mAppContext.getContentResolver().query(
+                getUri(),
+                getProjection(),
+                getSelection(),
+                getSelectionArgs(),
+                getSortOrder());
     }
 
     protected abstract Uri getUri();
@@ -31,20 +40,20 @@ public abstract class MediaDataCollector implements DataCollector {
     protected abstract String getSortOrder();
     protected abstract String[] getOwnColumnNames();
 
-    private void putImageDataIntoHashMap(Map<String, Map<String, String>> data, String[] ownColumnNames) {
+    private void putDataIntoHashMap(Map<String, Map<String, String>> data, String[] ownColumnNames) {
         String[] androidColumnNames = mCursor.getColumnNames();
-        int imageCounter = 0;
+        int dataCounter = 0;
         while (mCursor.moveToNext()) {
-            data.put("" + imageCounter, getSingleImageHashMap(androidColumnNames, ownColumnNames));
-            imageCounter++;
+            data.put("" + dataCounter, getSingleObjectHashMap(androidColumnNames, ownColumnNames));
+            dataCounter++;
         }
     }
 
-    private HashMap<String, String> getSingleImageHashMap(String[] androidColumnNames, String[] ownColumnNames) {
-        HashMap<String, String> imageData = new HashMap<String, String>();
+    private HashMap<String, String> getSingleObjectHashMap(String[] androidColumnNames, String[] ownColumnNames) {
+        HashMap<String, String> data = new HashMap<String, String>();
         for (int i=0; i<androidColumnNames.length; i++) {
-            imageData.put(ownColumnNames[i], mCursor.getString(mCursor.getColumnIndex(androidColumnNames[i])));
+            data.put(ownColumnNames[i], mCursor.getString(mCursor.getColumnIndex(androidColumnNames[i])));
         }
-        return imageData;
+        return data;
     }
 }
