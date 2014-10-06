@@ -22,19 +22,20 @@ public class ImageDataCollector extends MediaDataCollector {
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED
             };
 
+    public static String[] projection =
+            {
+                    MediaStore.Images.ImageColumns.DATE_TAKEN,
+                    MediaStore.Images.ImageColumns.IS_PRIVATE,
+                    MediaStore.Images.ImageColumns.LATITUDE,
+                    MediaStore.Images.ImageColumns.LONGITUDE,
+                    MediaStore.Images.ImageColumns.DATE_ADDED,
+                    MediaStore.Images.ImageColumns.SIZE,
+                    MediaStore.Images.ImageColumns.DATE_MODIFIED
+            };
+
     @Override
     public Map getData() {
-        String[] mProjection =
-                {
-                        MediaStore.Images.ImageColumns.DATE_TAKEN,
-                        MediaStore.Images.ImageColumns.IS_PRIVATE,
-                        MediaStore.Images.ImageColumns.LATITUDE,
-                        MediaStore.Images.ImageColumns.LONGITUDE,
-                        MediaStore.Images.ImageColumns.DATE_ADDED,
-                        MediaStore.Images.ImageColumns.SIZE,
-                        MediaStore.Images.ImageColumns.DATE_MODIFIED
-                };
-        return super.collectMediaData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mProjection, null, null, null, imageColumnNames);
+        return super.collectMediaData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, null, imageColumnNames);
     }
 
     @Override

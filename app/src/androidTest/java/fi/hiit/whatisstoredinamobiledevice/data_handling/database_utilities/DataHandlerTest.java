@@ -18,7 +18,7 @@ public class DataHandlerTest extends InstrumentationTestCase {
     protected void setUp() {
         TestSetup.setupMockito(this);
         databaseAccessor = mock(SQLiteDatabaseAccessor.class);
-        mDataHandler = new DataHandler(null, databaseAccessor);
+        mDataHandler = new DataHandler(getInstrumentation().getTargetContext(), databaseAccessor);
     }
 
     public void testSaveAllDataIsCalled() {

@@ -13,7 +13,7 @@ public class DeviceInfoCollectorTest extends TestCase {
 
     protected void setUp() {
         ddc = new DeviceInfoCollector();
-        data = (HashMap)ddc.getData();
+        data = (HashMap)ddc.getData().get("0");
     }
 
     public void testBrandHasBeenCollected() {
