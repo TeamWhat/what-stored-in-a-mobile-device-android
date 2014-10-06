@@ -20,7 +20,7 @@
         android:paddingRight="10dp"
         android:lines="7"
         android:id="@+id/deviceDataText"
-        android:text="Another TextView"
+        android:text="@string/loading_text_during_collection"
         android:typeface="serif"
         android:textSize="20sp"
         />

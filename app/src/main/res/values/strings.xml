@@ -48,6 +48,7 @@
     <string name="skip_button">Skip</string>
     <string name="DeviceDataButton">Show device data</string>
     <string name="title_activity_device_data">Device Data</string>
+    <string name="loading_text_during_collection">Collecting data...</string>
 
     <string name="empty_string"></string>
 
