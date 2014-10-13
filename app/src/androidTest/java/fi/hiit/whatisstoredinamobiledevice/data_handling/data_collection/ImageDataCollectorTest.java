@@ -1,8 +1,5 @@
 package fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection;
 
-import android.content.ContentUris;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
@@ -10,11 +7,11 @@ import android.provider.MediaStore;
 import android.test.InstrumentationTestCase;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -55,10 +52,16 @@ public class ImageDataCollectorTest extends InstrumentationTestCase {
         super.tearDown();
     }
 
-    public void testTets(){
+    public void testFields(){
         ImageDataCollector ic = new ImageDataCollector(getInstrumentation().getTargetContext());
         Map<String, Map<String, String>> m = ic.getData();
-        Set e = m.entrySet();
+        for(Map<String, String> r : m.values()) {
+            String size = r.get("size");
+            if(size == null || size.equals("16451")) {
+                return;
+            }
+        }
+        fail();
     }
 
     public void copy(String src, String dst) throws IOException {
