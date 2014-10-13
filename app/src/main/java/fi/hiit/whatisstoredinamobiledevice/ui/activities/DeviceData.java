@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.ExecutionException;
 
 import fi.hiit.whatisstoredinamobiledevice.DataResultReceiver;
 import fi.hiit.whatisstoredinamobiledevice.R;
@@ -171,11 +172,15 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
             String latitude = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_LATITUDE);
             String longitude = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_LONGITUDE);
 
+            if(dateTaken == null) {
+                dateTaken = "0";
+            }
+
             textViewStrings.put("img-" + hashMapKey++, "Date collected: " + datetime);
-            textViewStrings.put("img-" + hashMapKey++, "Size: " + Long.parseLong(size)/1000 + " kB");
-            textViewStrings.put("img-" + hashMapKey++, "Date modified: " + new Date(Long.parseLong(dateModified) * 1000).toString());
-            textViewStrings.put("img-" + hashMapKey++, "Date added: " + new Date(Long.parseLong(dateAdded) * 1000).toString());
-            textViewStrings.put("img-" + hashMapKey++, "Date taken: " + new Date(Long.parseLong(dateTaken)).toString());
+            textViewStrings.put("img-" + hashMapKey++, "Size: " + dateString(size, 1/1000) + "kB");
+            textViewStrings.put("img-" + hashMapKey++, "Date modified: " + dateString(dateModified, 1000));
+            textViewStrings.put("img-" + hashMapKey++, "Date added: " + dateString(dateAdded, 1000));
+            textViewStrings.put("img-" + hashMapKey++, "Date taken: " + dateString(dateTaken));
             textViewStrings.put("img-" + hashMapKey++, "Is private: " + isPrivate);
             textViewStrings.put("img-" + hashMapKey++, "Latitude: " + latitude);
             textViewStrings.put("img-" + hashMapKey++, "Longitude: " + longitude);
@@ -184,6 +189,18 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
         }
 
         return textViewStrings;
+    }
+
+    private String dateString(String value) {
+        return dateString(value, 1);
+    }
+
+    private String dateString(String value, double multiplier ) {
+        try {
+            return new Date((long)(Long.parseLong(value) * multiplier)).toString();
+        } catch (Exception e) {
+            return "null";
+        }
     }
 
     private Map<String, String> getDeviceInfoTextViewStrings(Cursor c) {
