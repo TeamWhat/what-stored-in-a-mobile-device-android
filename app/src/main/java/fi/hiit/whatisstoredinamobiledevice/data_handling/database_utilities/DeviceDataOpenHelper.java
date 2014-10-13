@@ -12,20 +12,33 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
     // SQL helpers
     private static final String TEXT_TYPE = " TEXT";
     private static final String COMMA_SEP = ",";
+    private static final String SEMICOLON_SEP = "; ";
+    private static final String PRIMARY_KEY_INIT = " INTEGER PRIMARY KEY AUTOINCREMENT";
 
     // SQL commands
-    private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + DeviceDataContract.DeviceInfoEntry.TABLE_NAME + " (" +
-                    DeviceDataContract.DeviceInfoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
-                    DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME + TEXT_TYPE + COMMA_SEP +
-                    DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND + TEXT_TYPE + COMMA_SEP +
-                    DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE + TEXT_TYPE + COMMA_SEP +
-                    DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL + TEXT_TYPE + COMMA_SEP +
-                    DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT + TEXT_TYPE + COMMA_SEP +
-                    DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL + TEXT_TYPE +
+    private static final String CREATE_DEVICE_INFO_TABLE = "CREATE TABLE " + DeviceDataContract.DeviceInfoEntry.TABLE_NAME + " (" +
+            DeviceDataContract.DeviceInfoEntry._ID + PRIMARY_KEY_INIT + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL + TEXT_TYPE +
             " )";
 
+    private static final String CREATE_IMAGE_INFO_TABLE = "CREATE TABLE " + DeviceDataContract.ImageDataEntry.TABLE_NAME + " (" +
+            DeviceDataContract.ImageDataEntry._ID + PRIMARY_KEY_INIT + COMMA_SEP +
+            DeviceDataContract.ImageDataEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_TAKEN + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ImageDataEntry.COLUMN_NAME_IS_PRIVATE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ImageDataEntry.COLUMN_NAME_LATITUDE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ImageDataEntry.COLUMN_NAME_LONGITUDE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATA_ADDED + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ImageDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE +
+            " )";
 
     public DeviceDataOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,7 +51,8 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
+        sqLiteDatabase.execSQL(CREATE_DEVICE_INFO_TABLE);
+        sqLiteDatabase.execSQL(CREATE_IMAGE_INFO_TABLE);
     }
 
     @Override

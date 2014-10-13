@@ -10,7 +10,7 @@ public final class DeviceDataContract {
     /* Inner class that defines the table contents */
     public static abstract class DeviceInfoEntry implements BaseColumns {
         public static final String TABLE_NAME = "device_info";
-        public static final String COLUMN_NAME_ENTRY_ID = "entryid";
+        public static final String COLUMN_NAME_ENTRY_ID = "entry_id";
         public static final String COLUMN_NAME_DATETIME = "datetime";
         public static final String COLUMN_NAME_BRAND = "brand";
         public static final String COLUMN_NAME_DEVICE = "device";
@@ -20,7 +20,17 @@ public final class DeviceDataContract {
     }
 
     public static abstract class ImageDataEntry implements BaseColumns {
-        // todo: image constants here
+        public static final String TABLE_NAME = "image_info";
+        public static final String COLUMN_NAME_ENTRY_ID = "entry_id";
+        public static final String COLUMN_NAME_DATETIME = "datetime";
+        public static final String COLUMN_NAME_DATE_TAKEN = "date_taken";
+        public static final String COLUMN_NAME_IS_PRIVATE = "is_private";
+        public static final String COLUMN_NAME_LATITUDE = "latitude";
+        public static final String COLUMN_NAME_LONGITUDE = "longitude";
+        public static final String COLUMN_NAME_DATA_ADDED = "date_added";
+        public static final String COLUMN_NAME_SIZE = "size";
+        public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
+
     }
 
     // todo: more tables here

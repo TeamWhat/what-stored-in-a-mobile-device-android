@@ -13,13 +13,17 @@ import static fi.hiit.whatisstoredinamobiledevice.testhelpers.TestSetup.*;
 
 public class SQLiteDatabaseAccessorTest extends InstrumentationTestCase {
     DatabaseAccessor databaseAccessor;
-    Map<String, Map<String, String>> hm;
+    Map<String, Map<String, Map<String, String>>> hm;
 
     protected void setUp() {
         databaseAccessor = new SQLiteDatabaseAccessor(new TestDeviceDataOpenHelper(getInstrumentation().getTargetContext()));
-        hm = new HashMap<String, Map<String, String>>();
-        Map<String, String> testData = new HashMap<String, String>();
-        testData.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND, "testBrand");
+        hm = new HashMap<String, Map<String, Map<String, String>>>();
+        HashMap<String, Map<String, String>> testData = new HashMap<String, Map<String, String>>();
+        HashMap<String, String> innerMap = new HashMap<String, String>();
+
+        innerMap.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND, "testBrand");
+
+        testData.put("0", innerMap);
         hm.put(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, testData);
     }
 
@@ -59,10 +63,12 @@ public class SQLiteDatabaseAccessorTest extends InstrumentationTestCase {
     }
 
     public void testSaveAllDataReturnsFalseIfDataSavingFails() {
+        HashMap<String, Map<String, Map<String, String>>> reallyBadMap = new HashMap<String, Map<String, Map<String, String>>>();
         HashMap<String, Map<String, String>> badMap = new HashMap<String, Map<String, String>>();
         HashMap<String, String> m = new HashMap<String, String>();
         badMap.put("kappa", m);
-        assertFalse(databaseAccessor.saveAllData(badMap));
+        reallyBadMap.put("0", badMap);
+        assertFalse(databaseAccessor.saveAllData(reallyBadMap));
     }
 
 
