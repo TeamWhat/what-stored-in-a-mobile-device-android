@@ -341,8 +341,8 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
         mMua.selectMonthly();
         String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
-
         assertEquals("Value was not Monthly in SharedPreferences after selecting Monthly", firstValueDefinedInXML, valueInSharedPrefs);
+        getInstrumentation().waitForIdleSync();
 
         mMua.selectWeekly();
         valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY);
