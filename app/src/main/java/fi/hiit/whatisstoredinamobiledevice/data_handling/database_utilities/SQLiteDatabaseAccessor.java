@@ -6,9 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.webkit.HttpAuthHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class SQLiteDatabaseAccessor implements DatabaseAccessor {
@@ -72,4 +74,37 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         Date date = new Date();
         return dateFormat.format(date);
     }
+
+    public HashMap<String, HashMap<String, String>> getData(String tablename, String[] projection, String sortOrder) {
+        db = mDeviceDataOpenHelper.getReadableDatabase();
+        Cursor c = db.query(
+                tablename,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                sortOrder
+        );
+        return putDataIntoHashMap(c);
+    }
+
+    private HashMap<String, HashMap<String, String>> putDataIntoHashMap(Cursor cursor) {
+        HashMap<String, HashMap<String, String>> data = new HashMap<String, HashMap<String, String>>();
+        int dataCounter = 0;
+        while (cursor.moveToNext()) {
+            data.put("" + dataCounter, getSingleObjectHashMap(cursor));
+            dataCounter++;
+        }
+        return data;
+    }
+
+    private HashMap<String, String> getSingleObjectHashMap(Cursor cursor) {
+        HashMap<String, String> data = new HashMap<String, String>();
+        for (int i=0; i< cursor.getColumnCount(); i++) {
+            data.put(cursor.getColumnName(i), cursor.getString(cursor.getColumnIndex(cursor.getColumnName(i))));
+        }
+        return data;
+    }
+
 }
