@@ -177,7 +177,7 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
             }
 
             textViewStrings.put("img-" + hashMapKey++, "Date collected: " + datetime);
-            textViewStrings.put("img-" + hashMapKey++, "Size: " + dateString(size, 1/1000) + "kB");
+            textViewStrings.put("img-" + hashMapKey++, "Size: " + Long.parseLong(size) * 1/1000 + "kB");
             textViewStrings.put("img-" + hashMapKey++, "Date modified: " + dateString(dateModified, 1000));
             textViewStrings.put("img-" + hashMapKey++, "Date added: " + dateString(dateAdded, 1000));
             textViewStrings.put("img-" + hashMapKey++, "Date taken: " + dateString(dateTaken));
