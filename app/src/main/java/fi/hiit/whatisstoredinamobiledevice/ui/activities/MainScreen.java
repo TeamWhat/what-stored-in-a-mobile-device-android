@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 
 public class MainScreen extends Activity {
@@ -16,6 +18,8 @@ public class MainScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+        TextView t = (TextView)findViewById(R.id.uid);
+        t.setText(new UniqueIdentifier(this).identifier());
     }
 
 
@@ -30,7 +34,7 @@ public class MainScreen extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // as you specify a parent activity in AndroidManifest.xml.wwwwwwwwwwwwwwwwwwwww
         int id = item.getItemId();
         Intent selectedMenuOptionIntent = new Intent(this, SettingsActivity.class);
         startActivity(selectedMenuOptionIntent);
