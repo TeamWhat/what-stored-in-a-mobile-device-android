@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.Volley;
+
 import fi.hiit.whatisstoredinamobiledevice.R;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
@@ -19,7 +21,7 @@ public class MainScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         TextView t = (TextView)findViewById(R.id.uid);
-        t.setText(new UniqueIdentifier(this).identifier());
+        t.setText("Unique identifier: "+new UniqueIdentifier(this).identifier());
     }
 
 
@@ -34,7 +36,7 @@ public class MainScreen extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.wwwwwwwwwwwwwwwwwwwww
+        // as you specify a parent activity in AndroidManifest.xml
         int id = item.getItemId();
         Intent selectedMenuOptionIntent = new Intent(this, SettingsActivity.class);
         startActivity(selectedMenuOptionIntent);
@@ -48,6 +50,11 @@ public class MainScreen extends Activity {
 
     public void openDeviceData(View view) {
         Intent intent = new Intent(this, DeviceData.class);
+        startActivity(intent);
+    }
+
+    public void openNetworkConnectionDemo(View view) {
+        Intent intent = new Intent(this, NetworkConnection.class);
         startActivity(intent);
     }
 }

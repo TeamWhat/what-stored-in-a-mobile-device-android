@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -30,13 +29,19 @@
             android:name=".preferences.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
-        <activity android:name=".ui.activities.DeviceData"
+        <activity
+            android:name=".ui.activities.DeviceData"
             android:label="@string/title_activity_device_data" >
         </activity>
+
         <service
             android:name=".data_handling.DataHandlerIntentService"
-            android:exported="false"
-            />
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.activities.NetworkConnection"
+            android:label="@string/title_activity_network_connection" >
+        </activity>
     </application>
 
 </manifest>

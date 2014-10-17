@@ -23,7 +23,7 @@ public class MainScreenTest extends ActivityUnitTestCase<MainScreen> {
         startActivity(mLaunchIntent, null, null);
         startQuestionsButton =
                 (Button) getActivity()
-                        .findViewById(R.id.startQuestionsButton);
+                        .findViewById(R.id.start_questions_button);
     }
 
 
