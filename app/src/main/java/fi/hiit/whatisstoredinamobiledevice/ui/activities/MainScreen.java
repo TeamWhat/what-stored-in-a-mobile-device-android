@@ -22,6 +22,11 @@ public class MainScreen extends Activity {
         t.setText(new UniqueIdentifier(this).identifier());
     }
 
+    public void testJSON() {
+        SQLiteDatabaseAccessor a = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(this));
+        JSONPackager jp = new JSONPackager();
+        jp.createJsonObjectFromData(a.getData(DeviceDataContract.ImageDataEntry.TABLE_NAME, ImageDataCollector.imageColumnNames, null));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
