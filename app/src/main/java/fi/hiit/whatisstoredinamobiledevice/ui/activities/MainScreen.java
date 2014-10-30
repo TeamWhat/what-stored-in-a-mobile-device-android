@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentService;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.JSON.JSONPackager;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 
@@ -20,6 +22,15 @@ public class MainScreen extends Activity {
         setContentView(R.layout.activity_main_screen);
         TextView t = (TextView)findViewById(R.id.uid);
         t.setText(new UniqueIdentifier(this).identifier());
+        Intent intent = new Intent(this, DataHandlerIntentService.class);
+        startService(intent);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        JSONPackager packager = new JSONPackager(this);
+        packager.createJsonObjectFromStoredData();
     }
 
     @Override

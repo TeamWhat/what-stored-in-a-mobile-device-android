@@ -28,7 +28,7 @@ public class UniqueIdentifierTest extends InstrumentationTestCase{
         identifier = new UniqueIdentifier(mockContext);
     }
 
-    public void testTesetTetsTestsTests() {
+    public void testUniqueIdentifierIsDifferentIfMacAddressChanges() {
         assertFalse(identifier.identifier().equals(identifier.identifier()));
     }
 }
