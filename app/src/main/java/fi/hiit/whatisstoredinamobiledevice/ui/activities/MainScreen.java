@@ -22,15 +22,6 @@ public class MainScreen extends Activity {
         setContentView(R.layout.activity_main_screen);
         TextView t = (TextView)findViewById(R.id.uid);
         t.setText(new UniqueIdentifier(this).identifier());
-        Intent intent = new Intent(this, DataHandlerIntentService.class);
-        startService(intent);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        JSONPackager packager = new JSONPackager(this);
-        packager.createJsonObjectFromStoredData();
     }
 
     @Override
