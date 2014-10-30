@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.android.volley.toolbox.Volley;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentService;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.JSON.JSONPackager;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 

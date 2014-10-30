@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DeviceInfoCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ImageDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
@@ -15,9 +16,11 @@ import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLi
 
 public class JSONPackager {
     private SQLiteDatabaseAccessor databaseAccessor;
+    private Context mContext;
 
     public JSONPackager(Context context) {
-        databaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(context));
+        mContext = context;
+        databaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(mContext));
     }
 
     public JSONObject createJsonObjectFromHashMap(HashMap<String, HashMap<String, String>> map) {
@@ -33,7 +36,7 @@ public class JSONPackager {
         return jsonData;
     }
 
-    public JSONObject createJsonObjectFromAllData() {
+    public JSONObject createJsonObjectFromStoredData() {
         JSONObject jsonData = new JSONObject();
 
         JSONObject deviceInfoJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, DeviceInfoCollector.deviceInfoColumnNames, null));
@@ -42,6 +45,7 @@ public class JSONPackager {
         try {
             jsonData.put(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, deviceInfoJson);
             jsonData.put(DeviceDataContract.ImageDataEntry.TABLE_NAME, imageDataJson);
+            jsonData.put("uid", new UniqueIdentifier(mContext).identifier());
         } catch (JSONException e) {
             e.printStackTrace();
         }
