@@ -16,7 +16,6 @@ public class JSONPackagerTest extends InstrumentationTestCase {
     private JSONObject joe;
 
     protected void setUp() {
-        TestSetup.setupMockito(this);
         jsonPackager = new JSONPackager(getInstrumentation().getTargetContext());
         testMap = new HashMap<String, HashMap<String, String>>();
         HashMap<String, String> innerTestMap = new HashMap<String, String>();
