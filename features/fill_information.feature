@@ -41,6 +41,7 @@ Feature: Fill information
     Then I press "Gender"
     Then I press "Female"
     Then I go back
+    Then I should see "Show device data"
     Then I press the menu key
     Then I press "Settings"
     Then I should see "Female"
