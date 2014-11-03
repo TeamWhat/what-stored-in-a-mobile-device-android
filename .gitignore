@@ -9,3 +9,4 @@
 screenshot*
 test_servers/
 *.iml
+.nfs*
