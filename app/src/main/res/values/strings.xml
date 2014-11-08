@@ -45,5 +45,6 @@
     <string name="network_connection_demo_button">Network connection demo</string>
     <string name="POST_message_hint_text">Write POST message here</string>
     <string name="post_button">Post</string>
+    <string name="device_data_send_data_button">Send data</string>
 
 </resources>

@@ -25,7 +25,7 @@ public class HttpPostHandler {
 
     public HttpPostHandler(Context mContext) {
         this.mStringDemoUrl = "http://pickingdigitalpockets.herokuapp.com/demos";
-        this.mJSONDemoUrl = "http://pickingdigitalpockets.herokuapp.com/demos";
+        this.mJSONDemoUrl = "insert_post_url_here";
         this.mContext = mContext;
     }
 
@@ -61,14 +61,15 @@ public class HttpPostHandler {
     }
 
     public boolean postTestJSON (final JSONObject jsonToSend) {
+        System.out.println(jsonToSend.toString());
         RequestQueue queue = Volley.newRequestQueue(mContext);
 
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, mStringDemoUrl, jsonToSend,
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, mJSONDemoUrl, jsonToSend,
 
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        System.out.print(jsonObject);
+         System.out.print(jsonObject.toString());
                     }
                 },
 

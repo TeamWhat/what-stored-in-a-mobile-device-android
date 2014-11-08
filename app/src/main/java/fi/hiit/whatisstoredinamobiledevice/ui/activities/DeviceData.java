@@ -9,15 +9,17 @@ import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
+
+import org.json.JSONObject;
 
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.concurrent.ExecutionException;
 
 import fi.hiit.whatisstoredinamobiledevice.DataResultReceiver;
 import fi.hiit.whatisstoredinamobiledevice.R;
@@ -27,15 +29,25 @@ import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DeviceI
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ImageDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
-import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
+import fi.hiit.whatisstoredinamobiledevice.network.HttpPostHandler;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 
 public class DeviceData extends Activity implements DataResultReceiver.Receiver {
+
+    private JSONPackager mJSONPackager;
+    private HttpPostHandler mHttpPOSTHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_data);
+        mJSONPackager = new JSONPackager(getApplicationContext());
+        mHttpPOSTHandler = new HttpPostHandler(getApplicationContext());
+
+        startDataCollectionIntent();
+    }
+
+    private void startDataCollectionIntent() {
         Intent intent = new Intent(this, DataHandlerIntentService.class);
         DataResultReceiver receiver = new DataResultReceiver(new Handler());
         receiver.setReceiver(this);
@@ -64,7 +76,8 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
 
     @Override
     public void onReceiveResult() {
-        queryDatabase();
+        setCollectedDataIntoTextView();
+        findViewById(R.id.device_data_send_data_button).setEnabled(true);
     }
 
     private Cursor getDeviceInfoCursor(SQLiteDatabase db) {
@@ -106,8 +119,8 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
     }
 
     // todo: change textview to real UI layout
-    public void queryDatabase() {
-        TextView deviceDataText = (TextView)findViewById(R.id.deviceDataText);
+    public void setCollectedDataIntoTextView() {
+        TextView deviceDataText = (TextView)findViewById(R.id.device_data_text);
         deviceDataText.setMovementMethod(new ScrollingMovementMethod());
         DeviceDataOpenHelper deviceDataOpenHelper = new DeviceDataOpenHelper(this);
         SQLiteDatabase db = deviceDataOpenHelper.getReadableDatabase();
@@ -225,5 +238,10 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
         textViewStrings.put("device-" + hashMapKey++, "");
 
         return textViewStrings;
+    }
+
+    public void sendCollectedDataToServer(View view) {
+        JSONObject collectedDataJSON = mJSONPackager.createJsonObjectFromStoredData();
+        mHttpPOSTHandler.postTestJSON(collectedDataJSON);
     }
 }
