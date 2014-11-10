@@ -30,7 +30,14 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_DATA_ADDED = "date_added";
         public static final String COLUMN_NAME_SIZE = "size";
         public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
+    }
 
+    public static abstract class ApplicationDataEntry implements BaseColumns {
+        public static final String TABLE_NAME = "application_info";
+        public static final String COLUMN_NAME_APPLICATION_LABEL = "application_label";
+        public static final String COLUMN_NAME_TARGET_SDK_VERSION = "target_sdk_version";
+        public static final String COLUMN_NAME_PERMISSION = "permission";
+        public static final String COLUMN_NAME_PROCESS_NAME = "process_name";
     }
 
     // todo: more tables here
