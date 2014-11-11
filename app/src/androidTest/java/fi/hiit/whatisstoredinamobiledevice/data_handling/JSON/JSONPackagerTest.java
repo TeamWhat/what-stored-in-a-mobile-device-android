@@ -38,5 +38,6 @@ public class JSONPackagerTest extends InstrumentationTestCase {
         assertTrue(jobj.has("image_info"));
         assertTrue(jobj.has("device_info"));
         assertTrue(jobj.has("personal_info"));
+        assertTrue(jobj.has("application_data"));
     }
 }
