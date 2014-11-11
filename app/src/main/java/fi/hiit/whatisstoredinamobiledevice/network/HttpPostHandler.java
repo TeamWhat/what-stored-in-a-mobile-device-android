@@ -60,7 +60,7 @@ public class HttpPostHandler {
         return true;
     }
 
-    public boolean postTestJSON (final JSONObject jsonToSend) {
+    public boolean postJSON(final JSONObject jsonToSend) {
         System.out.println(jsonToSend.toString());
         RequestQueue queue = Volley.newRequestQueue(mContext);
 

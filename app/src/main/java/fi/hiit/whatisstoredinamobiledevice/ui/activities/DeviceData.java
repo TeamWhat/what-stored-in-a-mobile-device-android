@@ -80,6 +80,11 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
         findViewById(R.id.device_data_send_data_button).setEnabled(true);
     }
 
+    public void sendCollectedDataToServer(View view) {
+        JSONObject collectedDataJSON = mJSONPackager.createJsonObjectFromStoredData();
+        mHttpPOSTHandler.postJSON(collectedDataJSON);
+    }
+
     private Cursor getDeviceInfoCursor(SQLiteDatabase db) {
         return getDataCursor(db, DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, DeviceInfoCollector.deviceInfoColumnNames, DeviceDataContract.DeviceInfoEntry.TABLE_NAME);
     }
@@ -240,8 +245,4 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
         return textViewStrings;
     }
 
-    public void sendCollectedDataToServer(View view) {
-        JSONObject collectedDataJSON = mJSONPackager.createJsonObjectFromStoredData();
-        mHttpPOSTHandler.postTestJSON(collectedDataJSON);
-    }
 }

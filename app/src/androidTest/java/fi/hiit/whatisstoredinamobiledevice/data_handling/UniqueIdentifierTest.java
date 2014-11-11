@@ -5,6 +5,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.test.InstrumentationTestCase;
 import android.test.mock.MockContext;
+import android.test.suitebuilder.annotation.MediumTest;
 
 import fi.hiit.whatisstoredinamobiledevice.testhelpers.TestSetup;
 
@@ -28,6 +29,7 @@ public class UniqueIdentifierTest extends InstrumentationTestCase{
         identifier = new UniqueIdentifier(mockContext);
     }
 
+    @MediumTest
     public void testUniqueIdentifierIsDifferentIfMacAddressChanges() {
         assertFalse(identifier.identifier().equals(identifier.identifier()));
     }
