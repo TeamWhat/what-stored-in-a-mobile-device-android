@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
-import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ApplicationDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 
 public class MainScreen extends Activity {
@@ -20,9 +19,7 @@ public class MainScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         TextView t = (TextView)findViewById(R.id.uid);
-        t.setText("Unique identifier: "+new UniqueIdentifier(this).identifier());
-        ApplicationDataCollector a = new ApplicationDataCollector(this);
-        a.getData();
+        t.setText("Unique identifier: " + new UniqueIdentifier(this).identifier());
     }
 
     @Override

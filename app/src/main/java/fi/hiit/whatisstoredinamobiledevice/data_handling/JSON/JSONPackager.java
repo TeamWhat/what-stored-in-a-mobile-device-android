@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ApplicationDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DeviceInfoCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ImageDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
@@ -44,10 +45,12 @@ public class JSONPackager {
 
         JSONObject deviceInfoJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, DeviceInfoCollector.deviceInfoColumnNames, null));
         JSONObject imageDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.ImageDataEntry.TABLE_NAME, ImageDataCollector.imageColumnNames, null));
+        JSONObject applicationDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.ApplicationDataEntry.TABLE_NAME, ApplicationDataCollector.applicationDataColumnNames, null));
 
         try {
             jsonData.put(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, deviceInfoJson);
             jsonData.put(DeviceDataContract.ImageDataEntry.TABLE_NAME, imageDataJson);
+            jsonData.put(DeviceDataContract.ApplicationDataEntry.TABLE_NAME, applicationDataJson);
             jsonData.put("uid", new UniqueIdentifier(mContext).identifier());
             jsonData.put("personal_info", createPersonalDataJSON());
         } catch (JSONException e) {

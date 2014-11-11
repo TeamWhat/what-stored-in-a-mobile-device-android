@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ApplicationDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DeviceInfoCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ImageDataCollector;
@@ -34,6 +35,7 @@ public class DataHandler {
         // Initialize data collectors and add them to the list, todo: later check preferences for each collector
         mCollectorList.add(new DeviceInfoCollector());
         mCollectorList.add(new ImageDataCollector(mIntentServiceContext));
+        mCollectorList.add(new ApplicationDataCollector(mIntentServiceContext));
     }
 
     private Map<String, Map<String, Map<String, String>>> goThroughCollectors() {

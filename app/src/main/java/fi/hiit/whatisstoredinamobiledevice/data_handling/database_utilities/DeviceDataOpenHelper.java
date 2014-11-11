@@ -40,6 +40,17 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE +
             " )";
 
+    private static final String CREATE_APPLICATION_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.ApplicationDataEntry.TABLE_NAME + " (" +
+            DeviceDataContract.ApplicationDataEntry._ID + PRIMARY_KEY_INIT + COMMA_SEP +
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_DATETIME + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_APPLICATION_LABEL + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_PACKAGE_NAME + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_FIRST_INSTALLED + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_VERSION_NAME + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_TARGET_SDK_VERSION + TEXT_TYPE +
+            " )";
+
     public DeviceDataOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -53,6 +64,7 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_DEVICE_INFO_TABLE);
         sqLiteDatabase.execSQL(CREATE_IMAGE_INFO_TABLE);
+        sqLiteDatabase.execSQL(CREATE_APPLICATION_DATA_TABLE);
     }
 
     @Override

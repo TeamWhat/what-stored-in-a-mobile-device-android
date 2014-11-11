@@ -2,6 +2,7 @@ package fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import java.util.HashMap;
@@ -9,10 +10,19 @@ import java.util.List;
 import java.util.Map;
 
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
+import fi.hiit.whatisstoredinamobiledevice.ui.activities.DeviceData;
 
 public class ApplicationDataCollector implements DataCollector {
     Context context;
     PackageManager packageManager;
+
+    public final static String[] applicationDataColumnNames = {
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_APPLICATION_LABEL,
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_PACKAGE_NAME,
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_FIRST_INSTALLED,
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_VERSION_NAME,
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_TARGET_SDK_VERSION
+    };
 
     public ApplicationDataCollector(Context appContext) {
         context = appContext;
@@ -21,23 +31,26 @@ public class ApplicationDataCollector implements DataCollector {
 
     @Override
     public Map<String, Map<String, String>> getData() {
-        // :todo Change to getinstalledpackages instead of apps
-        return putDataIntoHashMap(packageManager.getInstalledApplications(PackageManager.GET_META_DATA));
+        return putDataIntoHashMap(packageManager.getInstalledPackages(packageManager.GET_META_DATA));
     }
 
     @Override
     public String getTableNameForData() {
-        return null;
+        return DeviceDataContract.ApplicationDataEntry.TABLE_NAME;
     }
 
-    private Map putDataIntoHashMap(List<ApplicationInfo> appData) {
+    private Map putDataIntoHashMap(List<PackageInfo> appData) {
         HashMap<String, HashMap<String, String>> outerMap = new HashMap<String, HashMap<String, String>>();
-        for (ApplicationInfo app : appData) {
+        int dataCounter = 0;
+        for (PackageInfo app : appData) {
             HashMap<String, String> appDataMap = new HashMap<String, String>();
-            appDataMap.put(DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_TARGET_SDK_VERSION, Integer.toString(app.targetSdkVersion));
-            appDataMap.put(DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_PERMISSION, app.permission);
-            appDataMap.put(DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_PROCESS_NAME, app.processName);
-            outerMap.put(packageManager.getApplicationLabel(app).toString(), appDataMap);
+            appDataMap.put(DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_APPLICATION_LABEL, packageManager.getApplicationLabel(app.applicationInfo).toString());
+            appDataMap.put(DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_PACKAGE_NAME, app.packageName);
+            appDataMap.put(DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_FIRST_INSTALLED, Long.toString(app.firstInstallTime));
+            appDataMap.put(DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_VERSION_NAME, app.versionName);
+            appDataMap.put(DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_TARGET_SDK_VERSION, Integer.toString(app.applicationInfo.targetSdkVersion));
+            outerMap.put(Integer.toString(dataCounter), appDataMap);
+            dataCounter++;
         }
         return outerMap;
     }
