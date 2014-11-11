@@ -68,14 +68,17 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, datetime);
         for(String columnName : tableMap.get(tempRowIndex).keySet()) {
             // put time to all columns first, second row replaces time with correct data for all columns but datetime
-            values.put(columnName, tableMap.get(tempRowIndex).get(columnName));
+            if (columnName.equals(DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_TAKEN)) {
+                values.put(columnName, ""+(Long.parseLong(tableMap.get(tempRowIndex).get(columnName))/1000));
+            } else {
+                values.put(columnName, tableMap.get(tempRowIndex).get(columnName));
+            }
         }
     }
 
     private String datetime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
-        return dateFormat.format(date);
+        return date.getTime()/1000+"";
     }
 
     public HashMap<String, HashMap<String, String>> getData(String tablename, String[] projection, String sortOrder) {
