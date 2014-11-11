@@ -63,8 +63,10 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
     }
 
     private void insertValues(String tempRowIndex, Map<String, Map<String, String>> tableMap, ContentValues values) {
-        values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, datetime());
+        String time = datetime();
         for(String columnName : tableMap.get(tempRowIndex).keySet()) {
+            // put time to all columns first, second row replaces time with correct data for all columns but datetime
+            values.put(columnName, time);
             values.put(columnName, tableMap.get(tempRowIndex).get(columnName));
         }
     }

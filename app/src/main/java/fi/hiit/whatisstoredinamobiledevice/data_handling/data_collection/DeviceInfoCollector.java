@@ -13,7 +13,8 @@ public class DeviceInfoCollector implements DataCollector {
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE,
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL,
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT,
-            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL,
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME
     };
 
     @Override
