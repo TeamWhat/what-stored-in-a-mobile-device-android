@@ -13,8 +13,13 @@ import android.view.View;
 import android.widget.TextView;
 
 
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.HttpStack;
+import com.android.volley.toolbox.HurlStack;
+
 import org.json.JSONObject;
 
+import java.net.HttpURLConnection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,7 +47,7 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_data);
         mJSONPackager = new JSONPackager(getApplicationContext());
-        mHttpPOSTHandler = new HttpPostHandler(getApplicationContext());
+        mHttpPOSTHandler = new HttpPostHandler(getApplicationContext(), new HurlStack());
 
         startDataCollectionIntent();
     }

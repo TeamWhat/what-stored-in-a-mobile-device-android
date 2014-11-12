@@ -7,6 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -20,29 +21,33 @@ public class HttpPostHandler {
 
     private final String mStringDemoUrl;
     private final String mJSONDemoUrl;
+    private final HttpStack mHttpStack;
     private Context mContext;
 
 
-    public HttpPostHandler(Context mContext) {
+    public HttpPostHandler(Context context, HttpStack httpStack) {
         this.mStringDemoUrl = "http://pickingdigitalpockets.herokuapp.com/demos";
         this.mJSONDemoUrl = "insert_post_url_here";
-        this.mContext = mContext;
+        this.mContext = context;
+        this.mHttpStack = httpStack;
     }
 
 
     // http://www.itworld.com/article/2702452/development/how-to-send-a-post-request-with-google-volley-on-android.html
     public boolean postTestMessage(final String postMessage) {
-        RequestQueue queue = Volley.newRequestQueue(mContext);
+        final RequestQueue queue = Volley.newRequestQueue(mContext, mHttpStack);
 
         StringRequest sr = new StringRequest(Request.Method.POST, mStringDemoUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.print(response);
+                queue.stop();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 System.out.print(error);
+                queue.stop();
             }
         })
 
@@ -62,7 +67,7 @@ public class HttpPostHandler {
 
     public boolean postJSON(final JSONObject jsonToSend) {
         System.out.println(jsonToSend.toString());
-        RequestQueue queue = Volley.newRequestQueue(mContext);
+        RequestQueue queue = Volley.newRequestQueue(mContext, mHttpStack);
 
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, mJSONDemoUrl, jsonToSend,
 
