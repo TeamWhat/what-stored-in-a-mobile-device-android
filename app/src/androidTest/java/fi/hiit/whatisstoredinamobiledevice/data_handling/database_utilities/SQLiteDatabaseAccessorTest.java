@@ -54,14 +54,7 @@ public class SQLiteDatabaseAccessorTest extends InstrumentationTestCase {
         c.moveToFirst();
         assertTrue(c.getString(c.getColumnIndex(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND)).equals("testBrand"));
     }
-
-    public void testDeviceDataDateTime() {
-        databaseAccessor.saveAllData(hm);
-        Cursor c = readDeviceDataFromDatabase();
-        c.moveToFirst();
-        assertTrue(c.getString(c.getColumnIndex(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME)).matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}"));
-    }
-
+    
     public void testSaveAllDataReturnsFalseIfDataSavingFails() {
         HashMap<String, Map<String, Map<String, String>>> reallyBadMap = new HashMap<String, Map<String, Map<String, String>>>();
         HashMap<String, Map<String, String>> badMap = new HashMap<String, Map<String, String>>();
