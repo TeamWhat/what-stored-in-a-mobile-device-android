@@ -11,9 +11,12 @@ import android.widget.TextView;
 import com.android.volley.toolbox.Volley;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandler;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentService;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.JSON.JSONPackager;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 
 public class MainScreen extends Activity {
