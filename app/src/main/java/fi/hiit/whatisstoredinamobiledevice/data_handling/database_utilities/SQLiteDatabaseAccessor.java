@@ -68,7 +68,7 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, datetime);
         for(String columnName : tableMap.get(tempRowIndex).keySet()) {
             // put time to all columns first, second row replaces time with correct data for all columns but datetime
-            if (columnName.equals(DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_TAKEN)) {
+            if (columnName.equals(DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_TAKEN) && tableMap.get(tempRowIndex).get(columnName) != null) {
                 values.put(columnName, ""+(Long.parseLong(tableMap.get(tempRowIndex).get(columnName))/1000));
             } else {
                 values.put(columnName, tableMap.get(tempRowIndex).get(columnName));
