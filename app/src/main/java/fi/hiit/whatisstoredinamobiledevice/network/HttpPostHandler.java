@@ -27,9 +27,10 @@ public class HttpPostHandler {
 
     public HttpPostHandler(Context context, HttpStack httpStack) {
         this.mStringDemoUrl = "http://pickingdigitalpockets.herokuapp.com/demos";
-        this.mJSONDemoUrl = "insert_post_url_here";
         this.mContext = context;
         this.mHttpStack = httpStack;
+        this.mJSONDemoUrl = "http://128.214.166.142:3000/submit";
+
     }
 
 

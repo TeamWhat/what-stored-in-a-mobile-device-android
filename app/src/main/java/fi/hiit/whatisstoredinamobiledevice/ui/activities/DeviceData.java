@@ -187,7 +187,7 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
         HashMap<String, String> textViewStrings = new HashMap<String, String>();
 
         int hashMapKey = 0;
-        while (c.moveToNext()) {
+        do {
             String datetime = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME);
             String dateModified = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED);
             String size = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_SIZE);
@@ -201,17 +201,17 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
                 dateTaken = "0";
             }
 
-            textViewStrings.put("img-" + hashMapKey++, "Date collected: " + datetime);
+            textViewStrings.put("img-" + hashMapKey++, "Date collected: " + dateString(datetime, 1000));
             textViewStrings.put("img-" + hashMapKey++, "Size: " + Long.parseLong(size) * 1/1000 + "kB");
             textViewStrings.put("img-" + hashMapKey++, "Date modified: " + dateString(dateModified, 1000));
             textViewStrings.put("img-" + hashMapKey++, "Date added: " + dateString(dateAdded, 1000));
-            textViewStrings.put("img-" + hashMapKey++, "Date taken: " + dateString(dateTaken));
+            textViewStrings.put("img-" + hashMapKey++, "Date taken: " + dateString(dateTaken, 1000));
             textViewStrings.put("img-" + hashMapKey++, "Is private: " + isPrivate);
             textViewStrings.put("img-" + hashMapKey++, "Latitude: " + latitude);
             textViewStrings.put("img-" + hashMapKey++, "Longitude: " + longitude);
             textViewStrings.put("img-" + hashMapKey++, "");
             hashMapKey++;
-        }
+        } while (c.moveToNext());
 
         return textViewStrings;
     }
@@ -239,7 +239,7 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
         String serial = getStringFromCursor(c, DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL);
 
         int hashMapKey = 0;
-        textViewStrings.put("device-" + hashMapKey++, "Date collected: " + datetime);
+        textViewStrings.put("device-" + hashMapKey++, "Date collected: " + dateString(datetime, 1000));
         textViewStrings.put("device-" + hashMapKey++, "Brand: " + brand);
         textViewStrings.put("device-" + hashMapKey++, "Device: " + device);
         textViewStrings.put("device-" + hashMapKey++, "Model: " + model);

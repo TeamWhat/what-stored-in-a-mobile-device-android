@@ -40,18 +40,19 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
     }
 
     private boolean saveAll(Map<String, Map<String, Map<String, String>>> allDataMap) {
+        String datetime = datetime();
         for(String tableName : allDataMap.keySet()) {
             for(String tempRowIndex : allDataMap.get(tableName).keySet()) {
-                if (!saveRow(tableName, tempRowIndex, allDataMap.get(tableName))) return false;
+                if (!saveRow(tableName, tempRowIndex, allDataMap.get(tableName), datetime)) return false;
             }
         }
         return true;
     }
 
-    private boolean saveRow(String tableName, String tempRowIndex, Map<String, Map<String, String>> tableMap) {
+    private boolean saveRow(String tableName, String tempRowIndex, Map<String, Map<String, String>> tableMap, String datetime) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        insertValues(tempRowIndex, tableMap, values);
+        insertValues(tempRowIndex, tableMap, values, datetime);
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId;
@@ -62,17 +63,22 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         return newRowId != -1;
     }
 
-    private void insertValues(String tempRowIndex, Map<String, Map<String, String>> tableMap, ContentValues values) {
-        values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, datetime());
+    // Saves colmun values of a row
+    private void insertValues(String tempRowIndex, Map<String, Map<String, String>> tableMap, ContentValues values, String datetime) {
+        values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, datetime);
         for(String columnName : tableMap.get(tempRowIndex).keySet()) {
-            values.put(columnName, tableMap.get(tempRowIndex).get(columnName));
+            // put time to all columns first, second row replaces time with correct data for all columns but datetime
+            if (columnName.equals(DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_TAKEN)) {
+                values.put(columnName, ""+(Long.parseLong(tableMap.get(tempRowIndex).get(columnName))/1000));
+            } else {
+                values.put(columnName, tableMap.get(tempRowIndex).get(columnName));
+            }
         }
     }
 
     private String datetime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
-        return dateFormat.format(date);
+        return date.getTime()/1000+"";
     }
 
     public HashMap<String, HashMap<String, String>> getData(String tablename, String[] projection, String sortOrder) {
