@@ -30,11 +30,6 @@ public class JSONPackagerTest extends InstrumentationTestCase {
         assertTrue(joe != null);
     }
 
-    public void testJSONObjectFromHashMapHasCorrectData() {
-        String expectedJson = "{\"0\":{\"1\":\"2\",\"3\":\"4\"}}";
-        assertTrue(joe.toString().equals(expectedJson.toString()));
-    }
-
     public void testJSONObjectFromStoredData() {
         // todo:Change this when we add tables
         JSONObject jobj = jsonPackager.createJsonObjectFromStoredData();
