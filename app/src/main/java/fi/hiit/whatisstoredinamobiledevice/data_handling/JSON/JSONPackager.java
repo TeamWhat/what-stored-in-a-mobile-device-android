@@ -49,7 +49,7 @@ public class JSONPackager {
             jsonData.put(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, deviceInfoJson);
             jsonData.put(DeviceDataContract.ImageDataEntry.TABLE_NAME, imageDataJson);
             jsonData.put("uid", new UniqueIdentifier(mContext).identifier());
-            jsonData.put("personal_data", createPersonalDataJSON());
+            jsonData.put("personal_info", createPersonalDataJSON());
         } catch (JSONException e) {
             e.printStackTrace();
         }
