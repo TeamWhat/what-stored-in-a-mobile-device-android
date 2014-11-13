@@ -17,7 +17,7 @@ public class HttpPostTest extends InstrumentationTestCase {
     private MockHttpStack mMockHttpStack;
     private HttpPostHandler mHttpPostHandler;
 
-    private static String TEST_JSON_STRING = "";
+    private static String TEST_JSON_STRING = "{\"0\":{\"3\":\"4\",\"1\":\"2\"}}";
 
     @Override
     protected void setUp() throws Exception {
@@ -26,11 +26,6 @@ public class HttpPostTest extends InstrumentationTestCase {
         mHttpPostHandler = new HttpPostHandler(getInstrumentation().getTargetContext(), mMockHttpStack);
     }
 
-
-    @LargeTest
-    public void testHttpPostJSONSendsRequestToCorrectURL() {
-
-    }
     @LargeTest
     public void testHttpPostJSONSendsCorrectJSON() {
         JSONObject testPostJSON = null;
@@ -41,6 +36,7 @@ public class HttpPostTest extends InstrumentationTestCase {
         }
         mHttpPostHandler.postJSON(testPostJSON);
         // Wait here for response?
+        getInstrumentation().waitForIdleSync();
         assertEquals(testPostJSON.toString(), new String(mMockHttpStack.getLastPostBody()));
     }
 
