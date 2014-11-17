@@ -146,7 +146,7 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         getInstrumentation().waitForIdleSync();
 
         String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_AGE);
-        String valueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_under18_value);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_under18);
 
         assertEquals("Selecting age Under 18 was not saved in SharedPreferences", valueDefinedInXML, valueInSharedPrefs);
         getInstrumentation().waitForIdleSync();
@@ -158,7 +158,7 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         getInstrumentation().waitForIdleSync();
 
         String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_AGE);
-        String valueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_under18_value);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_under18);
 
         assertEquals("Selecting age Under 18 was not saved in SharedPreferences", valueDefinedInXML, valueInSharedPrefs);
         getInstrumentation().waitForIdleSync();
@@ -177,7 +177,7 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         getInstrumentation().waitForIdleSync();
 
         String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_AGE);
-        String valueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_over35_value);
+        String valueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_over35);
 
         assertFalse("Age Under 18 was selected, but Over 35 was saved in SharedPreferences", valueInSharedPrefs.equals(valueDefinedInXML));
         getInstrumentation().waitForIdleSync();
@@ -185,8 +185,8 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
     @MediumTest
     public void testAgeSelectionFirstUnder18ThenChangeOver35() {
-        String firstValueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_under18_value);
-        String secondValueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_over35_value);
+        String firstValueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_under18);
+        String secondValueDefinedInXML = getStringValueDefinedInXML(R.string.age_group_over35);
 
         mMua.selectUnder18();
         getInstrumentation().waitForIdleSync();

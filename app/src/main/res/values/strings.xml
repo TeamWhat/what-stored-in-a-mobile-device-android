@@ -24,10 +24,6 @@
     <string name="age_group_18to25">18–25</string>
     <string name="age_group_25to35">25–35</string>
     <string name="age_group_over35">Over 35</string>
-    <string name="age_group_under18_value">1</string>
-    <string name="age_group_18to25_value">2</string>
-    <string name="age_group_25to35_value">3</string>
-    <string name="age_group_over35_value">4</string>
     <string name="frequency_daily">Daily</string>
     <string name="frequency_weekly">Weekly</string>
     <string name="frequency_monthly">Monthly</string>
@@ -45,5 +41,6 @@
     <string name="network_connection_demo_button">Network connection demo</string>
     <string name="POST_message_hint_text">Write POST message here</string>
     <string name="post_button">Post</string>
+    <string name="device_data_send_data_button">Send data</string>
 
 </resources>

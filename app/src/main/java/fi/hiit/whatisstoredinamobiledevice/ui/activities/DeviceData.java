@@ -9,15 +9,22 @@ import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.HttpStack;
+import com.android.volley.toolbox.HurlStack;
+
+import org.json.JSONObject;
+
+import java.net.HttpURLConnection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.concurrent.ExecutionException;
 
 import fi.hiit.whatisstoredinamobiledevice.DataResultReceiver;
 import fi.hiit.whatisstoredinamobiledevice.R;
@@ -27,15 +34,25 @@ import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DeviceI
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ImageDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
-import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
+import fi.hiit.whatisstoredinamobiledevice.network.HttpPostHandler;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 
 public class DeviceData extends Activity implements DataResultReceiver.Receiver {
+
+    private JSONPackager mJSONPackager;
+    private HttpPostHandler mHttpPOSTHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_data);
+        mJSONPackager = new JSONPackager(getApplicationContext());
+        mHttpPOSTHandler = new HttpPostHandler(getApplicationContext(), new HurlStack());
+
+        startDataCollectionIntent();
+    }
+
+    private void startDataCollectionIntent() {
         Intent intent = new Intent(this, DataHandlerIntentService.class);
         DataResultReceiver receiver = new DataResultReceiver(new Handler());
         receiver.setReceiver(this);
@@ -64,7 +81,13 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
 
     @Override
     public void onReceiveResult() {
-        queryDatabase();
+        setCollectedDataIntoTextView();
+        findViewById(R.id.device_data_send_data_button).setEnabled(true);
+    }
+
+    public void sendCollectedDataToServer(View view) {
+        JSONObject collectedDataJSON = mJSONPackager.createJsonObjectFromStoredData();
+        mHttpPOSTHandler.postJSON(collectedDataJSON);
     }
 
     private Cursor getDeviceInfoCursor(SQLiteDatabase db) {
@@ -106,8 +129,8 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
     }
 
     // todo: change textview to real UI layout
-    public void queryDatabase() {
-        TextView deviceDataText = (TextView)findViewById(R.id.deviceDataText);
+    public void setCollectedDataIntoTextView() {
+        TextView deviceDataText = (TextView)findViewById(R.id.device_data_text);
         deviceDataText.setMovementMethod(new ScrollingMovementMethod());
         DeviceDataOpenHelper deviceDataOpenHelper = new DeviceDataOpenHelper(this);
         SQLiteDatabase db = deviceDataOpenHelper.getReadableDatabase();
@@ -164,7 +187,7 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
         HashMap<String, String> textViewStrings = new HashMap<String, String>();
 
         int hashMapKey = 0;
-        while (c.moveToNext()) {
+        do {
             String datetime = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME);
             String dateModified = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED);
             String size = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_SIZE);
@@ -178,17 +201,17 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
                 dateTaken = "0";
             }
 
-            textViewStrings.put("img-" + hashMapKey++, "Date collected: " + datetime);
+            textViewStrings.put("img-" + hashMapKey++, "Date collected: " + dateString(datetime, 1000));
             textViewStrings.put("img-" + hashMapKey++, "Size: " + Long.parseLong(size) * 1/1000 + "kB");
             textViewStrings.put("img-" + hashMapKey++, "Date modified: " + dateString(dateModified, 1000));
             textViewStrings.put("img-" + hashMapKey++, "Date added: " + dateString(dateAdded, 1000));
-            textViewStrings.put("img-" + hashMapKey++, "Date taken: " + dateString(dateTaken));
+            textViewStrings.put("img-" + hashMapKey++, "Date taken: " + dateString(dateTaken, 1000));
             textViewStrings.put("img-" + hashMapKey++, "Is private: " + isPrivate);
             textViewStrings.put("img-" + hashMapKey++, "Latitude: " + latitude);
             textViewStrings.put("img-" + hashMapKey++, "Longitude: " + longitude);
             textViewStrings.put("img-" + hashMapKey++, "");
             hashMapKey++;
-        }
+        } while (c.moveToNext());
 
         return textViewStrings;
     }
@@ -216,7 +239,7 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
         String serial = getStringFromCursor(c, DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL);
 
         int hashMapKey = 0;
-        textViewStrings.put("device-" + hashMapKey++, "Date collected: " + datetime);
+        textViewStrings.put("device-" + hashMapKey++, "Date collected: " + dateString(datetime, 1000));
         textViewStrings.put("device-" + hashMapKey++, "Brand: " + brand);
         textViewStrings.put("device-" + hashMapKey++, "Device: " + device);
         textViewStrings.put("device-" + hashMapKey++, "Model: " + model);
@@ -226,4 +249,5 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
 
         return textViewStrings;
     }
+
 }
