@@ -18,8 +18,6 @@ public class MainScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-        TextView t = (TextView)findViewById(R.id.uid);
-        t.setText("Unique identifier: " + new UniqueIdentifier(this).identifier());
     }
 
     @Override
@@ -49,18 +47,9 @@ public class MainScreen extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void openQuestions(View view) {
-        Intent intent = new Intent(this, Questions.class);
-        startActivity(intent);
-    }
-
     public void openDeviceData(View view) {
         Intent intent = new Intent(this, DeviceData.class);
         startActivity(intent);
     }
 
-    public void openNetworkConnectionDemo(View view) {
-        Intent intent = new Intent(this, NetworkConnection.class);
-        startActivity(intent);
-    }
 }
