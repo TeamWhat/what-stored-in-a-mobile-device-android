@@ -49,6 +49,14 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
         mHttpPOSTHandler = new HttpPostHandler(getApplicationContext(), new HurlStack());
 
         startDataCollectionIntent();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        JSONPackager j = new JSONPackager(this);
+        j.createJsonObjectFromStoredData();
     }
 
     private void startDataCollectionIntent() {

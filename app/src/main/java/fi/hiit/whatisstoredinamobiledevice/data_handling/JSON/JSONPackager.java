@@ -13,6 +13,7 @@ import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ApplicationDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DeviceInfoCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ImageDataCollector;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.MusicDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.TextDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
@@ -48,13 +49,14 @@ public class JSONPackager {
         JSONObject imageDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.ImageDataEntry.TABLE_NAME, ImageDataCollector.imageColumnNames, null));
         JSONObject applicationDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.ApplicationDataEntry.TABLE_NAME, ApplicationDataCollector.applicationDataColumnNames, null));
         JSONObject textDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.TextDataEntry.TABLE_NAME, TextDataCollector.textColumnNames, null));
-
+        JSONObject musicDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.MusicDataEntry.TABLE_NAME, MusicDataCollector.musicColumnNames, null));
 
         try {
             jsonData.put(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, deviceInfoJson);
             jsonData.put(DeviceDataContract.ImageDataEntry.TABLE_NAME, imageDataJson);
             jsonData.put(DeviceDataContract.ApplicationDataEntry.TABLE_NAME, applicationDataJson);
             jsonData.put(DeviceDataContract.TextDataEntry.TABLE_NAME, textDataJson);
+            jsonData.put(DeviceDataContract.MusicDataEntry.TABLE_NAME, musicDataJson);
             jsonData.put("uid", new UniqueIdentifier(mContext).identifier());
             jsonData.put("personal_info", createPersonalDataJSON());
         } catch (JSONException e) {
