@@ -185,8 +185,8 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
 
     private Map<String, String> getImageInfoTextViewStrings(Cursor c) {
         HashMap<String, String> textViewStrings = new HashMap<String, String>();
-
-        int hashMapKey = 0;
+        return textViewStrings;
+       /* int hashMapKey = 0;
         do {
             String datetime = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME);
             String dateModified = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED);
@@ -211,9 +211,9 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
             textViewStrings.put("img-" + hashMapKey++, "Longitude: " + longitude);
             textViewStrings.put("img-" + hashMapKey++, "");
             hashMapKey++;
-        } while (c.moveToNext());
+        } while (c.moveToNext());*/
 
-        return textViewStrings;
+       // return textViewStrings;
     }
 
     private String dateString(String value) {

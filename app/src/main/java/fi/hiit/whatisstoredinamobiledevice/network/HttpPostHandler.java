@@ -30,7 +30,7 @@ public class HttpPostHandler {
         this.mContext = context;
         this.mHttpStack = httpStack;
         // the ip of the server that should receive the json
-        this.mJSONDemoUrl = "http://0.0.0.0:3000/submit";
+        this.mJSONDemoUrl = "http://128.214.166.142:3000/submit";
 
     }
 
