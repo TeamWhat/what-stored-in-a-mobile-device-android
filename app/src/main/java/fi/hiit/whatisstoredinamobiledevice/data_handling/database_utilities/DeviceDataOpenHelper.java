@@ -49,6 +49,8 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_FIRST_INSTALLED + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_VERSION_NAME + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_TARGET_SDK_VERSION + TEXT_TYPE +
+            " )";
+
 
     private static final String CREATE_TEXT_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.TextDataEntry.TABLE_NAME + " (" +
             DeviceDataContract.TextDataEntry._ID + PRIMARY_KEY_INIT + COMMA_SEP +
