@@ -27,7 +27,7 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_IS_PRIVATE = "is_private";
         public static final String COLUMN_NAME_LATITUDE = "latitude";
         public static final String COLUMN_NAME_LONGITUDE = "longitude";
-        public static final String COLUMN_NAME_DATA_ADDED = "date_added";
+        public static final String COLUMN_NAME_DATE_ADDED = "date_added";
         public static final String COLUMN_NAME_SIZE = "size";
         public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
     }
@@ -41,6 +41,15 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_VERSION_NAME = "version_name";
         public static final String COLUMN_NAME_PACKAGE_NAME = "package_name";
         public static final String COLUMN_NAME_TARGET_SDK_VERSION = "target_sdk_version";
+    }
+
+    public static abstract class TextDataEntry implements BaseColumns {
+        public static final String TABLE_NAME = "text_data";
+        public static final String COLUMN_NAME_ENTRY_ID = "entry_id";
+        public static final String COLUMN_NAME_DATETIME = "datetime";
+        public static final String COLUMN_NAME_DATE_ADDED = "date_added";
+        public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
+        public static final String COLUMN_NAME_SIZE = "size";
     }
 
     // todo: more tables here

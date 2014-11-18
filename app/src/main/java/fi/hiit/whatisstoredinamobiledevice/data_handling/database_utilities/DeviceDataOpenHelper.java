@@ -35,7 +35,7 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.ImageDataEntry.COLUMN_NAME_IS_PRIVATE + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ImageDataEntry.COLUMN_NAME_LATITUDE + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ImageDataEntry.COLUMN_NAME_LONGITUDE + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATA_ADDED + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_ADDED + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ImageDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE +
             " )";
@@ -49,6 +49,14 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_FIRST_INSTALLED + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_VERSION_NAME + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_TARGET_SDK_VERSION + TEXT_TYPE +
+
+    private static final String CREATE_TEXT_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.TextDataEntry.TABLE_NAME + " (" +
+            DeviceDataContract.TextDataEntry._ID + PRIMARY_KEY_INIT + COMMA_SEP +
+            DeviceDataContract.TextDataEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.TextDataEntry.COLUMN_NAME_DATETIME + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.TextDataEntry.COLUMN_NAME_DATE_ADDED + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.TextDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.TextDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE +
             " )";
 
     public DeviceDataOpenHelper(Context context) {
@@ -65,6 +73,7 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_DEVICE_INFO_TABLE);
         sqLiteDatabase.execSQL(CREATE_IMAGE_INFO_TABLE);
         sqLiteDatabase.execSQL(CREATE_APPLICATION_DATA_TABLE);
+        sqLiteDatabase.execSQL(CREATE_TEXT_DATA_TABLE);
     }
 
     @Override

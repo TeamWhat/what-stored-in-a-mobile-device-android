@@ -13,13 +13,10 @@ import android.view.View;
 import android.widget.TextView;
 
 
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.HttpStack;
 import com.android.volley.toolbox.HurlStack;
 
 import org.json.JSONObject;
 
-import java.net.HttpURLConnection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,12 +25,14 @@ import java.util.TreeMap;
 
 import fi.hiit.whatisstoredinamobiledevice.DataResultReceiver;
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandler;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentService;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.JSON.JSONPackager;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DeviceInfoCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ImageDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
 import fi.hiit.whatisstoredinamobiledevice.network.HttpPostHandler;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 
@@ -191,7 +190,7 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
             String datetime = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME);
             String dateModified = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED);
             String size = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_SIZE);
-            String dateAdded = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATA_ADDED);
+            String dateAdded = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_ADDED);
             String dateTaken = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_TAKEN);
             String isPrivate = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_IS_PRIVATE);
             String latitude = getStringFromCursor(c, DeviceDataContract.ImageDataEntry.COLUMN_NAME_LATITUDE);
