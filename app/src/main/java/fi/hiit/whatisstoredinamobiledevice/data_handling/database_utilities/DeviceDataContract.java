@@ -50,6 +50,7 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_DATE_ADDED = "date_added";
         public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
         public static final String COLUMN_NAME_SIZE = "size";
+        public static final String COLUMN_NAME_MIME_TYPE = "mime_type";
     }
 
     // todo: more tables here

@@ -16,6 +16,7 @@ public class TextDataCollector extends MediaDataCollector {
                 DeviceDataContract.TextDataEntry.COLUMN_NAME_DATE_ADDED,
                 DeviceDataContract.TextDataEntry.COLUMN_NAME_DATE_MODIFIED,
                 DeviceDataContract.TextDataEntry.COLUMN_NAME_SIZE,
+                DeviceDataContract.TextDataEntry.COLUMN_NAME_MIME_TYPE,
                 DeviceDataContract.TextDataEntry.COLUMN_NAME_DATETIME
             };
 
@@ -23,7 +24,8 @@ public class TextDataCollector extends MediaDataCollector {
             {
                     MediaStore.Files.FileColumns.DATE_ADDED,
                     MediaStore.Files.FileColumns.DATE_MODIFIED,
-                    MediaStore.Files.FileColumns.SIZE
+                    MediaStore.Files.FileColumns.SIZE,
+                    MediaStore.Files.FileColumns.MIME_TYPE
             };
 
     @Override
@@ -38,13 +40,24 @@ public class TextDataCollector extends MediaDataCollector {
 
     @Override
     protected String getSelection() {
-        return MediaStore.Files.FileColumns.MIME_TYPE + "=?";
+        return MediaStore.Files.FileColumns.MIME_TYPE + "=? " +
+                "OR " + MediaStore.Files.FileColumns.MIME_TYPE + "=?" +
+                "OR " + MediaStore.Files.FileColumns.MIME_TYPE + "=?" +
+                "OR " + MediaStore.Files.FileColumns.MIME_TYPE + "=?" +
+                "OR " + MediaStore.Files.FileColumns.MIME_TYPE + "=?" +
+                "OR " + MediaStore.Files.FileColumns.MIME_TYPE + "=?";
     }
 
     @Override
     protected String[] getSelectionArgs() {
         String textMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("text");
-        return new String[]{ textMimeType };
+        String docMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("doc");
+        String docxMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("docx");
+        String pdfMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("pdf");
+        String odtMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("odt");
+        String rtfMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("rtf");
+
+        return new String[]{ textMimeType, docMimeType, docxMimeType, pdfMimeType, odtMimeType, rtfMimeType };
     }
 
     @Override

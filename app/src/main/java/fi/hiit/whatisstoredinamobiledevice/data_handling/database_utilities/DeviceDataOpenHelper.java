@@ -58,7 +58,8 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.TextDataEntry.COLUMN_NAME_DATETIME + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.TextDataEntry.COLUMN_NAME_DATE_ADDED + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.TextDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.TextDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE +
+            DeviceDataContract.TextDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.TextDataEntry.COLUMN_NAME_MIME_TYPE + TEXT_TYPE +
             " )";
 
     public DeviceDataOpenHelper(Context context) {
