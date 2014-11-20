@@ -82,8 +82,6 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
     public void onReceiveResult() {
         setCollectedDataIntoTextView();
         findViewById(R.id.device_data_send_data_button).setEnabled(true);
-        JSONPackager j = new JSONPackager(this);
-        j.createJsonObjectFromStoredData();
     }
 
     public void sendCollectedDataToServer(View view) {
