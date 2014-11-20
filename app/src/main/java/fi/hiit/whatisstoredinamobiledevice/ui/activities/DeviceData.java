@@ -49,14 +49,6 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
         mHttpPOSTHandler = new HttpPostHandler(getApplicationContext(), new HurlStack());
 
         startDataCollectionIntent();
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        JSONPackager j = new JSONPackager(this);
-        j.createJsonObjectFromStoredData();
     }
 
     private void startDataCollectionIntent() {
@@ -90,6 +82,8 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
     public void onReceiveResult() {
         setCollectedDataIntoTextView();
         findViewById(R.id.device_data_send_data_button).setEnabled(true);
+        JSONPackager j = new JSONPackager(this);
+        j.createJsonObjectFromStoredData();
     }
 
     public void sendCollectedDataToServer(View view) {

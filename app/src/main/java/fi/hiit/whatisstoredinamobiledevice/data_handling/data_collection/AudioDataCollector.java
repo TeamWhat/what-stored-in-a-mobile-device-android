@@ -13,7 +13,6 @@ public class AudioDataCollector extends MediaDataCollector {
 
     public static final String[] audioColumnNames =
             {
-                    DeviceDataContract.AudioDataEntry.COLUMN_NAME_DATETIME,
                     DeviceDataContract.AudioDataEntry.COLUMN_NAME_ALBUM,
                     DeviceDataContract.AudioDataEntry.COLUMN_NAME_ARTIST,
                     DeviceDataContract.AudioDataEntry.COLUMN_NAME_COMPOSER,
@@ -26,7 +25,8 @@ public class AudioDataCollector extends MediaDataCollector {
                     DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_MUSIC,
                     DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_NOTIFICATION,
                     DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_PODCAST,
-                    DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_RINGTONE
+                    DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_RINGTONE,
+                    DeviceDataContract.AudioDataEntry.COLUMN_NAME_DATETIME
             };
 
     public static String[] projection =

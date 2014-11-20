@@ -49,6 +49,11 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.AudioDataEntry.COLUMN_NAME_COMPOSER + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.AudioDataEntry.COLUMN_NAME_DURATION + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.AudioDataEntry.COLUMN_NAME_YEAR + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_ALARM + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_MUSIC + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_NOTIFICATION + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_PODCAST + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_RINGTONE + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.AudioDataEntry.COLUMN_NAME_DATE_ADDED + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.AudioDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.AudioDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE +

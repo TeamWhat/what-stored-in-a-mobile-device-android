@@ -41,11 +41,11 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_COMPOSER = "composer";
         public static final String COLUMN_NAME_DURATION = "duration";
         public static final String COLUMN_NAME_YEAR = "year";
-        public static final String COLUMN_NAME_IS_ALARM = "year";
-        public static final String COLUMN_NAME_IS_MUSIC = "year";
-        public static final String COLUMN_NAME_IS_NOTIFICATION = "year";
-        public static final String COLUMN_NAME_IS_PODCAST = "year";
-        public static final String COLUMN_NAME_IS_RINGTONE = "year";
+        public static final String COLUMN_NAME_IS_ALARM = "is_alarm";
+        public static final String COLUMN_NAME_IS_MUSIC = "is_music";
+        public static final String COLUMN_NAME_IS_NOTIFICATION = "is_notification";
+        public static final String COLUMN_NAME_IS_PODCAST = "is_podcast";
+        public static final String COLUMN_NAME_IS_RINGTONE = "is_ringtone";
         public static final String COLUMN_NAME_DATE_ADDED = "date_added";
         public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
         public static final String COLUMN_NAME_SIZE = "size";
