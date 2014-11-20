@@ -68,13 +68,21 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, datetime);
         for(String columnName : tableMap.get(tempRowIndex).keySet()) {
             // put time to all columns first, second row replaces time with correct data for all columns but datetime
-            if (columnName.equals(DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_TAKEN) && tableMap.get(tempRowIndex).get(columnName) != null) {
+            if (dateInWrongFormat(columnName, tableMap, tempRowIndex)) {
                 values.put(columnName, ""+(Long.parseLong(tableMap.get(tempRowIndex).get(columnName))/1000));
             } else {
                 values.put(columnName, tableMap.get(tempRowIndex).get(columnName));
             }
         }
     }
+
+    private boolean dateInWrongFormat(String columnName, Map<String, Map<String, String>> tableMap, String tempRowIndex) {
+        return tableMap.get(tempRowIndex).get(columnName) != null && (
+                columnName.equals(DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_TAKEN) ||
+                columnName.equals(DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_FIRST_INSTALLED)
+        );
+    }
+
 
     private String datetime() {
         Date date = new Date();
