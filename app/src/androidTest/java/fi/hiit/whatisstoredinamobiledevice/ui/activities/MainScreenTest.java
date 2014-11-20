@@ -9,7 +9,6 @@ import fi.hiit.whatisstoredinamobiledevice.R;
 
 public class MainScreenTest extends ActivityUnitTestCase<MainScreen> {
     private Intent mLaunchIntent;
-    private Button startQuestionsButton;
 
     public MainScreenTest() {
         super(MainScreen.class);
@@ -21,26 +20,18 @@ public class MainScreenTest extends ActivityUnitTestCase<MainScreen> {
         mLaunchIntent = new Intent(getInstrumentation()
                 .getTargetContext(), MainScreen.class);
         startActivity(mLaunchIntent, null, null);
-        startQuestionsButton =
-                (Button) getActivity()
-                        .findViewById(R.id.start_questions_button);
     }
 
-
-    @MediumTest
-    public void testOpenQuestionsOpensAnActivity() {
-        startQuestionsButton.performClick();
-
-        final Intent launchIntent = getStartedActivityIntent();
-
-        assertNotNull("Intent was null", launchIntent);
-
-        Intent questionsIntent = new Intent(getInstrumentation()
-                .getTargetContext(), Questions.class);
-        String launchName = launchIntent.getComponent().getClassName();
-        String questionsName = questionsIntent.getComponent().getClassName();
-        assertTrue("Expected " + questionsName + " got " + launchName, launchName.equals(questionsName));
-
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
     }
+
+//    todo: write feature tests for new mainscreen
+//    @MediumTest
+//    public void testOpenQuestionsOpensAnActivity() {
+//
+//
+//    }
 
 }
