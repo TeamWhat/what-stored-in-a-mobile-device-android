@@ -34,12 +34,13 @@ public class JSONPackagerTest extends InstrumentationTestCase {
         // todo:Change this when we add tables
         JSONObject jobj = jsonPackager.createJsonObjectFromStoredData();
 
-        assertTrue(jobj.length() == 6);
+        assertTrue(jobj.length() == 7);
         assertTrue(jobj.has("uid"));
         assertTrue(jobj.has("image_info"));
         assertTrue(jobj.has("device_info"));
         assertTrue(jobj.has("personal_info"));
         assertTrue(jobj.has("application_data"));
         assertTrue(jobj.has("text_data"));
+        assertTrue(jobj.has("audio_data"));
     }
 }

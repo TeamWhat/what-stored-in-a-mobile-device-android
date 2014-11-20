@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ApplicationDataCollector;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.AudioDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DeviceInfoCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ImageDataCollector;
@@ -38,6 +39,7 @@ public class DataHandler {
         mCollectorList.add(new ImageDataCollector(mIntentServiceContext));
         mCollectorList.add(new ApplicationDataCollector(mIntentServiceContext));
         mCollectorList.add(new TextDataCollector(mIntentServiceContext));
+        mCollectorList.add(new AudioDataCollector(mIntentServiceContext));
     }
 
     private Map<String, Map<String, Map<String, String>>> goThroughCollectors() {
