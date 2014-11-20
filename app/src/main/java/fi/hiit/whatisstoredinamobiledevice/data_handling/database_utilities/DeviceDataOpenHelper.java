@@ -40,18 +40,18 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE +
             " )";
 
-    private static final String CREATE_MUSIC_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.MusicDataEntry.TABLE_NAME + " (" +
-            DeviceDataContract.MusicDataEntry._ID + PRIMARY_KEY_INIT + COMMA_SEP +
-            DeviceDataContract.MusicDataEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.MusicDataEntry.COLUMN_NAME_DATETIME + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.MusicDataEntry.COLUMN_NAME_ALBUM + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.MusicDataEntry.COLUMN_NAME_ARTIST + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.MusicDataEntry.COLUMN_NAME_COMPOSER + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.MusicDataEntry.COLUMN_NAME_DURATION + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.MusicDataEntry.COLUMN_NAME_YEAR + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.MusicDataEntry.COLUMN_NAME_DATE_ADDED + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.MusicDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.MusicDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE +
+    private static final String CREATE_AUDIO_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.AudioDataEntry.TABLE_NAME + " (" +
+            DeviceDataContract.AudioDataEntry._ID + PRIMARY_KEY_INIT + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_DATETIME + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_ALBUM + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_ARTIST + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_COMPOSER + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_DURATION + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_YEAR + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_DATE_ADDED + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE +
             " )";
 
     private static final String CREATE_APPLICATION_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.ApplicationDataEntry.TABLE_NAME + " (" +
@@ -91,7 +91,7 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_IMAGE_INFO_TABLE);
         sqLiteDatabase.execSQL(CREATE_APPLICATION_DATA_TABLE);
         sqLiteDatabase.execSQL(CREATE_TEXT_DATA_TABLE);
-        sqLiteDatabase.execSQL(CREATE_MUSIC_DATA_TABLE);
+        sqLiteDatabase.execSQL(CREATE_AUDIO_DATA_TABLE);
     }
 
     @Override

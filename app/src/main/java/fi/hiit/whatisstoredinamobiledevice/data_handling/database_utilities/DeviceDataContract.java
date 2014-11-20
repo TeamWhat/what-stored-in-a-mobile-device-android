@@ -32,8 +32,8 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
     }
 
-    public static abstract class MusicDataEntry implements BaseColumns {
-        public static final String TABLE_NAME = "music_data";
+    public static abstract class AudioDataEntry implements BaseColumns {
+        public static final String TABLE_NAME = "audio_data";
         public static final String COLUMN_NAME_ENTRY_ID = "entry_id";
         public static final String COLUMN_NAME_DATETIME = "datetime";
         public static final String COLUMN_NAME_ALBUM = "album";
@@ -41,6 +41,11 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_COMPOSER = "composer";
         public static final String COLUMN_NAME_DURATION = "duration";
         public static final String COLUMN_NAME_YEAR = "year";
+        public static final String COLUMN_NAME_IS_ALARM = "year";
+        public static final String COLUMN_NAME_IS_MUSIC = "year";
+        public static final String COLUMN_NAME_IS_NOTIFICATION = "year";
+        public static final String COLUMN_NAME_IS_PODCAST = "year";
+        public static final String COLUMN_NAME_IS_RINGTONE = "year";
         public static final String COLUMN_NAME_DATE_ADDED = "date_added";
         public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
         public static final String COLUMN_NAME_SIZE = "size";
