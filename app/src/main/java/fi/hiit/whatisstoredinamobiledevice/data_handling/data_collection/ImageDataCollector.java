@@ -17,7 +17,7 @@ public class ImageDataCollector extends MediaDataCollector {
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_IS_PRIVATE,
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_LATITUDE,
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_LONGITUDE,
-                    DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATA_ADDED,
+                    DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_ADDED,
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_SIZE,
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED,
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME

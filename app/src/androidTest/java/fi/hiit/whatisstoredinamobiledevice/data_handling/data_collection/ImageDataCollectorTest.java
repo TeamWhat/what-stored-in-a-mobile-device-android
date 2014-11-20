@@ -28,7 +28,7 @@ public class ImageDataCollectorTest extends InstrumentationTestCase {
         File f = Environment.getExternalStorageDirectory();
         String outLocation = f.getAbsolutePath()+ "/Pictures/image.png";
         try {
-            copy(u.getEncodedPath(), outLocation);
+            copy(outLocation);
         } catch (IOException e1) {
             e1.printStackTrace();
         }
@@ -64,7 +64,7 @@ public class ImageDataCollectorTest extends InstrumentationTestCase {
         fail();
     }
 
-    public void copy(String src, String dst) throws IOException {
+    public void copy(String dst) throws IOException {
         InputStream in = getInstrumentation().getTargetContext().getResources().openRawResource(R.raw.image);
         OutputStream out = new FileOutputStream(dst);
 
