@@ -17,6 +17,7 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_MODEL = "model";
         public static final String COLUMN_NAME_PRODUCT = "product";
         public static final String COLUMN_NAME_SERIAL = "serial";
+        public static final String COLUMN_NAME_VERSION = "version";
     }
 
     public static abstract class ImageDataEntry implements BaseColumns {

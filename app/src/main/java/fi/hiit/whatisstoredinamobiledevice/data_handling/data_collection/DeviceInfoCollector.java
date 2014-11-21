@@ -14,6 +14,7 @@ public class DeviceInfoCollector implements DataCollector {
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL,
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT,
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL,
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_VERSION,
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME
     };
 
@@ -26,6 +27,7 @@ public class DeviceInfoCollector implements DataCollector {
         deviceInfoData.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL, Build.MODEL);
         deviceInfoData.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT, Build.PRODUCT);
         deviceInfoData.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL, Build.SERIAL);
+        deviceInfoData.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_VERSION, Build.VERSION.RELEASE);
         // outer hashmap for consistency with other collectors
         data.put("0", deviceInfoData);
         return data;
