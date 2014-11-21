@@ -35,9 +35,18 @@ public class MainScreen extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml
         int id = item.getItemId();
-        Intent selectedMenuOptionIntent = new Intent(this, SettingsActivity.class);
+        Intent selectedMenuOptionIntent = null;
+
+        switch (id) {
+            case R.id.action_settings: {
+                selectedMenuOptionIntent = new Intent(this, SettingsActivity.class);
+                break;
+            } case R.id.action_about: {
+                selectedMenuOptionIntent = new Intent(this, About.class);
+            }
+        }
         startActivity(selectedMenuOptionIntent);
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
     public void openQuestions(View view) {

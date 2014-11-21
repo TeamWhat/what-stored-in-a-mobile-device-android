@@ -42,5 +42,45 @@
     <string name="POST_message_hint_text">Write POST message here</string>
     <string name="post_button">Post</string>
     <string name="device_data_send_data_button">Send data</string>
+    <string name="action_about">About</string>
+    <string name="title_activity_about">About</string>
+    <string name="about" />
+
+    <string name="about_message">
+        &lt;h1&gt;Picking Digital Pockets (PDP)&lt;/h1&gt;
+
+        &lt;p&gt;
+            PDP is a free app that shows you the statistics of what type of content your mobile device stores.
+            PDP is developed as a part of PDP project, which is a research project by Aalto University and University of Helsinki.
+            PDP is supported by Academy of Finland between 2012-2015.
+        &lt;/p&gt;
+
+        &lt;p&gt;
+            PDP  collects following information about your device:
+        &lt;ul&gt;
+        &lt;li&gt;the unique device ID&lt;/li&gt;
+        &lt;li&gt;the firmware version and phone model&lt;/li&gt;
+        &lt;li&gt;number of files of each category (photo, music, text, video, application)&lt;/li&gt;
+        &lt;li&gt; user information (age, gender, country) (optional)&lt;/li&gt;
+        &lt;li&gt;e-mail (optional for those who want to participate in our lottery)&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;/p&gt;
+
+        &lt;p&gt;
+            The above information is hashed, e.g., we do not see the actual names or the content of the files
+            but only some names and generic information such as file size.
+            You can also see what is being collected and uploaded to our server by clicking on the file.
+        &lt;/p&gt;
+
+        &lt;p&gt;
+            We &lt;b&gt;DO NOT&lt;/b&gt; collect any private information about the user or the device.
+            The collected data will only be used for research purposes and can be shared publicly.
+        &lt;/p&gt;
+
+        &lt;p&gt;
+            If you have further questions, please visit our project page
+            &lt;a href=&quot;http://pdp.cs.helsink.fi/&quot;&gt;http://pdp.cs.helsink.fi/&lt;/a&gt;
+        &lt;/p&gt;
+    </string>
 
 </resources>
