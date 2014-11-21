@@ -10,11 +10,14 @@
     tools:context="fi.hiit.whatisstoredinamobiledevice.ui.activities.MainScreen">
 
     <Button
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/device_data_button"
-        android:id="@+id/open_device_data"
-        android:onClick="openDeviceData"
+        android:enabled="true"
+        android:onClick="collectAndSendDataToServer"
+        android:text="@string/main_screen_send_data_button"
+        android:id="@+id/main_screen_send_data_button"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

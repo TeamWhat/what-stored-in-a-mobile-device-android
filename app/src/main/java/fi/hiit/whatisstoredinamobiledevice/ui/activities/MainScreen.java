@@ -3,21 +3,36 @@ package fi.hiit.whatisstoredinamobiledevice.ui.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.HurlStack;
+
+import org.json.JSONObject;
+
+import fi.hiit.whatisstoredinamobiledevice.DataResultReceiver;
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentService;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.JSON.JSONPackager;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
+import fi.hiit.whatisstoredinamobiledevice.network.HttpPostHandler;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 
-public class MainScreen extends Activity {
+public class MainScreen extends Activity implements DataResultReceiver.Receiver {
+
+    private JSONPackager mJSONPackager;
+    private HttpPostHandler mHttpPOSTHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+
+        mJSONPackager = new JSONPackager(getApplicationContext());
+        mHttpPOSTHandler = new HttpPostHandler(getApplicationContext(), new HurlStack());
     }
 
     @Override
@@ -47,9 +62,25 @@ public class MainScreen extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void openDeviceData(View view) {
-        Intent intent = new Intent(this, DeviceData.class);
-        startActivity(intent);
+    private void startDataCollectionIntent() {
+        Intent intent = new Intent(this, DataHandlerIntentService.class);
+        DataResultReceiver receiver = new DataResultReceiver(new Handler());
+        receiver.setReceiver(this);
+        intent.putExtra("receiver", receiver);
+        startService(intent);
     }
 
+
+
+    public void collectAndSendDataToServer(View view) {
+        findViewById(R.id.main_screen_send_data_button).setEnabled(false);
+        startDataCollectionIntent();
+    }
+
+    @Override
+    public void onReceiveResult() {
+        findViewById(R.id.main_screen_send_data_button).setEnabled(true);
+        JSONObject collectedDataJSON = mJSONPackager.createJsonObjectFromStoredData();
+        mHttpPOSTHandler.postJSON(collectedDataJSON);
+    }
 }

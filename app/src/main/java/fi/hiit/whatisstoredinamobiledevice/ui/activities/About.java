@@ -19,7 +19,7 @@ public class About extends Activity {
         String mime = "text/html";
         String encoding = "utf-8";
 
-        WebView myWebView = (WebView)this.findViewById(R.id.webView);
+        WebView myWebView = (WebView)this.findViewById(R.id.web_view);
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.loadDataWithBaseURL(null, html, mime, encoding, null);
     }

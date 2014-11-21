@@ -29,10 +29,16 @@
             android:name="fi.hiit.whatisstoredinamobiledevice.ui.activities.DeviceData"
             android:label="@string/title_activity_device_data" >
         </activity>
+        <activity
+            android:name="fi.hiit.whatisstoredinamobiledevice.ui.activities.About"
+            android:label="@string/title_activity_about" >
+        </activity>
 
         <service
             android:name="fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentService"
             android:exported="false" />
+
+
 
     </application>
 

@@ -10,14 +10,7 @@
     android:id="@+id/deviceData"
     tools:context="fi.hiit.whatisstoredinamobiledevice.ui.activities.DeviceData">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:onClick="sendCollectedDataToServer"
-        android:text="@string/device_data_send_data_button"
-        android:id="@+id/device_data_send_data_button" />
+
 
     <TextView
         android:layout_width="fill_parent"

@@ -39,7 +39,7 @@
     <string name="loading_text_during_collection">Collecting data...</string>
     <string name="empty_string"></string>
 
-    <string name="device_data_send_data_button">Send data</string>
+    <string name="main_screen_send_data_button">Send data</string>
     <string name="settings_email_title">Email</string>
     <string name="action_about">About</string>
     <string name="title_activity_about">About</string>

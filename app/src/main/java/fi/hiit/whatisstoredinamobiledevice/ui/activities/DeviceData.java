@@ -81,7 +81,7 @@ public class DeviceData extends Activity implements DataResultReceiver.Receiver 
     @Override
     public void onReceiveResult() {
         setCollectedDataIntoTextView();
-        findViewById(R.id.device_data_send_data_button).setEnabled(true);
+       // findViewById(R.id.device_data_send_data_button).setEnabled(true);
     }
 
     public void sendCollectedDataToServer(View view) {
