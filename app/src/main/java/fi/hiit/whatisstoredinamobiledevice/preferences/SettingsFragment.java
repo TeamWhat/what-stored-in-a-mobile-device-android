@@ -2,6 +2,7 @@ package fi.hiit.whatisstoredinamobiledevice.preferences;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
 
@@ -12,10 +13,12 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     private ListPreference ageSettings;
     private ListPreference frequencySettings;
     private ListPreference countrySettings;
+    private EditTextPreference emailSettings;
 
     public static final String KEY_SETTINGS_USER_GENDER = "settings_user_gender";
     public static final String KEY_SETTINGS_USER_AGE = "settings_user_age";
     public static final String KEY_SETTINGS_USER_COUNTRY = "settings_user_country";
+    public static final String KEY_SETTINGS_USER_EMAIL = "settings_user_email";
 
     public static final String KEY_SETTINGS_ENABLE_DATA_SENDING = "settings_enable_data_sending";
     public static final String KEY_SETTINGS_DATA_SENDING_FREQUENCY = "settings_data_sending_frequency";
@@ -56,6 +59,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         ageSettings = (ListPreference) findPreference(KEY_SETTINGS_USER_AGE);
         countrySettings = (ListPreference) findPreference(KEY_SETTINGS_USER_COUNTRY);
         frequencySettings = (ListPreference) findPreference(KEY_SETTINGS_DATA_SENDING_FREQUENCY);
+        emailSettings = (EditTextPreference) findPreference(KEY_SETTINGS_USER_EMAIL);
     }
 
     private void setCurrentValuesForSettingsSummaries() {
@@ -63,6 +67,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         setListPreferenceSummary(ageSettings);
         setListPreferenceSummary(countrySettings);
         setListPreferenceSummary(frequencySettings);
+        emailSettings.setSummary(emailSettings.getText());
     }
 
     private void setListPreferenceSummary(ListPreference lp) {

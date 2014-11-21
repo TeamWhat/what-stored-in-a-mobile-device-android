@@ -27,6 +27,12 @@
             android:entryValues="@array/country_array_values"
             android:defaultValue="" />
 
+        <EditTextPreference
+            android:key="settings_user_email"
+            android:title="@string/settings_email_title"
+            android:id="@+id/settings_user_email_preference"
+            android:defaultValue="" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

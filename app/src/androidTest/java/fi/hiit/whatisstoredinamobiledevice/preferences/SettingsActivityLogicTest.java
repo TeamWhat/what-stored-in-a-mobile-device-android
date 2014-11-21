@@ -271,12 +271,6 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         getInstrumentation().waitForIdleSync();
     }
 
-
-    @MediumTest
-    public void testDataSendingIsDisabledByDefault() {
-        assertFalse("Data sending was not disabled by default (value not false in SharedPreferences)", mSharedPrefs.getBoolean(SettingsFragment.KEY_SETTINGS_ENABLE_DATA_SENDING, true));
-    }
-
     @MediumTest
     public void testDataSendingEnabledOptionIsSaved() {
         ensureCheckBoxCheckedAndSetSharedPrefsMutex();
