@@ -24,7 +24,8 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL + TEXT_TYPE +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_VERSION + TEXT_TYPE +
             " )";
 
     private static final String CREATE_IMAGE_INFO_TABLE = "CREATE TABLE " + DeviceDataContract.ImageDataEntry.TABLE_NAME + " (" +
