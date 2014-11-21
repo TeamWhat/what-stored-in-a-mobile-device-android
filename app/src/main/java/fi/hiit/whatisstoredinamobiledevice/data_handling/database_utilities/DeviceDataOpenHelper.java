@@ -60,6 +60,27 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.AudioDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE +
             " )";
 
+    private static final String CREATE_VIDEO_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.VideoDataEntry.TABLE_NAME + " (" +
+            DeviceDataContract.VideoDataEntry._ID + PRIMARY_KEY_INIT + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_DATETIME + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_ALBUM + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_ARTIST + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_CATEGORY + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_DURATION + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_IS_PRIVATE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_LANGUAGE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_LATITUDE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_LONGITUDE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_RESOLUTION + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_TAGS + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_DATE_TAKEN + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_DATE_ADDED + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE +
+            " )";
+
     private static final String CREATE_APPLICATION_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.ApplicationDataEntry.TABLE_NAME + " (" +
             DeviceDataContract.ApplicationDataEntry._ID + PRIMARY_KEY_INIT + COMMA_SEP +
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
@@ -98,6 +119,7 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_APPLICATION_DATA_TABLE);
         sqLiteDatabase.execSQL(CREATE_TEXT_DATA_TABLE);
         sqLiteDatabase.execSQL(CREATE_AUDIO_DATA_TABLE);
+        sqLiteDatabase.execSQL(CREATE_VIDEO_DATA_TABLE);
     }
 
     @Override
