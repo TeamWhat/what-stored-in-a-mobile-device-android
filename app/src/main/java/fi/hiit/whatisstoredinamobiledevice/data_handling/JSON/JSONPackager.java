@@ -2,6 +2,7 @@ package fi.hiit.whatisstoredinamobiledevice.data_handling.JSON;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.audiofx.BassBoost;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,6 +72,7 @@ public class JSONPackager {
             personalJSON.put("gender", s.getString(SettingsFragment.KEY_SETTINGS_USER_GENDER, "No gender selected"));
             personalJSON.put("age", s.getString(SettingsFragment.KEY_SETTINGS_USER_AGE, "No age selected"));
             personalJSON.put("country", s.getString(SettingsFragment.KEY_SETTINGS_USER_COUNTRY, "No country selected"));
+            personalJSON.put("email", s.getString(SettingsFragment.KEY_SETTINGS_USER_EMAIL, "No email entered"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

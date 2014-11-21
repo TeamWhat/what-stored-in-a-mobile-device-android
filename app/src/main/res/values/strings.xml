@@ -42,6 +42,7 @@
     <string name="POST_message_hint_text">Write POST message here</string>
     <string name="post_button">Post</string>
     <string name="device_data_send_data_button">Send data</string>
+    <string name="settings_email_title">Email</string>
     <string name="action_about">About</string>
     <string name="title_activity_about">About</string>
     <string name="about" />
