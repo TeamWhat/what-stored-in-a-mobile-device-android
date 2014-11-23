@@ -7,17 +7,16 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.android.volley.toolbox.HurlStack;
 
 import org.json.JSONObject;
 
-import fi.hiit.whatisstoredinamobiledevice.DataResultReceiver;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.DataResultReceiver;
 import fi.hiit.whatisstoredinamobiledevice.R;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentService;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.JSON.JSONPackager;
-import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
 import fi.hiit.whatisstoredinamobiledevice.network.HttpPostHandler;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 
@@ -25,11 +24,15 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
 
     private JSONPackager mJSONPackager;
     private HttpPostHandler mHttpPOSTHandler;
+    private ProgressBar mSendDataProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+
+        mSendDataProgressBar = (ProgressBar) findViewById(R.id.main_screen_send_data_progress_bar);
+        mSendDataProgressBar.setVisibility(View.INVISIBLE);
 
         mJSONPackager = new JSONPackager(getApplicationContext());
         mHttpPOSTHandler = new HttpPostHandler(getApplicationContext(), new HurlStack());
@@ -74,13 +77,17 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
 
     public void collectAndSendDataToServer(View view) {
         findViewById(R.id.main_screen_send_data_button).setEnabled(false);
+        mSendDataProgressBar.setVisibility(View.VISIBLE);
         startDataCollectionIntent();
     }
 
     @Override
     public void onReceiveResult() {
-        findViewById(R.id.main_screen_send_data_button).setEnabled(true);
         JSONObject collectedDataJSON = mJSONPackager.createJsonObjectFromStoredData();
         mHttpPOSTHandler.postJSON(collectedDataJSON);
+
+        // Buttons are enabled when http request is started, not when response is received
+        mSendDataProgressBar.setVisibility(View.INVISIBLE);
+        findViewById(R.id.main_screen_send_data_button).setEnabled(true);
     }
 }

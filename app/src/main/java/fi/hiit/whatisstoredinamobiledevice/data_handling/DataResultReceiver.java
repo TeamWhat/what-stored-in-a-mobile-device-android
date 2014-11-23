@@ -1,4 +1,4 @@
-package fi.hiit.whatisstoredinamobiledevice;
+package fi.hiit.whatisstoredinamobiledevice.data_handling;
 
 import android.os.Bundle;
 import android.os.Handler;

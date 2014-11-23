@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
-import fi.hiit.whatisstoredinamobiledevice.ui.activities.DeviceData;
 
 public class ApplicationDataCollector implements DataCollector {
     Context context;
