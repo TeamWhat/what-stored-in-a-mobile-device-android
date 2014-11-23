@@ -6,50 +6,25 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:id="@+id/mainScreen"
+    android:id="@+id/main_screen"
     tools:context="fi.hiit.whatisstoredinamobiledevice.ui.activities.MainScreen">
 
     <Button
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/questionnaire_button"
-        android:id="@+id/start_questions_button"
+        android:enabled="true"
+        android:onClick="collectAndSendDataToServer"
+        android:text="@string/main_screen_send_data_button"
+        android:id="@+id/main_screen_send_data_button"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="openQuestions"
-        android:layout_marginTop="90dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/device_data_button"
-        android:id="@+id/open_device_data"
-        android:onClick="openDeviceData"
-        android:layout_below="@+id/start_questions_button"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingStart="10dp"
-        android:paddingLeft="10dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp"
-        android:scrollbars = "vertical"
-        android:id="@+id/uid"
-        android:text="No id"
-        android:typeface="serif"
-        android:textSize="20sp"
-        />
-
-    <Button
+    <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/network_connection_demo_button"
-        android:id="@+id/open_network_connection_demo"
-        android:onClick="openNetworkConnectionDemo"
-        android:layout_below="@+id/open_device_data"
-        android:layout_alignLeft="@+id/start_questions_button"
-        android:layout_alignStart="@+id/start_questions_button" />
+        android:id="@+id/main_screen_send_data_progress_bar"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

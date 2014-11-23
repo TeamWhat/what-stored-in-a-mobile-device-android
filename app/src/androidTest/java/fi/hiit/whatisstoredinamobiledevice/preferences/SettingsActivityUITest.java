@@ -107,7 +107,7 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
     public void testFrequencyUnavailableIfCheckBoxNotSelected() {
         mua.ensureCheckBoxNotChecked();
         solo.clickOnText(getActivity().getString(R.string.settings_data_sending_frequency_title));
-        assertFalse(mua.checkTextDisplayed(R.string.frequency_daily) && mua.checkTextDisplayed(R.string.frequency_daily) && mua.checkTextDisplayed(R.string.frequency_monthly));
+        assertFalse(mua.checkTextDisplayed(R.string.frequency_daily) && mua.checkTextDisplayed(R.string.frequency_weekly) && mua.checkTextDisplayed(R.string.frequency_monthly));
     }
 
     @MediumTest
@@ -128,6 +128,13 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
 
         mua.selectWeekly();
         assertTrue(mua.checkTextDisplayed(R.string.frequency_weekly));
+    }
+
+    @MediumTest
+    public void testFrequencySummaryIsDailyByDefault() {
+        assertTrue(mua.checkTextDisplayed(R.string.frequency_daily));
+        mua.ensureCheckBoxChecked();
+        assertTrue(mua.checkTextDisplayed(R.string.frequency_daily));
     }
 
 }

@@ -2,6 +2,7 @@ package fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection;
 
 import android.database.Cursor;
 import android.test.InstrumentationTestCase;
+import android.test.mock.MockCursor;
 
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class MediaDataCollectorTest extends InstrumentationTestCase {
         TestSetup.setupMockito(this);
         imageDataCollector = new ImageDataCollector(getInstrumentation().getTargetContext());
         spyDC = spy(imageDataCollector);
-        Cursor cursor = mock(Cursor.class);
+        Cursor cursor = mock(MockCursor.class);
         when(spyDC.getCursor()).thenReturn(cursor);
 
         String[] columns = {"Kappa"};

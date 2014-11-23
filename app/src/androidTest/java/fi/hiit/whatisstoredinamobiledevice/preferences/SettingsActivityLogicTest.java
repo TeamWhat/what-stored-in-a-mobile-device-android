@@ -329,8 +329,8 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
     @MediumTest
     public void testDataSendingFrequencySettingDefaultValueCorrect() {
-        assertEquals("Data sending frequency default value was not an empty string",
-                getStringValueDefinedInXML(R.string.empty_string), getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY));
+        assertEquals("Data sending frequency default value was not an daily",
+                getStringValueDefinedInXML(R.string.frequency_daily_value), getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY));
     }
 
     @MediumTest

@@ -4,44 +4,42 @@
     <string name="app_name">What is stored in a mobile device</string>
     <string name="title_activity_main_screen">What is stored in a mobile device</string>
     <string name="action_settings">Settings</string>
-    <string name="questionnaire_button">First time settings demo</string>
-    <string name="title_activity_questions">Questions</string>
-    <string name="welcome_screen_gender">What is your gender?</string>
-    <string name="welcome_screen_age">How old are you?</string>
-    <string name="welcome_screen_message">Welcome to the app version 0.1</string>
+
     <string name="title_activity_settings">Settings</string>
     <string name="settings_gender_title">Gender</string>
     <string name="settings_user_info_title">Personal Information</string>
+
     <string name="settings_country_title">Country</string>
+
     <string name="gender_female">Female</string>
     <string name="gender_male">Male</string>
     <string name="gender_female_value">female</string>
     <string name="gender_male_value">male</string>
+
     <string name="settings_age_title">Age</string>
     <string name="settings_data_sending_title">Data sending</string>
     <string name="settings_data_sending_frequency_title">Data sending frequency</string>
+
     <string name="age_group_under18">Under 18</string>
     <string name="age_group_18to25">18–25</string>
     <string name="age_group_25to35">25–35</string>
     <string name="age_group_over35">Over 35</string>
+
     <string name="frequency_daily">Daily</string>
     <string name="frequency_weekly">Weekly</string>
     <string name="frequency_monthly">Monthly</string>
     <string name="frequency_daily_value">1</string>
     <string name="frequency_weekly_value">2</string>
     <string name="frequency_monthly_value">3</string>
+
     <string name="settings_enable_data_sending_title">Send anonymous data for research periodically</string>
-    <string name="skip_button">Skip</string>
+
     <string name="device_data_button">Show device data</string>
     <string name="title_activity_device_data">Device Data</string>
     <string name="loading_text_during_collection">Collecting data...</string>
     <string name="empty_string"></string>
-    <string name="title_activity_network_connection">NetworkConnection</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="network_connection_demo_button">Network connection demo</string>
-    <string name="POST_message_hint_text">Write POST message here</string>
-    <string name="post_button">Post</string>
-    <string name="device_data_send_data_button">Send data</string>
+
+    <string name="main_screen_send_data_button">Send data</string>
     <string name="settings_email_title">Email</string>
     <string name="action_about">About</string>
     <string name="title_activity_about">About</string>

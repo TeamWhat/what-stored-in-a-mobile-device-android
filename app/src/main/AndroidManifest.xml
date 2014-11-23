@@ -22,30 +22,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="fi.hiit.whatisstoredinamobiledevice.ui.activities.Questions"
-            android:label="@string/title_activity_questions" >
-        </activity>
-        <activity
-            android:name="fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity"
+            android:name=".preferences.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name="fi.hiit.whatisstoredinamobiledevice.ui.activities.DeviceData"
-            android:label="@string/title_activity_device_data" >
+            android:name="fi.hiit.whatisstoredinamobiledevice.ui.activities.About"
+            android:label="@string/title_activity_about" >
         </activity>
 
         <service
             android:name="fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentService"
             android:exported="false" />
 
-        <activity
-            android:name="fi.hiit.whatisstoredinamobiledevice.ui.activities.NetworkConnection"
-            android:label="@string/title_activity_network_connection" >
-        </activity>
-        <activity
-            android:name="fi.hiit.whatisstoredinamobiledevice.ui.activities.About"
-            android:label="@string/title_activity_about" >
-        </activity>
+
+
     </application>
 
 </manifest>
