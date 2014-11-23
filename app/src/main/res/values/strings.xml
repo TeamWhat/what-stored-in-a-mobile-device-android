@@ -118,5 +118,7 @@
     <string name="country">Country</string>
     <string name="email">Email</string>
     <string name="finish_button">Finish</string>
+    <string name="main_screen_data_not_sent">Data has not been sent</string>
+    <string name="main_screen_data_sent_once">Data has been sent once</string>
 
 </resources>

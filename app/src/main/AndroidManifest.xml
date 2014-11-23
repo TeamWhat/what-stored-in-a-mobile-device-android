@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -43,6 +44,10 @@
             android:name="fi.hiit.whatisstoredinamobiledevice.ui.activities.Graphs"
             android:label="@string/title_activity_graphs" >
         </activity>
+
+        <receiver android:name="fi.hiit.whatisstoredinamobiledevice.background_collecting.DataCollectionAlarmReceiver"></receiver>
+
+
     </application>
 
 </manifest>

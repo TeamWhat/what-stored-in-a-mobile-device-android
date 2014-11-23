@@ -13,7 +13,7 @@ public class DataResultReceiver extends ResultReceiver {
     }
 
     public interface Receiver {
-        public void onReceiveResult();
+        public void onReceiveDataCollectionResult();
     }
 
     public void setReceiver(Receiver receiver) {
@@ -23,7 +23,7 @@ public class DataResultReceiver extends ResultReceiver {
     @Override
     protected void onReceiveResult(int resultCode, Bundle resultData) {
         if (mDataReceiver != null) {
-            mDataReceiver.onReceiveResult();
+            mDataReceiver.onReceiveDataCollectionResult();
         }
     }
 }

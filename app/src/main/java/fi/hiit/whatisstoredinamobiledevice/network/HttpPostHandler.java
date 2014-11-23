@@ -3,7 +3,7 @@ package fi.hiit.whatisstoredinamobiledevice.network;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-
+import android.content.Intent;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -12,13 +12,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONObject;
+
 
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DatabaseAccessor;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
 import fi.hiit.whatisstoredinamobiledevice.ui.activities.MainScreen;
+
+
+import fi.hiit.whatisstoredinamobiledevice.background_collecting.DataCollectionAlarmReceiver;
 
 
 public class HttpPostHandler {
@@ -27,8 +30,8 @@ public class HttpPostHandler {
     private final String mJSONUrl;
     private final HttpStack mHttpStack;
     private Context mContext;
-    private DatabaseAccessor databaseAccessor;
     private MainScreen mMainScreen;
+    private DatabaseAccessor mDatabaseAccessor;
     private static final String TAG = "HttpPostHandler";
     public static final String SERVER_URL = "http://pdp.cs.helsinki.fi/";
 
@@ -40,35 +43,40 @@ public class HttpPostHandler {
         this.mJSONUrl = SERVER_URL + "submit";
     }
 
+
     public void setMainScreen(MainScreen m) {
         mMainScreen = m;
     }
 
+
+    // todo: check if you can stop the wakeful intent service as in this method
     /**
      * Post a JSON to the backend server
      * @param jsonToSend
      * @return
      */
-    public boolean postJSON(final JSONObject jsonToSend) {
-        final RequestQueue queue = Volley.newRequestQueue(mContext, mHttpStack);
 
+    public boolean postJSON(final JSONObject jsonToSend, final Intent intentToStop) {
+        final RequestQueue queue = Volley.newRequestQueue(mContext, mHttpStack);
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, mJSONUrl, jsonToSend,
 
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, "POST successful: " + response.toString());
+                        DataCollectionAlarmReceiver.completeWakefulIntent(intentToStop);
+                        Log.d(TAG, "POST successful, dataCollectionIntent: " + intentToStop);
                         queue.stop();
                         incrementDataSendCounter();
                         // Change sent flags to be sent
-                        databaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(mContext));
-                        databaseAccessor.setAllSent();
+                        mDatabaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(mContext));
+                        mDatabaseAccessor.setAllSent();
                     }
                 },
 
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+                        DataCollectionAlarmReceiver.completeWakefulIntent(intentToStop);
                         Log.d(TAG, "POST errored: " + volleyError);
                         queue.stop();
                     }
@@ -76,6 +84,7 @@ public class HttpPostHandler {
 
         setRequestTimeout(jsonRequest, POST_TIMEOUT_WAIT);
         queue.add(jsonRequest);
+        Log.d(TAG, "DATA POST SENT");
         return true;
     }
 
