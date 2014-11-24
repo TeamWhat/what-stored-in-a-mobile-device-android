@@ -28,7 +28,7 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_VERSION + TEXT_TYPE +
             " )";
 
-    private static final String CREATE_IMAGE_INFO_TABLE = "CREATE TABLE " + DeviceDataContract.ImageDataEntry.TABLE_NAME + " (" +
+    private static final String CREATE_IMAGE_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.ImageDataEntry.TABLE_NAME + " (" +
             DeviceDataContract.ImageDataEntry._ID + PRIMARY_KEY_INIT + COMMA_SEP +
             DeviceDataContract.ImageDataEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME + TEXT_TYPE + COMMA_SEP +
@@ -94,7 +94,7 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_DEVICE_INFO_TABLE);
-        sqLiteDatabase.execSQL(CREATE_IMAGE_INFO_TABLE);
+        sqLiteDatabase.execSQL(CREATE_IMAGE_DATA_TABLE);
         sqLiteDatabase.execSQL(CREATE_APPLICATION_DATA_TABLE);
         sqLiteDatabase.execSQL(CREATE_TEXT_DATA_TABLE);
         sqLiteDatabase.execSQL(CREATE_AUDIO_DATA_TABLE);
