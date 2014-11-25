@@ -29,8 +29,8 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_LATITUDE = "latitude";
         public static final String COLUMN_NAME_LONGITUDE = "longitude";
         public static final String COLUMN_NAME_DATE_ADDED = "date_added";
-        public static final String COLUMN_NAME_SIZE = "size";
         public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
+        public static final String COLUMN_NAME_SIZE = "size";
     }
 
     public static abstract class AudioDataEntry implements BaseColumns {
@@ -47,6 +47,27 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_IS_NOTIFICATION = "is_notification";
         public static final String COLUMN_NAME_IS_PODCAST = "is_podcast";
         public static final String COLUMN_NAME_IS_RINGTONE = "is_ringtone";
+        public static final String COLUMN_NAME_DATE_ADDED = "date_added";
+        public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
+        public static final String COLUMN_NAME_SIZE = "size";
+    }
+
+    public static abstract class VideoDataEntry implements BaseColumns {
+        public static final String TABLE_NAME = "video_data";
+        public static final String COLUMN_NAME_ENTRY_ID = "entry_id";
+        public static final String COLUMN_NAME_DATETIME = "datetime";
+        public static final String COLUMN_NAME_ALBUM = "album";
+        public static final String COLUMN_NAME_ARTIST = "artist";
+        public static final String COLUMN_NAME_CATEGORY = "category";
+        public static final String COLUMN_NAME_DESCRIPTION = "description";
+        public static final String COLUMN_NAME_DURATION = "duration";
+        public static final String COLUMN_NAME_IS_PRIVATE = "is_private";
+        public static final String COLUMN_NAME_LANGUAGE = "language";
+        public static final String COLUMN_NAME_LATITUDE = "latitude";
+        public static final String COLUMN_NAME_LONGITUDE = "longitude";
+        public static final String COLUMN_NAME_RESOLUTION = "resolution";
+        public static final String COLUMN_NAME_TAGS = "tags";
+        public static final String COLUMN_NAME_DATE_TAKEN = "date_taken";
         public static final String COLUMN_NAME_DATE_ADDED = "date_added";
         public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
         public static final String COLUMN_NAME_SIZE = "size";

@@ -15,6 +15,7 @@ import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.AudioDa
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DeviceInfoCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ImageDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.TextDataCollector;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.VideoDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
@@ -49,14 +50,16 @@ public class JSONPackager {
         JSONObject imageDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.ImageDataEntry.TABLE_NAME, ImageDataCollector.imageColumnNames, null));
         JSONObject applicationDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.ApplicationDataEntry.TABLE_NAME, ApplicationDataCollector.applicationDataColumnNames, null));
         JSONObject textDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.TextDataEntry.TABLE_NAME, TextDataCollector.textColumnNames, null));
-        JSONObject musicDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.AudioDataEntry.TABLE_NAME, AudioDataCollector.audioColumnNames, null));
+        JSONObject audioDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.AudioDataEntry.TABLE_NAME, AudioDataCollector.audioColumnNames, null));
+        JSONObject videoDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.VideoDataEntry.TABLE_NAME, VideoDataCollector.videoColumnNames, null));
 
         try {
             jsonData.put(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, deviceInfoJson);
             jsonData.put(DeviceDataContract.ImageDataEntry.TABLE_NAME, imageDataJson);
             jsonData.put(DeviceDataContract.ApplicationDataEntry.TABLE_NAME, applicationDataJson);
             jsonData.put(DeviceDataContract.TextDataEntry.TABLE_NAME, textDataJson);
-            jsonData.put(DeviceDataContract.AudioDataEntry.TABLE_NAME, musicDataJson);
+            jsonData.put(DeviceDataContract.AudioDataEntry.TABLE_NAME, audioDataJson);
+            jsonData.put(DeviceDataContract.VideoDataEntry.TABLE_NAME, videoDataJson);
             jsonData.put("uid", new UniqueIdentifier(mContext).identifier());
             jsonData.put("personal_info", createPersonalDataJSON());
         } catch (JSONException e) {

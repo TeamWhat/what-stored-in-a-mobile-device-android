@@ -7,8 +7,8 @@ import android.provider.MediaStore;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
 
 public class AudioDataCollector extends MediaDataCollector {
-    public AudioDataCollector(Context appContext) {
-        super(appContext);
+    public AudioDataCollector(Context context) {
+        super(context);
     }
 
     public static final String[] audioColumnNames =

@@ -7,8 +7,8 @@ import android.provider.MediaStore;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
 
 public class ImageDataCollector extends MediaDataCollector {
-    public ImageDataCollector(Context appContext) {
-        super(appContext);
+    public ImageDataCollector(Context context) {
+        super(context);
     }
 
     public static final String[] imageColumnNames =

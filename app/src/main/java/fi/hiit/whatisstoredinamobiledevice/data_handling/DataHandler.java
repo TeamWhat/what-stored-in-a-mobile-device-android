@@ -13,6 +13,7 @@ import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DataCol
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.DeviceInfoCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ImageDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.TextDataCollector;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.VideoDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DatabaseAccessor;
 
 public class DataHandler {
@@ -40,6 +41,7 @@ public class DataHandler {
         mCollectorList.add(new ApplicationDataCollector(mIntentServiceContext));
         mCollectorList.add(new TextDataCollector(mIntentServiceContext));
         mCollectorList.add(new AudioDataCollector(mIntentServiceContext));
+        mCollectorList.add(new VideoDataCollector(mIntentServiceContext));
     }
 
     private Map<String, Map<String, Map<String, String>>> goThroughCollectors() {
