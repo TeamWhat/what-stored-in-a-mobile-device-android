@@ -2,6 +2,7 @@ package fi.hiit.whatisstoredinamobiledevice.preferences;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
@@ -21,21 +22,19 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String KEY_SETTINGS_USER_EMAIL = "settings_user_email";
 
     public static final String KEY_SETTINGS_ENABLE_DATA_SENDING = "settings_enable_data_sending";
+    public static final String KEY_SETTINGS_ONLY_WIFI = "settings_only_wifi";
     public static final String KEY_SETTINGS_DATA_SENDING_FREQUENCY = "settings_data_sending_frequency";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
-
 
         setPreferenceItemsToFields();
 
         setCurrentValuesForSettingsSummaries();
-
     }
 
     @Override
@@ -67,6 +66,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         setListPreferenceSummary(ageSettings);
         setListPreferenceSummary(countrySettings);
         setListPreferenceSummary(frequencySettings);
+
         emailSettings.setSummary(emailSettings.getText());
     }
 

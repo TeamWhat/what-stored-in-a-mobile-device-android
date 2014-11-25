@@ -34,6 +34,8 @@
 
     <string name="settings_enable_data_sending_title">Send anonymous data for research periodically</string>
 
+    <string name="settings_only_wifi_title">Send data only when connected to WiFi</string>
+
     <string name="device_data_button">Show device data</string>
     <string name="title_activity_device_data">Device Data</string>
     <string name="loading_text_during_collection">Collecting data...</string>

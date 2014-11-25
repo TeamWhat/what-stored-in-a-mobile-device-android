@@ -95,11 +95,25 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
     }
 
     @MediumTest
+    public void testOnlyWifiCheckBoxIsShown() {
+        assertTrue(mua.checkTextDisplayed(R.string.settings_only_wifi_title));
+    }
+
+    @MediumTest
     public void testSendCheckBoxSavesSelectedOption() {
         mua.ensureCheckBoxNotChecked();
         assertFalse(solo.isCheckBoxChecked(0));
         solo.clickOnCheckBox(0);
         assertTrue(solo.isCheckBoxChecked(0));
+    }
+
+    @MediumTest
+    public void testOnlyWifiCheckBoxSavesSelectedOption() {
+        mua.ensureCheckBoxNotChecked();
+        assertFalse(solo.isCheckBoxChecked(1));
+        solo.clickOnCheckBox(0);
+        solo.clickOnCheckBox(1);
+        assertTrue(solo.isCheckBoxChecked(1));
     }
 
 
