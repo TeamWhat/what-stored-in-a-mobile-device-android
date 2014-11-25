@@ -8,7 +8,6 @@ public class Connectivity {
     Context context;
     NetworkInfo activeNetwork;
 
-
     public Connectivity(Context context) {
         this.context = context;
 
