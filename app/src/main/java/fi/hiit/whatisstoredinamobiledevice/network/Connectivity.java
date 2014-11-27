@@ -15,12 +15,7 @@ public class Connectivity {
         activeNetwork = cm.getActiveNetworkInfo();
     }
 
-    public boolean isConnected() {
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-
-        return isConnected;
-    }
+    public boolean isConnected() { return activeNetwork != null && activeNetwork.isConnectedOrConnecting(); }
 
     public boolean isWifi() {
         return activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
