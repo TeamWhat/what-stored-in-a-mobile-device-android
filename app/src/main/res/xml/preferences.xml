@@ -44,6 +44,12 @@
             android:id="@+id/settings_enable_data_sending_check_box"
             android:defaultValue="false" />
 
+        <CheckBoxPreference
+            android:key="settings_only_wifi"
+            android:title="@string/settings_only_wifi_title"
+            android:id="@+id/settings_only_wifi_check_box"
+            android:dependency="settings_enable_data_sending"
+            android:defaultValue="false" />
 
         <ListPreference
             android:key="settings_data_sending_frequency"
