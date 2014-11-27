@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 public class HttpPostHandler {
 
+    private static final int POST_TIMEOUT_WAIT = 60000;
     private final String mJSONUrl;
     private final HttpStack mHttpStack;
     private Context mContext;
@@ -52,18 +53,17 @@ public class HttpPostHandler {
                     }
                 });
 
-        Log.d(TAG, "Old timoout: " + jsonRequest.getTimeoutMs());
-        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
-                50000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Log.d(TAG, "New timoout: " + jsonRequest.getTimeoutMs());
-
-
+        setRequestTimeout(jsonRequest, POST_TIMEOUT_WAIT);
         queue.add(jsonRequest);
         return true;
     }
 
+    private void setRequestTimeout(Request request, int timeout) {
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                timeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
 
 
 }
