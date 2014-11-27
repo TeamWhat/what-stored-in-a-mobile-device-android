@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".preferences.SettingsActivity"
+            android:name="fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
@@ -34,8 +34,10 @@
             android:name="fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentService"
             android:exported="false" />
 
-
-
+        <activity
+            android:name="fi.hiit.whatisstoredinamobiledevice.ui.activities.Graphs"
+            android:label="@string/title_activity_graphs" >
+        </activity>
     </application>
 
 </manifest>
