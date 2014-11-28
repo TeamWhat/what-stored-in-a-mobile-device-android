@@ -2,12 +2,11 @@ package fi.hiit.whatisstoredinamobiledevice.data_handling.JSON;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.media.audiofx.BassBoost;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ApplicationDataCollector;
@@ -30,7 +29,7 @@ public class JSONPackager {
         databaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(mContext));
     }
 
-    public JSONObject createJsonObjectFromHashMap(HashMap<String, HashMap<String, String>> map) {
+    public JSONObject createJsonObjectFromMap(Map<String, Map<String, String>> map) {
         JSONObject jsonData = new JSONObject();
         for (String key : map.keySet()) {
             JSONObject innerData = new JSONObject(map.get(key));
@@ -46,12 +45,12 @@ public class JSONPackager {
     public JSONObject createJsonObjectFromStoredData() {
         JSONObject jsonData = new JSONObject();
 
-        JSONObject deviceInfoJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, DeviceInfoCollector.deviceInfoColumnNames, null));
-        JSONObject imageDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.ImageDataEntry.TABLE_NAME, ImageDataCollector.imageColumnNames, null));
-        JSONObject applicationDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.ApplicationDataEntry.TABLE_NAME, ApplicationDataCollector.applicationDataColumnNames, null));
-        JSONObject textDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.TextDataEntry.TABLE_NAME, TextDataCollector.textColumnNames, null));
-        JSONObject audioDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.AudioDataEntry.TABLE_NAME, AudioDataCollector.audioColumnNames, null));
-        JSONObject videoDataJson = createJsonObjectFromHashMap(databaseAccessor.getData(DeviceDataContract.VideoDataEntry.TABLE_NAME, VideoDataCollector.videoColumnNames, null));
+        JSONObject deviceInfoJson = createJsonObjectFromMap(databaseAccessor.getData(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, DeviceInfoCollector.deviceInfoColumnNames, null));
+        JSONObject imageDataJson = createJsonObjectFromMap(databaseAccessor.getData(DeviceDataContract.ImageDataEntry.TABLE_NAME, ImageDataCollector.imageColumnNames, null));
+        JSONObject applicationDataJson = createJsonObjectFromMap(databaseAccessor.getData(DeviceDataContract.ApplicationDataEntry.TABLE_NAME, ApplicationDataCollector.applicationDataColumnNames, null));
+        JSONObject textDataJson = createJsonObjectFromMap(databaseAccessor.getData(DeviceDataContract.TextDataEntry.TABLE_NAME, TextDataCollector.textColumnNames, null));
+        JSONObject audioDataJson = createJsonObjectFromMap(databaseAccessor.getData(DeviceDataContract.AudioDataEntry.TABLE_NAME, AudioDataCollector.audioColumnNames, null));
+        JSONObject videoDataJson = createJsonObjectFromMap(databaseAccessor.getData(DeviceDataContract.VideoDataEntry.TABLE_NAME, VideoDataCollector.videoColumnNames, null));
 
         try {
             jsonData.put(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, deviceInfoJson);

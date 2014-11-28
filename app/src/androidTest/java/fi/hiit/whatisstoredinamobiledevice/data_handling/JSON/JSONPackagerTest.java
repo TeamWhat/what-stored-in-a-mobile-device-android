@@ -8,7 +8,6 @@ import java.util.HashMap;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandler;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
-import fi.hiit.whatisstoredinamobiledevice.testhelpers.TestSetup;
 
 public class JSONPackagerTest extends InstrumentationTestCase {
     private HashMap<String, HashMap<String, String>> testMap;
@@ -22,7 +21,7 @@ public class JSONPackagerTest extends InstrumentationTestCase {
         innerTestMap.put("1", "2");
         innerTestMap.put("3", "4");
         testMap.put("0", innerTestMap);
-        joe = jsonPackager.createJsonObjectFromHashMap(testMap);
+        joe = jsonPackager.createJsonObjectFromMap(testMap);
         new DataHandler(getInstrumentation().getTargetContext(), new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(getInstrumentation().getTargetContext()))).collectAllData();
     }
 

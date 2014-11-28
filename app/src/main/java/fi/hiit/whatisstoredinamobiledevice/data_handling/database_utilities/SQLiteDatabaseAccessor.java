@@ -89,11 +89,12 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         return date.getTime()/1000+"";
     }
 
-    public HashMap<String, HashMap<String, String>> getData(String tablename, String[] projection, String sortOrder) {
+    @Override
+    public Map<String, Map<String, String>> getData(String tablename, String[] columnNames, String sortOrder) {
         db = mDeviceDataOpenHelper.getReadableDatabase();
         Cursor c = db.query(
                 tablename,
-                projection,
+                columnNames,
                 null,
                 null,
                 null,
@@ -103,8 +104,8 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         return putDataIntoHashMap(c);
     }
 
-    private HashMap<String, HashMap<String, String>> putDataIntoHashMap(Cursor cursor) {
-        HashMap<String, HashMap<String, String>> data = new HashMap<String, HashMap<String, String>>();
+    private Map<String, Map<String, String>> putDataIntoHashMap(Cursor cursor) {
+        Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
         int dataCounter = 0;
         while (cursor.moveToNext()) {
             data.put("" + dataCounter, getSingleObjectHashMap(cursor));
