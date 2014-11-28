@@ -22,9 +22,11 @@
     <string name="frequency_daily">Daily</string>
     <string name="frequency_weekly">Weekly</string>
     <string name="frequency_monthly">Monthly</string>
-    <string name="frequency_daily_value">1</string>
-    <string name="frequency_weekly_value">2</string>
-    <string name="frequency_monthly_value">3</string>
+
+    <string name="frequency_daily_value">86400000</string>
+    <string name="frequency_weekly_value">604800000</string>
+    <string name="frequency_monthly_value">2592000000</string>
+
     <string name="settings_enable_data_sending_title">Send anonymous data for research periodically</string>
     <string name="settings_only_wifi_title">Send data only when connected to WiFi</string>
 
@@ -36,7 +38,6 @@
     <string name="settings_email_title">Email</string>
     <string name="action_about">About</string>
     <string name="title_activity_about">About</string>
-    <string name="about"></string>
     <string name="about_message">
         &lt;h1>Picking Digital Pockets (PDP)&lt;/h1>
 
@@ -107,7 +108,6 @@
 
     <string name="main_screen_graph_button">Graphs</string>
     <string name="title_activity_graphs">Graphs</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_item_share">Share</string>
     <string name="skip_button">Next</string>
     <string name="title_activity_first_launch">Welcome</string>
@@ -120,5 +120,6 @@
     <string name="finish_button">Finish</string>
     <string name="main_screen_data_not_sent">Data has not been sent</string>
     <string name="main_screen_data_sent_once">Data has been sent once</string>
+
 
 </resources>

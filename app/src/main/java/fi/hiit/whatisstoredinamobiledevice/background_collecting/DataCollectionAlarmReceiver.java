@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.content.WakefulBroadcastReceiver;
@@ -17,6 +18,7 @@ import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentServic
 import fi.hiit.whatisstoredinamobiledevice.data_handling.DataResultReceiver;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.JSON.JSONPackager;
 import fi.hiit.whatisstoredinamobiledevice.network.HttpPostHandler;
+import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsFragment;
 
 public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implements DataResultReceiver.Receiver {
     private Context mContext;
@@ -68,6 +70,7 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
 
     // todo: Get datasending interval from settings
     private long getDataSendingInterval() {
-        return 30000;
+        SharedPreferences s = mContext.getApplicationContext().getSharedPreferences(mContext.getPackageName() + "_preferences", Context.MODE_PRIVATE);
+        return Long.parseLong(s.getString(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY, "86400000"));
     }
 }
