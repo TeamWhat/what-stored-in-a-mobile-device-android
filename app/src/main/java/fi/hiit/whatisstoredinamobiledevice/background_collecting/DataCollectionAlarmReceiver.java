@@ -14,15 +14,19 @@ import com.android.volley.toolbox.HurlStack;
 
 import org.json.JSONObject;
 
+import fi.hiit.whatisstoredinamobiledevice.data_handling.ConnectionChangeReceiver;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentService;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.DataResultReceiver;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.JSON.JSONPackager;
+import fi.hiit.whatisstoredinamobiledevice.network.Connectivity;
 import fi.hiit.whatisstoredinamobiledevice.network.HttpPostHandler;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsFragment;
 
 public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implements DataResultReceiver.Receiver {
     private Context mContext;
     private Intent mDataCollectionIntent;
+    private boolean isDataSent;
+    private ConnectionChangeReceiver mConnectionChangeReceiver;
 
     // The app's AlarmManager, which provides access to the system alarm services.
     private AlarmManager alarmMgr;
@@ -44,6 +48,7 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
     @Override
     public void onReceive(Context context, Intent intent) {
         System.out.println("ALARM TRIGGERED");
+        isDataSent = false;
         mContext = context;
         mDataCollectionIntent = getDataCollectionIntent(context);
         startWakefulService(context, mDataCollectionIntent);
@@ -52,11 +57,25 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
     @Override
     public void onReceiveDataCollectionResult() {
         System.out.println("DATA COLLECTED");
-        JSONPackager jsonPkgr= new JSONPackager(mContext);
-        HttpPostHandler httpPostHdlr = new HttpPostHandler(mContext, new HurlStack());
+        attemptDataSend();
+    }
 
-        JSONObject collectedDataJSON = jsonPkgr.createJsonObjectFromStoredData();
-        httpPostHdlr.postJSON(collectedDataJSON, mDataCollectionIntent);
+    private void attemptDataSend() {
+        Connectivity connectivity = new Connectivity(mContext);
+        if (connectivity.isConnected()) {
+            JSONPackager jsonPkgr= new JSONPackager(mContext);
+            HttpPostHandler httpPostHdlr = new HttpPostHandler(mContext, new HurlStack());
+
+            JSONObject collectedDataJSON = jsonPkgr.createJsonObjectFromStoredData();
+            httpPostHdlr.postJSON(collectedDataJSON, mDataCollectionIntent);
+
+        } else {
+            mConnectionChangeReceiver = new ConnectionChangeReceiver();
+        }
+    }
+
+    public static void clearConnectionChangeReceiver() {
+        
     }
 
 

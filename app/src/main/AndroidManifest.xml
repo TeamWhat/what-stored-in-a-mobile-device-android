@@ -47,6 +47,11 @@
 
         <receiver android:name="fi.hiit.whatisstoredinamobiledevice.background_collecting.DataCollectionAlarmReceiver"></receiver>
 
+        <receiver android:name="fi.hiit.whatisstoredinamobiledevice.data_handling.ConnectionChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 
