@@ -70,8 +70,23 @@
 
         &lt;p>
             If you have further questions, please visit our project page
-            &lt;a href="http://pdp.cs.helsink.fi/">http://pdp.cs.helsink.fi/&lt;/a>
-        &lt;/p></string>
+            &lt;a href="http://pdp.cs.helsinki.fi/">http://pdp.cs.helsinki.fi/&lt;/a>
+        &lt;/p>
+
+        &lt;p>
+            &lt;h4>The open source libraries used by this application:&lt;/h4>
+
+             &lt;ul>
+                &lt;li>
+                    &lt;a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart &lt;/a>
+                    © 2014 Philipp Jahoda. Licence: &lt;a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0&lt;/a>.
+                &lt;/li>
+            &lt;/ul>
+
+        &lt;/p>
+
+    </string>
+
     <string name="main_screen_graph_button">Graphs</string>
     <string name="title_activity_graphs">Graphs</string>
     <string name="hello_world">Hello world!</string>
