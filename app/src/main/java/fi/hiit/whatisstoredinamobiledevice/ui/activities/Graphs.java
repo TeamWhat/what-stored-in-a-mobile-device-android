@@ -38,19 +38,26 @@ public class Graphs extends Activity {
         yVals.add(new Entry(totalSize(DeviceDataContract.AudioDataEntry.TABLE_NAME, AudioDataCollector.audioColumnNames), 2));
         yVals.add(new Entry(totalSize(DeviceDataContract.TextDataEntry.TABLE_NAME, TextDataCollector.textColumnNames), 3));
         ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("Videos");
-        xVals.add("Images");
-        xVals.add("Audio");
-        xVals.add("Text files");
+        xVals.add("Videos (kB)");
+        xVals.add("Images (kB)");
+        xVals.add("Audio (kB)");
+        xVals.add("Text files (kB)");
 
         PieDataSet pieDataSet = new PieDataSet(yVals, "File sizes");
         int[] colorsi = new int[] {R.color.red, R.color.blue, R.color.yellow, R.color.green} ;
         pieDataSet.setColors(colorsi, this);
         PieData data = new PieData(xVals, pieDataSet);
+        pieChart.setDescription("");
         pieChart.setData(data);
 
     }
 
+    /**
+     *
+     * @param tableName
+     * @param columns
+     * @return Total size in kB
+     */
     private float totalSize(String tableName, String[] columns) {
         float size = 0;
         DatabaseAccessor databaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(this));
@@ -58,7 +65,7 @@ public class Graphs extends Activity {
         for(Map<String, String> m : map.values()) {
             size += Float.parseFloat(m.get("size"));
         }
-        return size;
+        return size / 1000;
     }
 }
 
