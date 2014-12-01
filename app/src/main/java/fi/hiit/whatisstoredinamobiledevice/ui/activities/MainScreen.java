@@ -81,6 +81,11 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
         startDataCollectionIntent();
     }
 
+    public void showGraphs(View view) {
+        Intent intent = new Intent(this, Graphs.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onReceiveResult() {
         JSONObject collectedDataJSON = mJSONPackager.createJsonObjectFromStoredData();

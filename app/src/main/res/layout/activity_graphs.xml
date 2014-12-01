@@ -1,0 +1,22 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/size_pie_chart"
+            android:layout_width="match_parent"
+            android:layout_height="500dp" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/count_pie_chart"
+            android:layout_width="match_parent"
+            android:layout_height="500dp" />
+
+    </LinearLayout>
+</ScrollView>
