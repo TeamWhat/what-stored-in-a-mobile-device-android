@@ -51,6 +51,20 @@ public class UniqueIdentifier {
         }
         byte[] digest = digester.digest();
 
-        return new String(digest);
+        return stringify(digest);
+    }
+
+    private String stringify(byte[] digest) {
+        String byteArrayAsString = "";
+        for(byte b : digest) {
+            byteArrayAsString += byteAsString(b);
+        }
+        return byteArrayAsString;
+    }
+
+    private String byteAsString(byte b) {
+        int i = Integer.parseInt("" + b);
+        i += 128;
+        return i + "";
     }
 }
