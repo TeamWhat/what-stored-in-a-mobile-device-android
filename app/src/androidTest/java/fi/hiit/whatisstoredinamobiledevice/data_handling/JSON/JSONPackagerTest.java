@@ -4,20 +4,21 @@ import android.test.InstrumentationTestCase;
 
 import org.json.JSONObject;
 import java.util.HashMap;
+import java.util.Map;
 
 import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandler;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
 
 public class JSONPackagerTest extends InstrumentationTestCase {
-    private HashMap<String, HashMap<String, String>> testMap;
+    private Map<String, Map<String, String>> testMap;
     private JSONPackager jsonPackager;
     private JSONObject joe;
 
     protected void setUp() {
         jsonPackager = new JSONPackager(getInstrumentation().getTargetContext());
-        testMap = new HashMap<String, HashMap<String, String>>();
-        HashMap<String, String> innerTestMap = new HashMap<String, String>();
+        testMap = new HashMap<String, Map<String, String>>();
+        Map<String, String> innerTestMap = new HashMap<String, String>();
         innerTestMap.put("1", "2");
         innerTestMap.put("3", "4");
         testMap.put("0", innerTestMap);
