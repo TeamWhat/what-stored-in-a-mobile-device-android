@@ -1,14 +1,11 @@
 package fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
-import android.webkit.HttpAuthHandler;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -91,30 +88,47 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
 
     @Override
     public Map<String, Map<String, String>> getData(String tablename, String[] columnNames, String sortOrder) {
-        db = mDeviceDataOpenHelper.getReadableDatabase();
-        Cursor c = db.query(
-                tablename,
-                columnNames,
-                null,
-                null,
-                null,
-                null,
-                sortOrder
-        );
-        return putDataIntoHashMap(c);
+        Cursor c = getCursor(tablename, columnNames, sortOrder, null, null);
+        return putDataIntoMap(c);
     }
 
-    private Map<String, Map<String, String>> putDataIntoHashMap(Cursor cursor) {
+    private Cursor getCursor(String tablename, String[] columnNames, String sortOrder, String selection, String limit) {
+        db = mDeviceDataOpenHelper.getReadableDatabase();
+        return db.query(
+                    tablename,
+                    columnNames,
+                    selection,
+                    null,
+                    null,
+                    null,
+                    sortOrder,
+                    limit
+            );
+    }
+
+    @Override
+    public Map<String, Map<String, String>> getLatestData(String tablename, String[] columnNames) {
+        String sortOrder = DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME + " DESC";
+        Cursor c = getCursor(tablename, new String[] {DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME}, sortOrder, null, "1");
+        c.moveToNext();
+        String latestDate = c.getString(0);
+        String latestDateQuery = "DATETIME = " + latestDate;
+        c = getCursor(tablename, columnNames, sortOrder, latestDateQuery, null);
+        return putDataIntoMap(c);
+    }
+
+    private Map<String, Map<String, String>> putDataIntoMap(Cursor cursor) {
         Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
         int dataCounter = 0;
-        while (cursor.moveToNext()) {
+        while(cursor.moveToNext()) {
             data.put("" + dataCounter, getSingleObjectHashMap(cursor));
             dataCounter++;
         }
+        db.close();
         return data;
     }
 
-    private HashMap<String, String> getSingleObjectHashMap(Cursor cursor) {
+    private Map<String, String> getSingleObjectHashMap(Cursor cursor) {
         HashMap<String, String> data = new HashMap<String, String>();
         for (int i=0; i< cursor.getColumnCount(); i++) {
             data.put(cursor.getColumnName(i), cursor.getString(cursor.getColumnIndex(cursor.getColumnName(i))));

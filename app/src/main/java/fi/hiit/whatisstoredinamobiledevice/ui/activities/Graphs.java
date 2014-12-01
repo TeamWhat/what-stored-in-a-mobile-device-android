@@ -61,7 +61,7 @@ public class Graphs extends Activity {
     private float totalSize(String tableName, String[] columns) {
         float size = 0;
         DatabaseAccessor databaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(this));
-        Map<String, Map<String, String>> map = databaseAccessor.getData(tableName, columns, null);
+        Map<String, Map<String, String>> map = databaseAccessor.getLatestData(tableName, columns);
         for(Map<String, String> m : map.values()) {
             size += Float.parseFloat(m.get("size"));
         }
