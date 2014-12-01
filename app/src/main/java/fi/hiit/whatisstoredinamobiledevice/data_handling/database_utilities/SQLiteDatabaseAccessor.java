@@ -82,6 +82,7 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
      */
     private void insertValues(String tempRowIndex, Map<String, Map<String, String>> tableMap, ContentValues values, String datetime) {
         values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, datetime);
+        values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT, 0);
         for(String columnName : tableMap.get(tempRowIndex).keySet()) {
             if (dateInWrongFormat(columnName, tableMap, tempRowIndex)) {
                 values.put(columnName, ""+(Long.parseLong(tableMap.get(tempRowIndex).get(columnName))/1000));
