@@ -90,5 +90,6 @@
     <string name="main_screen_graph_button">Graphs</string>
     <string name="title_activity_graphs">Graphs</string>
     <string name="hello_world">Hello world!</string>
+    <string name="menu_item_share">Share</string>
 
 </resources>

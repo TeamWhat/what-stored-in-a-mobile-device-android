@@ -1,7 +1,11 @@
 package fi.hiit.whatisstoredinamobiledevice.ui.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ShareActionProvider;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -12,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.AudioDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ImageDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.TextDataCollector;
@@ -22,6 +27,7 @@ import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.Devi
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
 
 public class Graphs extends Activity {
+    private ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,26 @@ public class Graphs extends Activity {
         setContentView(R.layout.activity_graphs);
         setSizePieChart();
         setCountPieChart();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.graphs, menu);
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        String urlToShare = "http://pdp.cs.helsinki.fi/shared/" + new UniqueIdentifier(this).identifier();
+        shareIntent.putExtra(Intent.EXTRA_TEXT, urlToShare);
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Check out what kind of data I have on my device!");
+        setShareIntent(shareIntent);
+        return true;
+    }
+
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
     }
 
     private void setSizePieChart() {
