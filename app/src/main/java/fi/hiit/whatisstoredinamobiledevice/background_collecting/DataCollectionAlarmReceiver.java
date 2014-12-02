@@ -61,18 +61,17 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
 
     public static void attemptDataSend(Context mContext, Intent mDataCollectionIntent) {
         Connectivity connectivity = new Connectivity(mContext);
-        if (connectivity.isConnected()) {
-            if (connectivity.isConnectedAndIsWifiIfOnlyWifiSet()) {
-                JSONPackager jsonPkgr = new JSONPackager(mContext);
-                HttpPostHandler httpPostHdlr = new HttpPostHandler(mContext, new HurlStack());
+        
+        if (connectivity.isConnectedAndIsWifiIfOnlyWifiSet()) {
+            JSONPackager jsonPkgr = new JSONPackager(mContext);
+            HttpPostHandler httpPostHdlr = new HttpPostHandler(mContext, new HurlStack());
 
-                JSONObject collectedDataJSON = jsonPkgr.createJsonObjectFromStoredData();
-                httpPostHdlr.postJSON(collectedDataJSON, mDataCollectionIntent);
+            JSONObject collectedDataJSON = jsonPkgr.createJsonObjectFromStoredData();
+            httpPostHdlr.postJSON(collectedDataJSON, mDataCollectionIntent);
 
-                System.out.println("Data sent");
+            System.out.println("Data sent");
 
-                setConnectivityChangeReceiverEnabled(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, mContext);
-            }
+            setConnectivityChangeReceiverEnabled(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, mContext);
         } else {
             setConnectivityChangeReceiverEnabled(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, mContext);
             ConnectivityChangeReceiver connChangeReceiver = new ConnectivityChangeReceiver();
@@ -103,7 +102,7 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            System.out.println("Connectivity change receiver");
+            System.out.println("Connectivity change receiver onReceive");
             attemptDataSend(context, dataCollectionIntent);
         }
     }
