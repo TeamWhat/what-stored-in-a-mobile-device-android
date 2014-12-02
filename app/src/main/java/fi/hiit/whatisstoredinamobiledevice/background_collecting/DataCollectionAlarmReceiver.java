@@ -1,6 +1,5 @@
 package fi.hiit.whatisstoredinamobiledevice.background_collecting;
 
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -11,6 +10,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.preference.CheckBoxPreference;
+import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.android.volley.toolbox.HurlStack;
@@ -28,7 +29,6 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
     private Context mContext;
     private Intent mDataCollectionIntent;
 
-    // The app's AlarmManager, which provides access to the system alarm services.
     private AlarmManager alarmMgr;
     // The pending intent that is triggered when the alarm fires.
     private PendingIntent dataCollectionPendingIntent;
@@ -56,24 +56,23 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
     @Override
     public void onReceiveDataCollectionResult() {
         System.out.println("DATA COLLECTED");
-        if (mDataCollectionIntent == null) {
-            new String();
-        }
         attemptDataSend(mContext, mDataCollectionIntent);
     }
 
     public static void attemptDataSend(Context mContext, Intent mDataCollectionIntent) {
         Connectivity connectivity = new Connectivity(mContext);
         if (connectivity.isConnected()) {
-            JSONPackager jsonPkgr= new JSONPackager(mContext);
-            HttpPostHandler httpPostHdlr = new HttpPostHandler(mContext, new HurlStack());
+            if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean("settings_only_wifi", true)) {
+                JSONPackager jsonPkgr = new JSONPackager(mContext);
+                HttpPostHandler httpPostHdlr = new HttpPostHandler(mContext, new HurlStack());
 
-            JSONObject collectedDataJSON = jsonPkgr.createJsonObjectFromStoredData();
-            httpPostHdlr.postJSON(collectedDataJSON, mDataCollectionIntent);
+                JSONObject collectedDataJSON = jsonPkgr.createJsonObjectFromStoredData();
+                httpPostHdlr.postJSON(collectedDataJSON, mDataCollectionIntent);
 
-            System.out.println("Data sent");
+                System.out.println("Data sent");
 
-            setConnectivityChangeReceiverEnabled(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, mContext);
+                setConnectivityChangeReceiverEnabled(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, mContext);
+            }
         } else {
             setConnectivityChangeReceiverEnabled(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, mContext);
             ConnectivityChangeReceiver connChangeReceiver = new ConnectivityChangeReceiver();
@@ -125,6 +124,6 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
  //   }
     private long getDataSendingInterval() {
         SharedPreferences s = mContext.getApplicationContext().getSharedPreferences(mContext.getPackageName() + "_preferences", Context.MODE_PRIVATE);
-        return Long.parseLong("60000");
+        return Long.parseLong("100000");
     }
 }

@@ -3,6 +3,7 @@ package fi.hiit.whatisstoredinamobiledevice.network;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 
 public class Connectivity {
     Context context;
@@ -19,5 +20,18 @@ public class Connectivity {
 
     public boolean isWifi() {
         return activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+    }
+
+    public boolean isConnectedAndIsWifiIfOnlyWifiSet() {
+        if (isConnected()) {
+            if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("settings_only_wifi", false)) {
+                if (isWifi()) {
+                    return true;
+                }
+            }else {
+                return true;
+            }
+        }
+        return false;
     }
 }
