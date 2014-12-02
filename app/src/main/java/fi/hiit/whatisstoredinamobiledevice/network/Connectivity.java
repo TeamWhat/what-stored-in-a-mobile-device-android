@@ -24,11 +24,9 @@ public class Connectivity {
 
     public boolean isConnectedAndIsWifiIfOnlyWifiSet() {
         if (isConnected()) {
-            if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("settings_only_wifi", false)) {
-                if (isWifi()) {
-                    return true;
-                }
-            }else {
+            if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("settings_only_wifi", false) && isWifi()) {
+                return true;
+            }else if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean("settings_only_wifi", false)) {
                 return true;
             }
         }

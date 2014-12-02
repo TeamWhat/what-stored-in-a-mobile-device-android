@@ -62,7 +62,7 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
     public static void attemptDataSend(Context mContext, Intent mDataCollectionIntent) {
         Connectivity connectivity = new Connectivity(mContext);
         if (connectivity.isConnected()) {
-            if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean("settings_only_wifi", true)) {
+            if (connectivity.isConnectedAndIsWifiIfOnlyWifiSet()) {
                 JSONPackager jsonPkgr = new JSONPackager(mContext);
                 HttpPostHandler httpPostHdlr = new HttpPostHandler(mContext, new HurlStack());
 
