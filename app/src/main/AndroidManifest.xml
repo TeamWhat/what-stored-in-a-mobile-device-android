@@ -48,11 +48,14 @@
 
         <receiver android:name="fi.hiit.whatisstoredinamobiledevice.background_collecting.DataCollectionAlarmReceiver"></receiver>
 
-        <receiver android:name="fi.hiit.whatisstoredinamobiledevice.background_collecting.DataCollectionAlarmReceiver$ConnectivityChangeReceiver">
+        <receiver android:name="fi.hiit.whatisstoredinamobiledevice.network.ConnectivityChangeReceiver" android:enabled="false">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
+
+
+        <service android:name=".background_collecting.SendDataIntentService" />
 
     </application>
 

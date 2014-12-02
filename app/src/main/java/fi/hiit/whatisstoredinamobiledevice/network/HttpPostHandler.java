@@ -2,6 +2,7 @@ package fi.hiit.whatisstoredinamobiledevice.network;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.util.Log;
 import android.content.Intent;
 import com.android.volley.DefaultRetryPolicy;
@@ -26,8 +27,8 @@ import fi.hiit.whatisstoredinamobiledevice.background_collecting.DataCollectionA
 
 public class HttpPostHandler {
 
+    private String mJSONUrl;
     private static final int POST_TIMEOUT_WAIT = 60000;
-    private final String mJSONUrl;
     private final HttpStack mHttpStack;
     private Context mContext;
     private MainScreen mMainScreen;
@@ -63,28 +64,33 @@ public class HttpPostHandler {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        DataCollectionAlarmReceiver.setConnectivityChangeReceiverEnabled(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, mContext);
+                        ConnectivityChangeReceiver.completeWakefulIntent(intentToStop);
                         DataCollectionAlarmReceiver.completeWakefulIntent(intentToStop);
-                        Log.d(TAG, "POST successful, dataCollectionIntent: " + intentToStop);
                         queue.stop();
                         incrementDataSendCounter();
                         // Change sent flags to be sent
                         mDatabaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(mContext));
                         mDatabaseAccessor.setAllSent();
+                        System.out.println("SUCCESSFUL RESPONSE, CCR DISABLED: " + DataCollectionAlarmReceiver.isConnectivityChangeReceiverEnabled(mContext) + ", INTENT STOPPED: " + intentToStop);
                     }
                 },
 
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
+
+                        ConnectivityChangeReceiver.completeWakefulIntent(intentToStop);
                         DataCollectionAlarmReceiver.completeWakefulIntent(intentToStop);
-                        Log.d(TAG, "POST errored: " + volleyError);
                         queue.stop();
+                        System.out.println("ERRORED RESPONSE: " + volleyError
+                                + "\nINTENT STOPPED: " + intentToStop);
                     }
                 });
 
         setRequestTimeout(jsonRequest, POST_TIMEOUT_WAIT);
         queue.add(jsonRequest);
-        Log.d(TAG, "DATA POST SENT");
+        Log.d(TAG, "DATA POST SENT BY VOLLEY");
         return true;
     }
 

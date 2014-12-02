@@ -16,6 +16,7 @@ public class DataHandlerIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        System.out.println("DATA COLLECTION STARTED");
         DataHandler dataHandler = new DataHandler(this, new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(this)));
         // todo: handle return value
         dataHandler.collectAllData();
