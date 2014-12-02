@@ -87,7 +87,7 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
                 PackageManager.DONT_KILL_APP);
     }
 
-    // return 1 for enabled, 2 for disabled
+    // return 1 for enabled, 2 for disabled - FOR DEBUG
     public static int isConnectivityChangeReceiverEnabled(Context context) {
         ComponentName componentName = new ComponentName(context, ConnectivityChangeReceiver.class);
         PackageManager pm = context.getPackageManager();
