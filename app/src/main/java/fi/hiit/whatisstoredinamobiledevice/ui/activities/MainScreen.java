@@ -2,6 +2,7 @@ package fi.hiit.whatisstoredinamobiledevice.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -29,6 +30,7 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firstTimeSettings();
         setContentView(R.layout.activity_main_screen);
 
         mSendDataProgressBar = (ProgressBar) findViewById(R.id.main_screen_send_data_progress_bar);
@@ -73,7 +75,18 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
         startService(intent);
     }
 
+    private void firstTimeSettings() {
+        SharedPreferences pref = getSharedPreferences(this.getPackageName() + "_preferences", MODE_PRIVATE);
 
+        if(pref.getBoolean("firststart", true)){
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("firststart", false);
+            editor.commit();
+
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+    }
 
     public void collectAndSendDataToServer(View view) {
         findViewById(R.id.main_screen_send_data_button).setEnabled(false);
