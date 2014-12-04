@@ -30,6 +30,11 @@
             android:label="@string/title_activity_about" >
         </activity>
 
+        <activity
+            android:name="fi.hiit.whatisstoredinamobiledevice.ui.activities.FirstLaunchActivity"
+            android:label="@string/title_activity_first_launch" >
+        </activity>
+
         <service
             android:name="fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentService"
             android:exported="false" />

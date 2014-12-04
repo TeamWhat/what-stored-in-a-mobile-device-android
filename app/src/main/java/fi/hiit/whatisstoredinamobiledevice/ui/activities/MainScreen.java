@@ -83,7 +83,7 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
             editor.putBoolean("firststart", false);
             editor.commit();
 
-            Intent intent = new Intent(this, SettingsActivity.class);
+            Intent intent = new Intent(this, FirstLaunchActivity.class);
             startActivity(intent);
         }
     }

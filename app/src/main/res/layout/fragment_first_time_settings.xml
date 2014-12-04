@@ -1,0 +1,122 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:id="@+id/questions_fragment_1">
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/genderRadioGroup"
+        android:layout_below="@+id/genderQuestionTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/maleButton"
+            android:text="@string/male" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/femaleButton"
+            android:text="@string/female" />
+    </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/gender"
+        android:id="@+id/genderQuestionTextView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/age"
+        android:id="@+id/ageQuestionTextView"
+        android:layout_below="@+id/genderRadioGroup"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ageSelectionSpinner"
+        android:layout_below="@+id/ageQuestionTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:entries="@array/ages_array" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/country"
+        android:id="@+id/countryQuestionTextView"
+        android:layout_below="@+id/ageSelectionSpinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/countrySelectionSpinner"
+        android:layout_below="@+id/countryQuestionTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:entries="@array/country_array" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/email"
+        android:id="@+id/emailQuestionTextView"
+        android:layout_below="@+id/countrySelectionSpinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:layout_below="@+id/emailQuestionTextView"
+        />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_enable_data_sending_title"
+        android:id="@+id/sendDataCheckbox"
+        android:layout_below="@+id/editText2"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_only_wifi_title"
+        android:id="@+id/sendDataOnWifiCheckbox"
+        android:layout_below="@+id/sendDataCheckbox"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dataSendingPeriodSelectionSpinner"
+        android:layout_below="@+id/sendDataOnWifiCheckbox"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:entries="@array/frequency_array" />
+
+    <Button android:text="@string/finish_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="finishButtonPressed"
+        android:layout_below="@+id/dataSendingPeriodSelectionSpinner"/>
+
+
+</RelativeLayout>
