@@ -1,0 +1,18 @@
+Robotium notice:
+Copyright 2010, 2011 Jayway AB
+This product includes software developed at
+Jayway AB (http://www.jayway.com/).
+
+Android Code notice:
+Copyright 2005-2008 The Android Open Source Project
+This product includes software developed as part of
+The Android Open Source Project (http://source.android.com).
+
+Mockito notice:
+Mockito license - MIT.
+Libraries used:
+Cglib - Apache License 2.0
+ASM - BSD license
+Mockito all distribution:
+Objenesis - MIT license
+Hamcrest - BSD license

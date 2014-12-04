@@ -111,6 +111,7 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         String sortOrder = DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME + " DESC";
         Cursor c = getCursor(tablename, new String[] {DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME}, sortOrder, null, "1");
         c.moveToNext();
+        if (c.getCount() == 0) return putDataIntoMap(c);
         String latestDate = c.getString(0);
         String latestDateQuery = "DATETIME = " + latestDate;
         c = getCursor(tablename, columnNames, sortOrder, latestDateQuery, null);

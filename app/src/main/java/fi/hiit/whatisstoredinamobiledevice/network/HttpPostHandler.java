@@ -29,7 +29,7 @@ public class HttpPostHandler {
         this.mContext = context;
         this.mHttpStack = httpStack;
         // the ip of the server that should receive the json
-        this.mJSONUrl = "http://pickingdigitalpockets.herokuapp.com/submit";
+        this.mJSONUrl = "http://pdp.cs.helsinki.fi/submit";
     }
 
     public boolean postJSON(final JSONObject jsonToSend) {

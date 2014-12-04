@@ -78,8 +78,24 @@
 
              &lt;ul>
                 &lt;li>
-                    &lt;a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart &lt;/a>
-                    © 2014 Philipp Jahoda. Licence: &lt;a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0&lt;/a>.
+                    &lt;a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidChart&lt;/a>
+                    © 2014 Philipp Jahoda. License: &lt;a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0&lt;/a>.
+                &lt;/li>
+                &lt;li>
+                    &lt;a href="http://robotium.org">Robotium&lt;/a>
+                    © 2009–2014 Robotium contributors. License: &lt;a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0&lt;/a>.
+                &lt;/li>
+                &lt;li>
+                    &lt;a href="https://github.com/JakeWharton/Android-ViewPagerIndicator/">Android ViewPagerIndicator&lt;/a>
+                    © 2011–2012 Android ViewPagerIndicator contributors. License: &lt;a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0&lt;/a>.
+                &lt;/li>
+                &lt;li>
+                    &lt;a href="https://android.googlesource.com/platform/frameworks/volley">Volley&lt;/a>
+                    © 2014 The Android Open Source Project. License: &lt;a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0&lt;/a>.
+                &lt;/li>
+                &lt;li>
+                    &lt;a href="https://github.com/mockito/mockito">Mockito&lt;/a>
+                    © 2014 Mockito contributors. License: &lt;a href="https://github.com/mockito/mockito/blob/master/LICENSE">MIT&lt;/a>.
                 &lt;/li>
             &lt;/ul>
 
@@ -90,5 +106,6 @@
     <string name="main_screen_graph_button">Graphs</string>
     <string name="title_activity_graphs">Graphs</string>
     <string name="hello_world">Hello world!</string>
+    <string name="menu_item_share">Share</string>
 
 </resources>
