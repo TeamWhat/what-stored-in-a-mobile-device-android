@@ -73,6 +73,14 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         }
     }
 
+    public void setAllSent() {
+        ContentValues values = new ContentValues();
+        values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT, "sent");
+        for(String table : DeviceDataContract.TABLE_NAMES) {
+            db.insert(table, null, values);
+        }
+    }
+
     private boolean dateInWrongFormat(String columnName, Map<String, Map<String, String>> tableMap, String tempRowIndex) {
         return tableMap.get(tempRowIndex).get(columnName) != null && (
                 columnName.equals(DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_TAKEN) ||

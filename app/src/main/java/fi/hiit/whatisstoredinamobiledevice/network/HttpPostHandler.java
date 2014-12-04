@@ -2,6 +2,7 @@ package fi.hiit.whatisstoredinamobiledevice.network;
 
 
 import android.content.Context;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -15,6 +16,10 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DatabaseAccessor;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
+
 
 public class HttpPostHandler {
 
@@ -22,6 +27,7 @@ public class HttpPostHandler {
     private final String mJSONUrl;
     private final HttpStack mHttpStack;
     private Context mContext;
+    private DatabaseAccessor databaseAccessor;
     private static final String TAG = "HttpPostHandler";
     public static final String SERVER_URL = "http://pdp.cs.helsinki.fi/";
 
@@ -43,6 +49,9 @@ public class HttpPostHandler {
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "POST successful: " + response.toString());
                         queue.stop();
+                        // Change sent flags to be 1 (sent)
+                        databaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(mContext));
+                        databaseAccessor.setAllSent();
                     }
                 },
 

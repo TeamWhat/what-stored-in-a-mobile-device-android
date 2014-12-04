@@ -32,6 +32,8 @@ public class JSONPackager {
     public JSONObject createJsonObjectFromMap(Map<String, Map<String, String>> map) {
         JSONObject jsonData = new JSONObject();
         for (String key : map.keySet()) {
+            if (map.get(key).get(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT).equals("sent")) continue;
+            // VAIHDA TÄSSÄ ETTEI JSONIIN MENE SENT
             JSONObject innerData = new JSONObject(map.get(key));
             try {
                 jsonData.put(key, innerData);

@@ -7,6 +7,15 @@ public final class DeviceDataContract {
     // give it an empty constructor.
     public DeviceDataContract() {}
 
+    public final static String[] TABLE_NAMES = {
+        DeviceInfoEntry.TABLE_NAME,
+        ImageDataEntry.TABLE_NAME,
+        AudioDataEntry.TABLE_NAME,
+        VideoDataEntry.TABLE_NAME,
+        ApplicationDataEntry.TABLE_NAME,
+        TextDataEntry.TABLE_NAME
+    };
+
     /* Inner class that defines the table contents */
     public static abstract class DeviceInfoEntry implements BaseColumns {
         public static final String TABLE_NAME = "device_info";
