@@ -23,13 +23,14 @@ public class HttpPostHandler {
     private final HttpStack mHttpStack;
     private Context mContext;
     private static final String TAG = "HttpPostHandler";
+    public static final String SERVER_URL = "http://pdp.cs.helsinki.fi/";
 
 
     public HttpPostHandler(Context context, HttpStack httpStack) {
         this.mContext = context;
         this.mHttpStack = httpStack;
         // the ip of the server that should receive the json
-        this.mJSONUrl = "http://pdp.cs.helsinki.fi/submit";
+        this.mJSONUrl = SERVER_URL + "submit";
     }
 
     public boolean postJSON(final JSONObject jsonToSend) {

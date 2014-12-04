@@ -18,6 +18,11 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_PRODUCT = "product";
         public static final String COLUMN_NAME_SERIAL = "serial";
         public static final String COLUMN_NAME_VERSION = "version";
+        public static final String COLUMN_NAME_SCREEN_SIZE = "screen_size";
+        public static final String COLUMN_NAME_INTERNAL_FREE_SPACE = "free_internal_space";
+        public static final String COLUMN_NAME_INTERNAL_TOTAL_SPACE = "total_internal_space";
+        public static final String COLUMN_NAME_EXTERNAL_FREE_SPACE = "free_external_space";
+        public static final String COLUMN_NAME_EXTERNAL_TOTAL_SPACE = "total_external_space";
     }
 
     public static abstract class ImageDataEntry implements BaseColumns {

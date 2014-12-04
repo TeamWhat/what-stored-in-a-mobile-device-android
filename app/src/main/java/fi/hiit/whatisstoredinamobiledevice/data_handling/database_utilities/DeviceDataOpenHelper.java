@@ -25,7 +25,12 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_MODEL + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_PRODUCT + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SERIAL + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_VERSION + TEXT_TYPE +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_VERSION + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SCREEN_SIZE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_INTERNAL_FREE_SPACE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_INTERNAL_TOTAL_SPACE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_EXTERNAL_FREE_SPACE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_EXTERNAL_TOTAL_SPACE + TEXT_TYPE +
             " )";
 
     private static final String CREATE_IMAGE_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.ImageDataEntry.TABLE_NAME + " (" +

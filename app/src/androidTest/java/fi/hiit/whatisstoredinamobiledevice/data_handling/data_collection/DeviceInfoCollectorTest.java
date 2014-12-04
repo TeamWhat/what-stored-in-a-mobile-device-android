@@ -1,18 +1,21 @@
 package fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection;
 
+import android.test.ActivityInstrumentationTestCase2;
+import android.test.InstrumentationTestCase;
+
 import junit.framework.TestCase;
 
 import java.util.HashMap;
 
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
 
-public class DeviceInfoCollectorTest extends TestCase {
+public class DeviceInfoCollectorTest extends InstrumentationTestCase {
     private DeviceInfoCollector ddc;
     private HashMap<String,String> data;
 
 
     protected void setUp() {
-        ddc = new DeviceInfoCollector();
+        ddc = new DeviceInfoCollector(getInstrumentation().getTargetContext());
         data = (HashMap)ddc.getData().get("0");
     }
 

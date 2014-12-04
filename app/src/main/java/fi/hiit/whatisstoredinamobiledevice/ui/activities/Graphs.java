@@ -25,6 +25,7 @@ import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.Data
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataContract;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
+import fi.hiit.whatisstoredinamobiledevice.network.HttpPostHandler;
 
 public class Graphs extends Activity {
     private ShareActionProvider mShareActionProvider;
@@ -44,7 +45,7 @@ public class Graphs extends Activity {
         mShareActionProvider = (ShareActionProvider) item.getActionProvider();
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        String urlToShare = "http://128.214.166.144:3000/shared/" + new UniqueIdentifier(this).identifier();
+        String urlToShare = HttpPostHandler.SERVER_URL + "shared/" + new UniqueIdentifier(this).identifier();
         shareIntent.putExtra(Intent.EXTRA_TEXT, urlToShare);
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Check out what kind of data I have on my device!");
         setShareIntent(shareIntent);
