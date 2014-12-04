@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -16,23 +15,39 @@ import fi.hiit.whatisstoredinamobiledevice.network.ConnectivityChangeReceiver;
 
 
 public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implements DataResultReceiver.Receiver {
-    private static final String TAG = "DataCollectionAlarmReceiver";
+    public static final int TRIGGER_WAIT = 0;
     private Context mContext;
     private Intent mDataCollectionIntent;
 
-    private AlarmManager alarmMgr;
-    // The pending intent that is triggered when the alarm fires.
-    private PendingIntent dataCollectionPendingIntent;
 
-    public void setAlarm(Context context) {
-        System.out.println("Alarm method entered");
-        alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        mContext = context;
+    public void setDataCollectionAlarm(Context context) {
+        getAlarmManager(context).setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, getAlarmTriggerTime(), getDataSendingInterval(context), getDataCollectionPendingIntent(context));
+        setDataCollectionBootReceiverState(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, context);
+        System.out.println("ALARM SET");
+    }
+
+    public void cancelDataCollectionAlarm(Context context) {
+        setDataCollectionBootReceiverState(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, context);
+        getAlarmManager(context).cancel(getDataCollectionPendingIntent(context));
+        System.out.println("ALARM CANCELED");
+    }
+
+    private AlarmManager getAlarmManager(Context context) {
+        return (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+    }
+
+    private long getAlarmTriggerTime() {
+        return SystemClock.elapsedRealtime() + TRIGGER_WAIT;
+    }
+
+    //   private long getDataSendingInterval(Context context) {
+    //       SharedPreferences s = PreferenceManager.getDefaultSharedPreferences(context);
+    //       return Long.parseLong(s.getString(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY, "86400000"));
+    //   }
+
+    private PendingIntent getDataCollectionPendingIntent(Context context) {
         Intent intent = new Intent(context, DataCollectionAlarmReceiver.class);
-        dataCollectionPendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-
-        alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()+60000, getDataSendingInterval(), dataCollectionPendingIntent);
-        System.out.println("Alarm set");
+        return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 
     // This method is called when the scheduled alarm is triggered
@@ -47,18 +62,11 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
 
     @Override
     public void onReceiveDataCollectionResult() {
-
         System.out.println("DATA COLLECTED");
-
-//        System.out.println("ConnectivityChangeReciever state: " + isConnectivityChangeReceiverEnabled(mContext));
-//        setConnectivityChangeReceiverEnabled(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, mContext);
-//        System.out.println("ConnectivityChangeReciever state: " + isConnectivityChangeReceiverEnabled(mContext));
-
         Intent sendDataIntent = new Intent(mContext, SendDataIntentService.class);
         startWakefulService(mContext, sendDataIntent);
         completeWakefulIntent(mDataCollectionIntent);
     }
-
 
     private Intent getDataCollectionIntent(Context context) {
         Intent intent = new Intent(context, DataHandlerIntentService.class);
@@ -68,18 +76,7 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
         return intent;
     }
 
-    // todo: Get datasending interval from settings
- //   private long getDataSendingInterval() {
- //       SharedPreferences s = mContext.getApplicationContext().getSharedPreferences(mContext.getPackageName() + "_preferences", Context.MODE_PRIVATE);
- //       return Long.parseLong(s.getString(SettingsFragment.KEY_SETTINGS_DATA_SENDING_FREQUENCY, "86400000"));
- //   }
-    private long getDataSendingInterval() {
-        SharedPreferences s = mContext.getApplicationContext().getSharedPreferences(mContext.getPackageName() + "_preferences", Context.MODE_PRIVATE);
-        return Long.parseLong("100000");
-    }
-
-
-    public static void setConnectivityChangeReceiverEnabled(int componentState, Context context) {
+    public static void setConnectivityChangeReceiverState(int componentState, Context context) {
         ComponentName componentName = new ComponentName(context, ConnectivityChangeReceiver.class);
         PackageManager pm = context.getPackageManager();
         pm.setComponentEnabledSetting(componentName,
@@ -87,11 +84,25 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
                 PackageManager.DONT_KILL_APP);
     }
 
-    // return 1 for enabled, 2 for disabled - FOR DEBUG
+    public static void setDataCollectionBootReceiverState(int componentState, Context context) {
+        ComponentName componentName = new ComponentName(context, DataCollectionBootReceiver.class);
+        PackageManager pm = context.getPackageManager();
+        pm.setComponentEnabledSetting(componentName,
+                componentState,
+                PackageManager.DONT_KILL_APP);
+    }
+
+
+    // DEBUG METHODS
+
+    // return 1 for enabled, 2 for disabled
     public static int isConnectivityChangeReceiverEnabled(Context context) {
         ComponentName componentName = new ComponentName(context, ConnectivityChangeReceiver.class);
         PackageManager pm = context.getPackageManager();
         return pm.getComponentEnabledSetting(componentName);
     }
 
+    private long getDataSendingInterval(Context context) {
+        return Long.parseLong("60000");
+    }
 }

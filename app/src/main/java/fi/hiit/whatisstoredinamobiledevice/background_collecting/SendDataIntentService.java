@@ -29,7 +29,7 @@ public class SendDataIntentService extends IntentService {
             ConnectivityChangeReceiver.completeWakefulIntent(intent);
 
             System.out.println("ConnectivityChangeReciever state: " + DataCollectionAlarmReceiver.isConnectivityChangeReceiverEnabled(this));
-            DataCollectionAlarmReceiver.setConnectivityChangeReceiverEnabled(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, this);
+            DataCollectionAlarmReceiver.setConnectivityChangeReceiverState(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, this);
             System.out.println("ConnectivityChangeReciever state: " + DataCollectionAlarmReceiver.isConnectivityChangeReceiverEnabled(this));
 
             System.out.println("STOPPED SEND DATA INTENT AND ENABLED CCR - NO NETWORK");

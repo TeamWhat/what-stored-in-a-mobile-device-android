@@ -15,14 +15,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
-
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DatabaseAccessor;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
 import fi.hiit.whatisstoredinamobiledevice.ui.activities.MainScreen;
 
-
 import fi.hiit.whatisstoredinamobiledevice.background_collecting.DataCollectionAlarmReceiver;
+
 
 
 public class HttpPostHandler {
@@ -64,7 +63,7 @@ public class HttpPostHandler {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        DataCollectionAlarmReceiver.setConnectivityChangeReceiverEnabled(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, mContext);
+                        DataCollectionAlarmReceiver.setConnectivityChangeReceiverState(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, mContext);
                         ConnectivityChangeReceiver.completeWakefulIntent(intentToStop);
                         DataCollectionAlarmReceiver.completeWakefulIntent(intentToStop);
                         queue.stop();
@@ -83,7 +82,7 @@ public class HttpPostHandler {
                         ConnectivityChangeReceiver.completeWakefulIntent(intentToStop);
                         DataCollectionAlarmReceiver.completeWakefulIntent(intentToStop);
                         queue.stop();
-                        System.out.println("ERRORED RESPONSE: " + volleyError
+                        System.out.println("ERRORED RESPONSE: " + volleyError.networkResponse.headers
                                 + "\nINTENT STOPPED: " + intentToStop);
                     }
                 });

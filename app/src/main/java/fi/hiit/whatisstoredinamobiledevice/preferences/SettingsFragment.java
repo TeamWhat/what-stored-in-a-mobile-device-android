@@ -1,12 +1,15 @@
 package fi.hiit.whatisstoredinamobiledevice.preferences;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.background_collecting.DataCollectionAlarmReceiver;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     private ListPreference genderSettings;
@@ -74,8 +77,22 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         setCurrentValuesForSettingsSummaries();
+        setDataSendingAlarmIfEnabled(sharedPreferences, key);
+    }
+
+    private void setDataSendingAlarmIfEnabled(SharedPreferences sharedPreferences, String key) {
+        if (!key.equals(KEY_SETTINGS_ENABLE_DATA_SENDING)){
+           return;
+        }
+        Context context = getActivity().getApplicationContext();
+        DataCollectionAlarmReceiver dcar = new DataCollectionAlarmReceiver();
+        if(sharedPreferences.getBoolean(key, false)) {
+        } else {
+            dcar.cancelDataCollectionAlarm(context);
+            dcar.setDataCollectionAlarm(context);
+        }
     }
 
 }
