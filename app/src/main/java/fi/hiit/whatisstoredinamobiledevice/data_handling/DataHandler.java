@@ -36,7 +36,7 @@ public class DataHandler {
         mCollectorList = new ArrayList<DataCollector>();
 
         // Initialize data collectors and add them to the list, todo: later check preferences for each collector
-        mCollectorList.add(new DeviceInfoCollector());
+        mCollectorList.add(new DeviceInfoCollector(mIntentServiceContext));
         mCollectorList.add(new ImageDataCollector(mIntentServiceContext));
         mCollectorList.add(new ApplicationDataCollector(mIntentServiceContext));
         mCollectorList.add(new TextDataCollector(mIntentServiceContext));

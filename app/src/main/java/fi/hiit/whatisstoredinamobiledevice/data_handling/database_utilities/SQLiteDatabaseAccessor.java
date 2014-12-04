@@ -129,6 +129,11 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         return data;
     }
 
+    /**
+     * Contructs a map containing information of a single object (application, image, etc.)
+     * @param cursor
+     * @return
+     */
     private Map<String, String> getSingleObjectHashMap(Cursor cursor) {
         HashMap<String, String> data = new HashMap<String, String>();
         for (int i=0; i< cursor.getColumnCount(); i++) {
