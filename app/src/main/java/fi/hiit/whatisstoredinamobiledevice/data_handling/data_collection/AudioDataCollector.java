@@ -26,6 +26,7 @@ public class AudioDataCollector extends MediaDataCollector {
                     DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_NOTIFICATION,
                     DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_PODCAST,
                     DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_RINGTONE,
+                    DeviceDataContract.AudioDataEntry.COLUMN_NAME_SENT,
                     DeviceDataContract.AudioDataEntry.COLUMN_NAME_DATETIME
             };
 

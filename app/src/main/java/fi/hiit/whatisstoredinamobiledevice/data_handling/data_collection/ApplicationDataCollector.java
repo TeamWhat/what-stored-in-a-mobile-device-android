@@ -21,6 +21,7 @@ public class ApplicationDataCollector implements DataCollector {
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_FIRST_INSTALLED,
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_VERSION_NAME,
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_TARGET_SDK_VERSION,
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_SENT,
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_DATETIME
     };
 

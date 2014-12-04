@@ -30,7 +30,8 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_INTERNAL_FREE_SPACE + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_INTERNAL_TOTAL_SPACE + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_EXTERNAL_FREE_SPACE + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_EXTERNAL_TOTAL_SPACE + TEXT_TYPE +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_EXTERNAL_TOTAL_SPACE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT + TEXT_TYPE +
             " )";
 
     private static final String CREATE_IMAGE_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.ImageDataEntry.TABLE_NAME + " (" +
@@ -43,7 +44,8 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.ImageDataEntry.COLUMN_NAME_LONGITUDE + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_ADDED + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ImageDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE +
+            DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ImageDataEntry.COLUMN_NAME_SENT + TEXT_TYPE +
             " )";
 
     private static final String CREATE_AUDIO_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.AudioDataEntry.TABLE_NAME + " (" +
@@ -62,7 +64,8 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.AudioDataEntry.COLUMN_NAME_IS_RINGTONE + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.AudioDataEntry.COLUMN_NAME_DATE_ADDED + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.AudioDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.AudioDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.AudioDataEntry.COLUMN_NAME_SENT + TEXT_TYPE +
             " )";
 
     private static final String CREATE_VIDEO_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.VideoDataEntry.TABLE_NAME + " (" +
@@ -83,7 +86,8 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.VideoDataEntry.COLUMN_NAME_DATE_TAKEN + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.VideoDataEntry.COLUMN_NAME_DATE_ADDED + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.VideoDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.VideoDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.VideoDataEntry.COLUMN_NAME_SENT + TEXT_TYPE +
             " )";
 
     private static final String CREATE_APPLICATION_DATA_TABLE = "CREATE TABLE " + DeviceDataContract.ApplicationDataEntry.TABLE_NAME + " (" +
@@ -94,7 +98,8 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_PACKAGE_NAME + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_FIRST_INSTALLED + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_VERSION_NAME + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_TARGET_SDK_VERSION + TEXT_TYPE +
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_TARGET_SDK_VERSION + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_SENT + TEXT_TYPE +
             " )";
 
 
@@ -105,7 +110,8 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
             DeviceDataContract.TextDataEntry.COLUMN_NAME_DATE_ADDED + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.TextDataEntry.COLUMN_NAME_DATE_MODIFIED + TEXT_TYPE + COMMA_SEP +
             DeviceDataContract.TextDataEntry.COLUMN_NAME_SIZE + TEXT_TYPE + COMMA_SEP +
-            DeviceDataContract.TextDataEntry.COLUMN_NAME_MIME_TYPE + TEXT_TYPE +
+            DeviceDataContract.TextDataEntry.COLUMN_NAME_MIME_TYPE + TEXT_TYPE + COMMA_SEP +
+            DeviceDataContract.TextDataEntry.COLUMN_NAME_SENT + TEXT_TYPE +
             " )";
 
     public DeviceDataOpenHelper(Context context) {

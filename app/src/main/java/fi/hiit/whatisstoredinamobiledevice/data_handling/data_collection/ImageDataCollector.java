@@ -20,6 +20,7 @@ public class ImageDataCollector extends MediaDataCollector {
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_ADDED,
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_SIZE,
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_MODIFIED,
+                    DeviceDataContract.ImageDataEntry.COLUMN_NAME_SENT,
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME
             };
 

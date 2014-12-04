@@ -17,6 +17,7 @@ public class TextDataCollector extends MediaDataCollector {
                 DeviceDataContract.TextDataEntry.COLUMN_NAME_DATE_MODIFIED,
                 DeviceDataContract.TextDataEntry.COLUMN_NAME_SIZE,
                 DeviceDataContract.TextDataEntry.COLUMN_NAME_MIME_TYPE,
+                DeviceDataContract.TextDataEntry.COLUMN_NAME_SENT,
                 DeviceDataContract.TextDataEntry.COLUMN_NAME_DATETIME
             };
 

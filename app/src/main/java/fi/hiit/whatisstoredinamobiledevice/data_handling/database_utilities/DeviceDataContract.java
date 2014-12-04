@@ -23,6 +23,7 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_INTERNAL_TOTAL_SPACE = "total_internal_space";
         public static final String COLUMN_NAME_EXTERNAL_FREE_SPACE = "free_external_space";
         public static final String COLUMN_NAME_EXTERNAL_TOTAL_SPACE = "total_external_space";
+        public static final String COLUMN_NAME_SENT = "sent";
     }
 
     public static abstract class ImageDataEntry implements BaseColumns {
@@ -36,6 +37,7 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_DATE_ADDED = "date_added";
         public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
         public static final String COLUMN_NAME_SIZE = "size";
+        public static final String COLUMN_NAME_SENT = "sent";
     }
 
     public static abstract class AudioDataEntry implements BaseColumns {
@@ -55,6 +57,7 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_DATE_ADDED = "date_added";
         public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
         public static final String COLUMN_NAME_SIZE = "size";
+        public static final String COLUMN_NAME_SENT = "sent";
     }
 
     public static abstract class VideoDataEntry implements BaseColumns {
@@ -76,6 +79,7 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_DATE_ADDED = "date_added";
         public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
         public static final String COLUMN_NAME_SIZE = "size";
+        public static final String COLUMN_NAME_SENT = "sent";
     }
 
     public static abstract class ApplicationDataEntry implements BaseColumns {
@@ -87,6 +91,7 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_VERSION_NAME = "version_name";
         public static final String COLUMN_NAME_PACKAGE_NAME = "package_name";
         public static final String COLUMN_NAME_TARGET_SDK_VERSION = "target_sdk_version";
+        public static final String COLUMN_NAME_SENT = "sent";
     }
 
     public static abstract class TextDataEntry implements BaseColumns {
@@ -97,6 +102,7 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_DATE_MODIFIED = "date_modified";
         public static final String COLUMN_NAME_SIZE = "size";
         public static final String COLUMN_NAME_MIME_TYPE = "mime_type";
+        public static final String COLUMN_NAME_SENT = "sent";
     }
 
     // todo: more tables here

@@ -60,7 +60,7 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         return newRowId != -1;
     }
 
-    // Saves colmun values of a row
+    // Saves column values of a row
     private void insertValues(String tempRowIndex, Map<String, Map<String, String>> tableMap, ContentValues values, String datetime) {
         values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, datetime);
         for(String columnName : tableMap.get(tempRowIndex).keySet()) {

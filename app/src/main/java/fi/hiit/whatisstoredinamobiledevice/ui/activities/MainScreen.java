@@ -90,6 +90,7 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
     public void onReceiveResult() {
         JSONObject collectedDataJSON = mJSONPackager.createJsonObjectFromStoredData();
         mHttpPOSTHandler.postJSON(collectedDataJSON);
+        
 
         // Buttons are enabled when http request is started, not when response is received
         mSendDataProgressBar.setVisibility(View.INVISIBLE);
