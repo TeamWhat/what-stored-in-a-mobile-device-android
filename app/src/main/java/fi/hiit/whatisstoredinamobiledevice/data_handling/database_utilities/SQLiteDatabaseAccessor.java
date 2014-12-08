@@ -74,10 +74,18 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
     }
 
     public void setAllSent() {
+        boolean dbWasNull = false;
+        if (db == null) {
+            db = mDeviceDataOpenHelper.getWritableDatabase();
+            dbWasNull = true;
+        }
         ContentValues values = new ContentValues();
         values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT, "sent");
         for(String table : DeviceDataContract.TABLE_NAMES) {
-            db.insert(table, null, values);
+            db.update(table, values, null, null);
+        }
+        if (dbWasNull) {
+            db.close();
         }
     }
 

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
@@ -32,9 +33,9 @@ public class JSONPackager {
     public JSONObject createJsonObjectFromMap(Map<String, Map<String, String>> map) {
         JSONObject jsonData = new JSONObject();
         for (String key : map.keySet()) {
-            if (map.get(key).get(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT).equals("sent")) continue;
-            // VAIHDA TÄSSÄ ETTEI JSONIIN MENE SENT
-            JSONObject innerData = new JSONObject(map.get(key));
+            // Check if the data has been sent
+            if (map.get(key).get(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT) != null) continue;
+            JSONObject innerData = new JSONObject(removeUselessFields(map.get(key)));
             try {
                 jsonData.put(key, innerData);
             } catch (JSONException e) {
@@ -42,6 +43,13 @@ public class JSONPackager {
             }
         }
         return jsonData;
+    }
+
+    private Map<String, String> removeUselessFields(Map<String, String> map) {
+        Map<String, String> mapWithoutUselessFields = new HashMap<String, String>();
+        mapWithoutUselessFields.putAll(map);
+        mapWithoutUselessFields.remove(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT);
+        return mapWithoutUselessFields;
     }
 
     public JSONObject createJsonObjectFromStoredData() {
