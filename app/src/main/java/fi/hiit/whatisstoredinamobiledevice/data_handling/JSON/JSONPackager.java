@@ -85,14 +85,22 @@ public class JSONPackager {
     public JSONObject createPersonalDataJSON() {
         JSONObject personalJSON = new JSONObject();
         try {
-            SharedPreferences s = mContext.getApplicationContext().getSharedPreferences(mContext.getPackageName() + "_preferences", Context.MODE_PRIVATE);
-            personalJSON.put("gender", s.getString(SettingsFragment.KEY_SETTINGS_USER_GENDER, "No gender selected"));
-            personalJSON.put("age", s.getString(SettingsFragment.KEY_SETTINGS_USER_AGE, "No age selected"));
-            personalJSON.put("country", s.getString(SettingsFragment.KEY_SETTINGS_USER_COUNTRY, "No country selected"));
-            personalJSON.put("email", s.getString(SettingsFragment.KEY_SETTINGS_USER_EMAIL, "No email entered"));
+            SharedPreferences sharedPreferences = mContext.getApplicationContext().getSharedPreferences(mContext.getPackageName() + "_preferences", Context.MODE_PRIVATE);
+            personalJSON.put("gender", sharedPreferences.getString(SettingsFragment.KEY_SETTINGS_USER_GENDER, "No gender selected"));
+            personalJSON.put("age", sharedPreferences.getString(SettingsFragment.KEY_SETTINGS_USER_AGE, "No age selected"));
+            personalJSON.put("country", sharedPreferences.getString(SettingsFragment.KEY_SETTINGS_USER_COUNTRY, "No country selected"));
+            personalJSON.put("email", sharedPreferences.getString(SettingsFragment.KEY_SETTINGS_USER_EMAIL, "No email entered"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return personalJSON;
+    }
+
+    private void incrementDataSendCounter() {
+        SharedPreferences sharedPreferences = mContext.getApplicationContext().getSharedPreferences(mContext.getPackageName() + "_preferences", Context.MODE_PRIVATE);
+        int dataSendCount = sharedPreferences.getInt("data_send_count", 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("data_send_count", dataSendCount++);
+        editor.commit();
     }
 }

@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.toolbox.HurlStack;
 
@@ -36,8 +37,15 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
         mSendDataProgressBar = (ProgressBar) findViewById(R.id.main_screen_send_data_progress_bar);
         mSendDataProgressBar.setVisibility(View.INVISIBLE);
 
+        TextView dataSendCounterTextView = (TextView) findViewById(R.id.data_send_counter);
+        dataSendCounterTextView.setText();
+
         mJSONPackager = new JSONPackager(getApplicationContext());
         mHttpPOSTHandler = new HttpPostHandler(getApplicationContext(), new HurlStack());
+    }
+
+    private void setDataSendCounter() {
+        SharedPreferences sharedPreferences =
     }
 
     @Override
@@ -78,7 +86,7 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
     private void firstTimeSettings() {
         SharedPreferences pref = getSharedPreferences(this.getPackageName() + "_preferences", MODE_PRIVATE);
 
-        if(pref.getBoolean("firststart", true)){
+        if(pref.getBoolean("firststart", true)) {
             SharedPreferences.Editor editor = pref.edit();
             editor.putBoolean("firststart", false);
             editor.commit();

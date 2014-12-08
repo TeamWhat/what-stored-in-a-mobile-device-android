@@ -17,13 +17,13 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/maleButton"
-            android:text="@string/male" />
+            android:id="@+id/femaleButton"
+            android:text="@string/female" />
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/femaleButton"
-            android:text="@string/female" />
+            android:id="@+id/maleButton"
+            android:text="@string/male" />
     </RadioGroup>
     <TextView
         android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/emailEditText"
         android:layout_below="@+id/emailQuestionTextView"
         />
 
@@ -94,13 +94,15 @@
         android:layout_height="wrap_content"
         android:text="@string/settings_enable_data_sending_title"
         android:id="@+id/sendDataCheckbox"
-        android:layout_below="@+id/editText2"/>
+        android:checked="true"
+        android:layout_below="@+id/emailEditText"/>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings_only_wifi_title"
         android:id="@+id/sendDataOnWifiCheckbox"
+        android:checked="true"
         android:layout_below="@+id/sendDataCheckbox"/>
 
     <Spinner

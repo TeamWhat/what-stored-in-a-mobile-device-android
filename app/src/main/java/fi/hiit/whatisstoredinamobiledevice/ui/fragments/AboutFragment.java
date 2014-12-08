@@ -22,9 +22,7 @@ public class AboutFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public AboutFragment() {
-// Required empty public constructor
-    }
+    public AboutFragment() {}
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

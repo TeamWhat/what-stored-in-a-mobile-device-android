@@ -32,7 +32,6 @@
             android:title="@string/settings_email_title"
             android:id="@+id/settings_user_email_preference"
             android:defaultValue="" />
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -59,8 +58,5 @@
             android:entries="@array/frequency_array"
             android:entryValues="@array/frequency_array_values"
             android:defaultValue="@string/frequency_daily_value" />
-
-
     </PreferenceCategory>
-
 </PreferenceScreen>

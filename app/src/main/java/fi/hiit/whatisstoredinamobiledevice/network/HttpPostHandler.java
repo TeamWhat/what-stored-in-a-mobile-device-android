@@ -2,6 +2,7 @@ package fi.hiit.whatisstoredinamobiledevice.network;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -56,6 +57,7 @@ public class HttpPostHandler {
                         // Change sent flags to be sent
                         databaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(mContext));
                         databaseAccessor.setAllSent();
+                        incrementDataSendCounter();
                     }
                 },
 
@@ -77,6 +79,14 @@ public class HttpPostHandler {
                 timeout,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
+
+    private void incrementDataSendCounter() {
+        SharedPreferences sharedPreferences = mContext.getApplicationContext().getSharedPreferences(mContext.getPackageName() + "_preferences", Context.MODE_PRIVATE);
+        int dataSendCount = sharedPreferences.getInt("data_send_count", 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("data_send_count", dataSendCount++);
+        editor.commit();
     }
 
 

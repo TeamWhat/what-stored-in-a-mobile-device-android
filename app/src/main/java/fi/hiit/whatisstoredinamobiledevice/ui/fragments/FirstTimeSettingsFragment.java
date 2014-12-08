@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.Spinner;
+
 import fi.hiit.whatisstoredinamobiledevice.R;
 
 public class FirstTimeSettingsFragment extends Fragment {
@@ -38,6 +42,32 @@ public class FirstTimeSettingsFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //set default data sending frequency as weekly
+        Spinner dataSendingFrequencySpinner = (Spinner) getView().findViewById(R.id.dataSendingPeriodSelectionSpinner);
+        dataSendingFrequencySpinner.setSelection(1);
+
+        final CheckBox sendDataCheckBox = (CheckBox) getView().findViewById(R.id.sendDataCheckbox);
+
+        sendDataCheckBox.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                        if (!sendDataCheckBox.isChecked()) {
+                            CheckBox sendDataOnWifiCheckBox = (CheckBox) getView().findViewById(R.id.sendDataOnWifiCheckbox);
+                            sendDataOnWifiCheckBox.setEnabled(false);
+
+                            Spinner dataSendingFrequencySpinner = (Spinner) getView().findViewById(R.id.dataSendingPeriodSelectionSpinner);
+                            dataSendingFrequencySpinner.setEnabled(false);
+                        }else {
+                            CheckBox sendDataOnWifiCheckBox = (CheckBox) getView().findViewById(R.id.sendDataOnWifiCheckbox);
+                            sendDataOnWifiCheckBox.setEnabled(true);
+
+                            Spinner dataSendingFrequencySpinner = (Spinner) getView().findViewById(R.id.dataSendingPeriodSelectionSpinner);
+                            dataSendingFrequencySpinner.setEnabled(true);
+                        }
+                    }
+                }
+        );
 
     }
 }
