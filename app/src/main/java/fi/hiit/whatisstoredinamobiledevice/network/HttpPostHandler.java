@@ -40,15 +40,15 @@ public class HttpPostHandler {
         this.mJSONUrl = SERVER_URL + "submit";
     }
 
+    public void setMainScreen(MainScreen m) {
+        mMainScreen = m;
+    }
+
     /**
      * Post a JSON to the backend server
      * @param jsonToSend
      * @return
      */
-    public void setMainScreen(MainScreen m) {
-        mMainScreen = m;
-    }
-
     public boolean postJSON(final JSONObject jsonToSend) {
         final RequestQueue queue = Volley.newRequestQueue(mContext, mHttpStack);
 
@@ -63,6 +63,7 @@ public class HttpPostHandler {
                         // Change sent flags to be sent
                         databaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(mContext));
                         databaseAccessor.setAllSent();
+                        incrementDataSendCounter();
                     }
                 },
 
@@ -97,4 +98,5 @@ public class HttpPostHandler {
             mMainScreen.setDataSendCounter();
         }
     }
+
 }
