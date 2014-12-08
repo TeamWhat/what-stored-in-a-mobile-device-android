@@ -48,7 +48,7 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
         TextView dataSendCounterTextView = (TextView) findViewById(R.id.data_send_counter);
 
         SharedPreferences sharedPreferences = getSharedPreferences(getPackageName() + "_preferences", Context.MODE_PRIVATE);
-        int dataSendCounter = sharedPreferences.getInt("data_send_counter", 0);
+        int dataSendCounter = sharedPreferences.getInt("data_send_count", 0);
 
         if (dataSendCounter == 0) {
             dataSendCounterTextView.setText("Data has not been sent");
