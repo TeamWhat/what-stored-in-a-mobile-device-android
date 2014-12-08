@@ -1,6 +1,7 @@
 package fi.hiit.whatisstoredinamobiledevice.ui.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,15 +38,26 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
         mSendDataProgressBar = (ProgressBar) findViewById(R.id.main_screen_send_data_progress_bar);
         mSendDataProgressBar.setVisibility(View.INVISIBLE);
 
-        TextView dataSendCounterTextView = (TextView) findViewById(R.id.data_send_counter);
-        dataSendCounterTextView.setText();
+        setDataSendCounter();
 
         mJSONPackager = new JSONPackager(getApplicationContext());
         mHttpPOSTHandler = new HttpPostHandler(getApplicationContext(), new HurlStack());
     }
 
     private void setDataSendCounter() {
-        SharedPreferences sharedPreferences =
+        TextView dataSendCounterTextView = (TextView) findViewById(R.id.data_send_counter);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(getPackageName() + "_preferences", Context.MODE_PRIVATE);
+        int dataSendCounter = sharedPreferences.getInt("data_send_counter", 0);
+
+        if (dataSendCounter == 0) {
+            dataSendCounterTextView.setText("Data has not been sent");
+        }else if (dataSendCounter == 1) {
+            dataSendCounterTextView.setText("Data has been sent once");
+        }else {
+            dataSendCounterTextView.setText("Data has been sent " + String.valueOf(dataSendCounter) + " times");
+        }
+
     }
 
     @Override
@@ -115,5 +127,6 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
         // Buttons are enabled when http request is started, not when response is received
         mSendDataProgressBar.setVisibility(View.INVISIBLE);
         findViewById(R.id.main_screen_send_data_button).setEnabled(true);
+        setDataSendCounter();
     }
 }
