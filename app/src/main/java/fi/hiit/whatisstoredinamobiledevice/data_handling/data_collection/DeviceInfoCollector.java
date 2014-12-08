@@ -30,6 +30,7 @@ public class DeviceInfoCollector implements DataCollector {
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_INTERNAL_TOTAL_SPACE,
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_EXTERNAL_FREE_SPACE,
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_EXTERNAL_TOTAL_SPACE,
+            DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT,
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME
     };
 

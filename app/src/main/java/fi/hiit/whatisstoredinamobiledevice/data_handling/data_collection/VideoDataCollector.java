@@ -27,6 +27,7 @@ public class VideoDataCollector extends MediaDataCollector {
                     DeviceDataContract.VideoDataEntry.COLUMN_NAME_DATE_ADDED,
                     DeviceDataContract.VideoDataEntry.COLUMN_NAME_DATE_MODIFIED,
                     DeviceDataContract.VideoDataEntry.COLUMN_NAME_SIZE,
+                    DeviceDataContract.VideoDataEntry.COLUMN_NAME_SENT,
                     DeviceDataContract.VideoDataEntry.COLUMN_NAME_DATETIME
             };
 

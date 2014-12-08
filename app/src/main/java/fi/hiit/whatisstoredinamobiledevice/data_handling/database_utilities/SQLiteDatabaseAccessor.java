@@ -60,7 +60,7 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         return newRowId != -1;
     }
 
-    // Saves colmun values of a row
+    // Saves column values of a row
     private void insertValues(String tempRowIndex, Map<String, Map<String, String>> tableMap, ContentValues values, String datetime) {
         values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, datetime);
         for(String columnName : tableMap.get(tempRowIndex).keySet()) {
@@ -70,6 +70,22 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
             } else {
                 values.put(columnName, tableMap.get(tempRowIndex).get(columnName));
             }
+        }
+    }
+
+    public void setAllSent() {
+        boolean dbWasNull = false;
+        if (db == null) {
+            db = mDeviceDataOpenHelper.getWritableDatabase();
+            dbWasNull = true;
+        }
+        ContentValues values = new ContentValues();
+        values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT, "sent");
+        for(String table : DeviceDataContract.TABLE_NAMES) {
+            db.update(table, values, null, null);
+        }
+        if (dbWasNull) {
+            db.close();
         }
     }
 
