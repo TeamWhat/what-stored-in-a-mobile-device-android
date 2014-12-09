@@ -86,12 +86,13 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (!key.equals(KEY_SETTINGS_ENABLE_DATA_SENDING)){
            return;
         }
+
         Context context = getActivity().getApplicationContext();
         DataCollectionAlarmReceiver dcar = new DataCollectionAlarmReceiver();
         if(sharedPreferences.getBoolean(key, false)) {
+            dcar.setDataCollectionAlarm(context);
         } else {
             dcar.cancelDataCollectionAlarm(context);
-            dcar.setDataCollectionAlarm(context);
         }
     }
 

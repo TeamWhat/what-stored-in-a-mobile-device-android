@@ -26,7 +26,7 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
     private HttpPostHandler mHttpPOSTHandler;
     private ProgressBar mSendDataProgressBar;
 
-    private static final String KEY_DATA_SEND_COUNT = "data_send_count";
+    public static final String KEY_DATA_SEND_COUNT = "data_send_count";
     public static final String KEY_FIRST_START = "first_start";
 
     @Override

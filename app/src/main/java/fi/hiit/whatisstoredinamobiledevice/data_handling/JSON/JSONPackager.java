@@ -33,8 +33,13 @@ public class JSONPackager {
     public JSONObject createJsonObjectFromMap(Map<String, Map<String, String>> map) {
         JSONObject jsonData = new JSONObject();
         for (String key : map.keySet()) {
+
             // Check if the data has been sent
-            if (map.get(key).get(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT) != null) continue;
+            if (map.get(key).get(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT) != null
+                    && map.get(key).get(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_SENT).equals("sent")) {
+                continue;
+            }
+
             JSONObject innerData = new JSONObject(removeUselessFields(map.get(key)));
             try {
                 jsonData.put(key, innerData);

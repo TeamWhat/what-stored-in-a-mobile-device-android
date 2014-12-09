@@ -28,6 +28,7 @@ public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implem
 
     public void cancelDataCollectionAlarm(Context context) {
         setDataCollectionBootReceiverState(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, context);
+        setConnectivityChangeReceiverState(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, context);
         getAlarmManager(context).cancel(getDataCollectionPendingIntent(context));
         System.out.println("ALARM CANCELED");
     }
