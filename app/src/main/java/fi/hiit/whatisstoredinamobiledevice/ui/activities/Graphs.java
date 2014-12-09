@@ -121,7 +121,7 @@ public class Graphs extends Activity {
      *
      * @param tableName
      * @param columns
-     * @return Total size in kB
+     * @return Total number of objects
      */
     private float count(String tableName, String[] columns) {
         float count = 0;

@@ -1,7 +1,6 @@
 package fi.hiit.whatisstoredinamobiledevice.testhelpers;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteClosable;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.test.InstrumentationTestCase;

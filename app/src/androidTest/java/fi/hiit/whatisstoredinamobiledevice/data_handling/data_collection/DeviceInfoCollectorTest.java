@@ -1,9 +1,6 @@
 package fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection;
 
-import android.test.ActivityInstrumentationTestCase2;
 import android.test.InstrumentationTestCase;
-
-import junit.framework.TestCase;
 
 import java.util.HashMap;
 

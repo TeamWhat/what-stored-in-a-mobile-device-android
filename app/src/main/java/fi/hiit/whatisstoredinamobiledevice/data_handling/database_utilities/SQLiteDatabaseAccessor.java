@@ -21,7 +21,7 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
     }
 
     /**
-     * Saves the data in the map to the database
+     * Opens database, saves data to the database, and closes the database
      * @param allDataMap map of data to be saved
      * @return true if save successful, false otherwise
      */
@@ -36,6 +36,11 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         return saveSuccessful;
     }
 
+    /**
+     * Saves the data in the map to the database
+     * @param allDataMap
+     * @return
+     */
     private boolean saveAll(Map<String, Map<String, Map<String, String>>> allDataMap) {
         String datetime = datetime();
         for(String tableName : allDataMap.keySet()) {
@@ -46,6 +51,14 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         return true;
     }
 
+    /**
+     * Saves a single row to the database
+     * @param tableName
+     * @param tempRowIndex
+     * @param tableMap
+     * @param datetime
+     * @return
+     */
     private boolean saveRow(String tableName, String tempRowIndex, Map<String, Map<String, String>> tableMap, String datetime) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
@@ -60,11 +73,16 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         return newRowId != -1;
     }
 
-    // Saves column values of a row
+    /**
+     * Saves map data to ContentValues
+     * @param tempRowIndex
+     * @param tableMap
+     * @param values
+     * @param datetime
+     */
     private void insertValues(String tempRowIndex, Map<String, Map<String, String>> tableMap, ContentValues values, String datetime) {
         values.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME, datetime);
         for(String columnName : tableMap.get(tempRowIndex).keySet()) {
-            // put time to all columns first, second row replaces time with correct data for all columns but datetime
             if (dateInWrongFormat(columnName, tableMap, tempRowIndex)) {
                 values.put(columnName, ""+(Long.parseLong(tableMap.get(tempRowIndex).get(columnName))/1000));
             } else {
@@ -73,6 +91,9 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         }
     }
 
+    /**
+     * Set all data as sent, so it won't be sent again
+     */
     public void setAllSent() {
         boolean dbWasNull = false;
         if (db == null) {
@@ -89,6 +110,13 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
         }
     }
 
+    /**
+     * Convert dates to be in the same format
+     * @param columnName
+     * @param tableMap
+     * @param tempRowIndex
+     * @return
+     */
     private boolean dateInWrongFormat(String columnName, Map<String, Map<String, String>> tableMap, String tempRowIndex) {
         return tableMap.get(tempRowIndex).get(columnName) != null && (
                 columnName.equals(DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_TAKEN) ||
@@ -97,6 +125,10 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
     }
 
 
+    /**
+     * Returns the current date in the same format used by other dates in the database
+     * @return
+     */
     private String datetime() {
         Date date = new Date();
         return date.getTime()/1000+"";
@@ -122,6 +154,12 @@ public class SQLiteDatabaseAccessor implements DatabaseAccessor {
             );
     }
 
+    /**
+     * Get latest collected data only
+     * @param tablename
+     * @param columnNames
+     * @return
+     */
     @Override
     public Map<String, Map<String, String>> getLatestData(String tablename, String[] columnNames) {
         String sortOrder = DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME + " DESC";

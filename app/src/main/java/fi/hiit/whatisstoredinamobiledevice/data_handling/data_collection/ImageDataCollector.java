@@ -11,6 +11,9 @@ public class ImageDataCollector extends MediaDataCollector {
         super(context);
     }
 
+    /**
+     * Column names used by the application's database
+     */
     public static final String[] imageColumnNames =
             {
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATE_TAKEN,
@@ -24,6 +27,9 @@ public class ImageDataCollector extends MediaDataCollector {
                     DeviceDataContract.ImageDataEntry.COLUMN_NAME_DATETIME
             };
 
+    /**
+     * Android column names that define what data is taken from MediaStore
+     */
     public static String[] projection =
             {
                     MediaStore.Images.ImageColumns.DATE_TAKEN,
