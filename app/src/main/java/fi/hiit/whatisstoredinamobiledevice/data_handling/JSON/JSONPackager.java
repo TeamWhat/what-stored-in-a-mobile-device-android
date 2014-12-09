@@ -45,6 +45,11 @@ public class JSONPackager {
         return jsonData;
     }
 
+    /**
+     * Remove fields that aren't useful to the backend
+     * @param map
+     * @return
+     */
     private Map<String, String> removeUselessFields(Map<String, String> map) {
         Map<String, String> mapWithoutUselessFields = new HashMap<String, String>();
         mapWithoutUselessFields.putAll(map);

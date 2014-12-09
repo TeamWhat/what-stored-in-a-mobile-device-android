@@ -11,6 +11,9 @@ public class TextDataCollector extends MediaDataCollector {
 
     public TextDataCollector(Context context) { super(context); }
 
+    /**
+     * Column names used by the application's database
+     */
     public static final String[] textColumnNames =
             {
                 DeviceDataContract.TextDataEntry.COLUMN_NAME_DATE_ADDED,
@@ -21,6 +24,9 @@ public class TextDataCollector extends MediaDataCollector {
                 DeviceDataContract.TextDataEntry.COLUMN_NAME_DATETIME
             };
 
+    /**
+     * Android column names that define what data is taken from MediaStore
+     */
     public static String[] projection =
             {
                     MediaStore.Files.FileColumns.DATE_ADDED,

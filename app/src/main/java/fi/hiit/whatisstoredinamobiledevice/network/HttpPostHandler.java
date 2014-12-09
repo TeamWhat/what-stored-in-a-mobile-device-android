@@ -2,7 +2,6 @@ package fi.hiit.whatisstoredinamobiledevice.network;
 
 
 import android.content.Context;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -39,6 +38,11 @@ public class HttpPostHandler {
         this.mJSONUrl = SERVER_URL + "submit";
     }
 
+    /**
+     * Post a JSON to the backend server
+     * @param jsonToSend
+     * @return
+     */
     public boolean postJSON(final JSONObject jsonToSend) {
         final RequestQueue queue = Volley.newRequestQueue(mContext, mHttpStack);
 
@@ -49,7 +53,7 @@ public class HttpPostHandler {
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "POST successful: " + response.toString());
                         queue.stop();
-                        // Change sent flags to be 1 (sent)
+                        // Change sent flags to be sent
                         databaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(mContext));
                         databaseAccessor.setAllSent();
                     }

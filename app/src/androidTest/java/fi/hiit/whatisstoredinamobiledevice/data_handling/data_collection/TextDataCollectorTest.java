@@ -9,7 +9,6 @@ import android.test.InstrumentationTestCase;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Map;
 
 public class TextDataCollectorTest extends InstrumentationTestCase {

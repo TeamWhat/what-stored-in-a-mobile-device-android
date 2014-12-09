@@ -18,6 +18,9 @@ public class DeviceInfoCollector implements DataCollector {
         mContext = context;
     }
 
+    /**
+     * Column names used by the application's database
+     */
     public final static String[] deviceInfoColumnNames = {
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND,
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DEVICE,
@@ -34,6 +37,9 @@ public class DeviceInfoCollector implements DataCollector {
             DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME
     };
 
+    /**
+     * Android column names that define what data is taken from MediaStore
+     */
     @Override
     public Map<String, Map<String, String>> getData() {
         HashMap<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
@@ -55,6 +61,7 @@ public class DeviceInfoCollector implements DataCollector {
         return data;
     }
 
+    /* Methods to calculate storage sizes (internal & external, free & total) */
     private String freeInternalStorageSpace() {
         long freeBytesInternal = internalStorage().getUsableSpace();
         return "" + freeBytesInternal;
@@ -83,6 +90,10 @@ public class DeviceInfoCollector implements DataCollector {
         return new File(mContext.getFilesDir().getAbsoluteFile().toString());
     }
 
+    /**
+     * Calculates screen size in inches
+     * @return
+     */
     private String screenSize() {
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);

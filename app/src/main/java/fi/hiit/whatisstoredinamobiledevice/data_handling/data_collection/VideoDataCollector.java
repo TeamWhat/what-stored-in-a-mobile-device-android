@@ -10,6 +10,9 @@ public class VideoDataCollector extends MediaDataCollector {
 
     public VideoDataCollector(Context context) { super(context); }
 
+    /**
+     * Column names used by the application's database
+     */
     public static final String[] videoColumnNames =
             {
                     DeviceDataContract.VideoDataEntry.COLUMN_NAME_ALBUM,
@@ -31,6 +34,9 @@ public class VideoDataCollector extends MediaDataCollector {
                     DeviceDataContract.VideoDataEntry.COLUMN_NAME_DATETIME
             };
 
+    /**
+     * Android column names that define what data is taken from MediaStore
+     */
     public static String[] projection =
             {
                     MediaStore.Video.VideoColumns.ALBUM,

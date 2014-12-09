@@ -18,6 +18,10 @@ public class UniqueIdentifier {
         this.mContext = mContext;
     }
 
+    /**
+     * Calculates unique identifier for the user based on Android ID, serial, and mac address
+     * @return
+     */
     public String identifier() {
         String androidId = Settings.Secure.ANDROID_ID;
         String serial = Build.SERIAL;
@@ -35,6 +39,12 @@ public class UniqueIdentifier {
         return wm.getConnectionInfo().getMacAddress();
     }
 
+    /**
+     * Hashes the unique identifier string with SHA-256
+     * @param string
+     * @return
+     * @throws IOException
+     */
     private String hash(String string) throws IOException{
         MessageDigest digester;
         try {
@@ -54,6 +64,11 @@ public class UniqueIdentifier {
         return stringify(digest);
     }
 
+    /**
+     * Converts a byte array to string
+     * @param digest
+     * @return
+     */
     private String stringify(byte[] digest) {
         String byteArrayAsString = "";
         for(byte b : digest) {
@@ -62,6 +77,11 @@ public class UniqueIdentifier {
         return byteArrayAsString;
     }
 
+    /**
+     * Converts a single byte to string
+     * @param b
+     * @return
+     */
     private String byteAsString(byte b) {
         int i = Integer.parseInt("" + b);
         i += 128;

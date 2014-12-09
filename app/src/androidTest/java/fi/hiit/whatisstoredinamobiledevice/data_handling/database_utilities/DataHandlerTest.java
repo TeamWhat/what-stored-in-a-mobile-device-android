@@ -3,8 +3,6 @@ package fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities;
 
 import android.test.InstrumentationTestCase;
 
-import junit.framework.TestCase;
-
 import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandler;
 import fi.hiit.whatisstoredinamobiledevice.testhelpers.TestSetup;
 

@@ -1,7 +1,6 @@
 package fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
@@ -15,6 +14,9 @@ public class ApplicationDataCollector implements DataCollector {
     Context context;
     PackageManager packageManager;
 
+    /**
+     * Column names used by the application's database
+     */
     public final static String[] applicationDataColumnNames = {
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_APPLICATION_LABEL,
             DeviceDataContract.ApplicationDataEntry.COLUMN_NAME_PACKAGE_NAME,
@@ -40,6 +42,11 @@ public class ApplicationDataCollector implements DataCollector {
         return DeviceDataContract.ApplicationDataEntry.TABLE_NAME;
     }
 
+    /**
+     * Constructs a map from the application data
+     * @param appData
+     * @return
+     */
     private Map putDataIntoHashMap(List<PackageInfo> appData) {
         HashMap<String, HashMap<String, String>> outerMap = new HashMap<String, HashMap<String, String>>();
         int dataCounter = 0;

@@ -12,7 +12,6 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
     // SQL helpers
     private static final String TEXT_TYPE = " TEXT";
     private static final String COMMA_SEP = ",";
-    private static final String SEMICOLON_SEP = "; ";
     private static final String PRIMARY_KEY_INIT = " INTEGER PRIMARY KEY AUTOINCREMENT";
 
     // SQL commands
@@ -135,6 +134,6 @@ public class DeviceDataOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
-        // todo: define what we do when database is upgraded
+        // todo: define what to do when database is upgraded
     }
 }

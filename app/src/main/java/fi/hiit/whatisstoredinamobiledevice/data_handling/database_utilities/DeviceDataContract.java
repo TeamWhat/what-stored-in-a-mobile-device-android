@@ -2,11 +2,17 @@ package fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities;
 
 import android.provider.BaseColumns;
 
+/**
+ * Defines database schema
+ *
+ * See http://developer.android.com/training/basics/data-storage/databases.html
+ */
 public final class DeviceDataContract {
     // To prevent someone from accidentally instantiating the contract class,
     // give it an empty constructor.
     public DeviceDataContract() {}
 
+    /* Table names of all the tables */
     public final static String[] TABLE_NAMES = {
         DeviceInfoEntry.TABLE_NAME,
         ImageDataEntry.TABLE_NAME,
@@ -16,7 +22,7 @@ public final class DeviceDataContract {
         TextDataEntry.TABLE_NAME
     };
 
-    /* Inner class that defines the table contents */
+    /* Inner class that defines device info table */
     public static abstract class DeviceInfoEntry implements BaseColumns {
         public static final String TABLE_NAME = "device_info";
         public static final String COLUMN_NAME_ENTRY_ID = "entry_id";
@@ -114,5 +120,5 @@ public final class DeviceDataContract {
         public static final String COLUMN_NAME_SENT = "sent";
     }
 
-    // todo: more tables here
+    // more tables here
 }
