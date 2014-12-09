@@ -1,13 +1,16 @@
 package fi.hiit.whatisstoredinamobiledevice.ui.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.toolbox.HurlStack;
 
@@ -29,6 +32,7 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firstTimeSettings();
         setContentView(R.layout.activity_main_screen);
 
         mSendDataProgressBar = (ProgressBar) findViewById(R.id.main_screen_send_data_progress_bar);
@@ -36,6 +40,29 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
 
         mJSONPackager = new JSONPackager(getApplicationContext());
         mHttpPOSTHandler = new HttpPostHandler(getApplicationContext(), new HurlStack());
+        mHttpPOSTHandler.setMainScreen(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setDataSendCounter();
+    }
+
+    public void setDataSendCounter() {
+        TextView dataSendCounterTextView = (TextView) findViewById(R.id.data_send_counter);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(getPackageName() + "_preferences", Context.MODE_PRIVATE);
+        int dataSendCounter = sharedPreferences.getInt("data_send_count", 0);
+
+        if (dataSendCounter == 0) {
+            dataSendCounterTextView.setText("Data has not been sent");
+        }else if (dataSendCounter == 1) {
+            dataSendCounterTextView.setText("Data has been sent once");
+        }else {
+            dataSendCounterTextView.setText("Data has been sent " + String.valueOf(dataSendCounter) + " times");
+        }
+
     }
 
     @Override
@@ -73,7 +100,18 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
         startService(intent);
     }
 
+    private void firstTimeSettings() {
+        SharedPreferences pref = getSharedPreferences(this.getPackageName() + "_preferences", MODE_PRIVATE);
 
+        if(pref.getBoolean("firststart", true)) {
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("firststart", false);
+            editor.commit();
+
+            Intent intent = new Intent(this, FirstLaunchActivity.class);
+            startActivity(intent);
+        }
+    }
 
     public void collectAndSendDataToServer(View view) {
         findViewById(R.id.main_screen_send_data_button).setEnabled(false);
@@ -94,5 +132,6 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
         // Buttons are enabled when http request is started, not when response is received
         mSendDataProgressBar.setVisibility(View.INVISIBLE);
         findViewById(R.id.main_screen_send_data_button).setEnabled(true);
+        setDataSendCounter();
     }
 }

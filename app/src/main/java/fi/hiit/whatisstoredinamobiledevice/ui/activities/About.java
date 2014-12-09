@@ -13,6 +13,7 @@ public class About extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         String html = getString(R.string.about_message);
+        html += " " + getString(R.string.licenses_message);
 
         String mime = "text/html";
         String encoding = "utf-8";

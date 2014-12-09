@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="ages_array">
+        <item>@string/not_selected</item>
         <item>@string/age_group_under18</item>
         <item>@string/age_group_18to25</item>
         <item>@string/age_group_25to35</item>
@@ -8,6 +9,7 @@
     </string-array>
 
     <string-array name="ages_array_values">
+        <item>@string/not_selected</item>
         <item>@string/age_group_under18</item>
         <item>@string/age_group_18to25</item>
         <item>@string/age_group_25to35</item>
@@ -39,6 +41,7 @@
 
 
     <string-array name="country_array">
+        <item>@string/not_selected</item>
         <item>@string/country_afghanistan</item>
         <item>@string/country_albania</item>
         <item>@string/country_algeria</item>
@@ -237,6 +240,7 @@
     </string-array>
 
     <string-array name="country_array_values">
+        <item>@string/not_selected</item>
         <item>@string/country_afghanistan_value</item>
         <item>@string/country_albania_value</item>
         <item>@string/country_algeria_value</item>
@@ -434,4 +438,5 @@
         <item>@string/country_zimbabwe_value</item>
     </string-array>
 
+    <string name="not_selected">Not selected</string>
 </resources>
