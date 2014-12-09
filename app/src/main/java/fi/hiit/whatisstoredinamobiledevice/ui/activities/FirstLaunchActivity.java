@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -74,7 +75,7 @@ public class FirstLaunchActivity extends FragmentActivity {
     }
 
     public void finishButtonPressed(View view) {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(getPackageName() + "_preferences", Context.MODE_PRIVATE);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         SharedPreferences.Editor editor = pref.edit();
         Resources res = getResources();
@@ -88,7 +89,7 @@ public class FirstLaunchActivity extends FragmentActivity {
         setFrequencyPreference(editor, res);
 
         //initialize counter on how many times data has been sent
-        editor.putInt("data_send_count", 0);
+        editor.putInt(MainScreen.KEY_DATA_SEND_COUNT, 0);
 
         editor.commit();
 
@@ -102,7 +103,7 @@ public class FirstLaunchActivity extends FragmentActivity {
         int idx = genderRadioGroup.indexOfChild(radioButton);
 
         if (radioButtonID == -1) {
-            editor.putString(SettingsFragment.KEY_SETTINGS_USER_GENDER, "Not selected");
+            editor.putString(SettingsFragment.KEY_SETTINGS_USER_GENDER, getString(R.string.not_selected_text));
         }else {
             String[] genderValues = res.getStringArray(R.array.gender_array_values);
             editor.putString(SettingsFragment.KEY_SETTINGS_USER_GENDER, genderValues[idx]);
@@ -125,6 +126,7 @@ public class FirstLaunchActivity extends FragmentActivity {
         editor.putString(SettingsFragment.KEY_SETTINGS_USER_EMAIL, emailEditText.getText().toString());
     }
 
+    // todo: SET ALARM IF DATA SENDING ENABLED HERE
     private void setSendDataPreference(SharedPreferences.Editor editor) {
         CheckBox sendDataCheckBox = (CheckBox) findViewById(R.id.sendDataCheckbox);
         editor.putBoolean(SettingsFragment.KEY_SETTINGS_ENABLE_DATA_SENDING, sendDataCheckBox.isChecked());
