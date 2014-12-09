@@ -1,6 +1,5 @@
 package fi.hiit.whatisstoredinamobiledevice.network;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -19,6 +18,7 @@ import org.json.JSONObject;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DatabaseAccessor;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.DeviceDataOpenHelper;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.database_utilities.SQLiteDatabaseAccessor;
+import fi.hiit.whatisstoredinamobiledevice.ui.activities.MainScreen;
 
 
 public class HttpPostHandler {
@@ -28,6 +28,7 @@ public class HttpPostHandler {
     private final HttpStack mHttpStack;
     private Context mContext;
     private DatabaseAccessor databaseAccessor;
+    private MainScreen mMainScreen;
     private static final String TAG = "HttpPostHandler";
     public static final String SERVER_URL = "http://pdp.cs.helsinki.fi/";
 
@@ -44,6 +45,10 @@ public class HttpPostHandler {
      * @param jsonToSend
      * @return
      */
+    public void setMainScreen(MainScreen m) {
+        mMainScreen = m;
+    }
+
     public boolean postJSON(final JSONObject jsonToSend) {
         final RequestQueue queue = Volley.newRequestQueue(mContext, mHttpStack);
 
@@ -54,10 +59,10 @@ public class HttpPostHandler {
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "POST successful: " + response.toString());
                         queue.stop();
+                        incrementDataSendCounter();
                         // Change sent flags to be sent
                         databaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(mContext));
                         databaseAccessor.setAllSent();
-                        incrementDataSendCounter();
                     }
                 },
 
@@ -84,10 +89,12 @@ public class HttpPostHandler {
     private void incrementDataSendCounter() {
         SharedPreferences sharedPreferences = mContext.getApplicationContext().getSharedPreferences(mContext.getPackageName() + "_preferences", Context.MODE_PRIVATE);
         int dataSendCount = sharedPreferences.getInt("data_send_count", 0);
+        dataSendCount++;
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("data_send_count", dataSendCount++);
+        editor.putInt("data_send_count", dataSendCount);
         editor.commit();
+        if (mMainScreen != null) {
+            mMainScreen.setDataSendCounter();
+        }
     }
-
-
 }

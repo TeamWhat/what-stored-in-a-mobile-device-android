@@ -38,13 +38,18 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
         mSendDataProgressBar = (ProgressBar) findViewById(R.id.main_screen_send_data_progress_bar);
         mSendDataProgressBar.setVisibility(View.INVISIBLE);
 
-        setDataSendCounter();
-
         mJSONPackager = new JSONPackager(getApplicationContext());
         mHttpPOSTHandler = new HttpPostHandler(getApplicationContext(), new HurlStack());
+        mHttpPOSTHandler.setMainScreen(this);
     }
 
-    private void setDataSendCounter() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setDataSendCounter();
+    }
+
+    public void setDataSendCounter() {
         TextView dataSendCounterTextView = (TextView) findViewById(R.id.data_send_counter);
 
         SharedPreferences sharedPreferences = getSharedPreferences(getPackageName() + "_preferences", Context.MODE_PRIVATE);

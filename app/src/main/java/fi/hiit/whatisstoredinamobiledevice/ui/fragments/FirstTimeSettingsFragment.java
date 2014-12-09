@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
 
@@ -58,12 +59,18 @@ public class FirstTimeSettingsFragment extends Fragment {
 
                             Spinner dataSendingFrequencySpinner = (Spinner) getView().findViewById(R.id.dataSendingPeriodSelectionSpinner);
                             dataSendingFrequencySpinner.setEnabled(false);
+
+                            TextView dataSendingFrequencyTextView = (TextView) getView().findViewById(R.id.dataSendingFrequencyTextView);
+                            dataSendingFrequencyTextView.setEnabled(false);
                         }else {
                             CheckBox sendDataOnWifiCheckBox = (CheckBox) getView().findViewById(R.id.sendDataOnWifiCheckbox);
                             sendDataOnWifiCheckBox.setEnabled(true);
 
                             Spinner dataSendingFrequencySpinner = (Spinner) getView().findViewById(R.id.dataSendingPeriodSelectionSpinner);
                             dataSendingFrequencySpinner.setEnabled(true);
+
+                            TextView dataSendingFrequencyTextView = (TextView) getView().findViewById(R.id.dataSendingFrequencyTextView);
+                            dataSendingFrequencyTextView.setEnabled(true);
                         }
                     }
                 }
