@@ -63,7 +63,6 @@ public class HttpPostHandler {
                         // Change sent flags to be sent
                         databaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(mContext));
                         databaseAccessor.setAllSent();
-                        incrementDataSendCounter();
                     }
                 },
 
@@ -98,5 +97,4 @@ public class HttpPostHandler {
             mMainScreen.setDataSendCounter();
         }
     }
-
 }

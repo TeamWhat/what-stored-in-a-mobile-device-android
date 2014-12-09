@@ -3,6 +3,7 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -39,6 +40,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/age"
             android:id="@+id/ageQuestionTextView"
+            android:layout_below="@+id/genderRadioGroup"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
         <Spinner
@@ -46,6 +48,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/ageSelectionSpinner"
             android:entries="@array/ages_array"
+            android:layout_below="@+id/ageQuestionTextView"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -55,13 +58,14 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/country"
             android:id="@+id/countryQuestionTextView"
+            android:layout_below="@+id/ageSelectionSpinner"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-
         <Spinner
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/countrySelectionSpinner"
+            android:layout_below="@+id/countryQuestionTextView"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:entries="@array/country_array" />
@@ -72,6 +76,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/email"
             android:id="@+id/emailQuestionTextView"
+            android:layout_below="@+id/countrySelectionSpinner"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -81,6 +86,7 @@
             android:inputType="textEmailAddress"
             android:ems="10"
             android:id="@+id/emailEditText"
+            android:layout_below="@+id/emailQuestionTextView"
             />
 
         <TextView
@@ -96,14 +102,15 @@
             android:text="@string/settings_enable_data_sending_title"
             android:id="@+id/sendDataCheckbox"
             android:checked="true"
-            />
+            android:layout_below="@+id/emailEditText"/>
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_only_wifi_title"
-        android:id="@+id/sendDataOnWifiCheckbox"
-        android:checked="true"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_only_wifi_title"
+            android:id="@+id/sendDataOnWifiCheckbox"
+            android:checked="true"
+            android:layout_below="@+id/sendDataCheckbox"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -117,6 +124,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/dataSendingPeriodSelectionSpinner"
             android:entries="@array/frequency_array"
+            android:layout_below="@+id/sendDataOnWifiCheckbox"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -124,9 +132,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="finishButtonPressed"
+            android:layout_alignBottom="@+id/dataSendingPeriodSelectionSpinner"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal" />
-
 
     </LinearLayout>
 </ScrollView>
