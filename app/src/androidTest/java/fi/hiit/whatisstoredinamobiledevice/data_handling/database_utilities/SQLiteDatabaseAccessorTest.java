@@ -49,10 +49,15 @@ public class SQLiteDatabaseAccessorTest extends InstrumentationTestCase {
     }
 
     public void testDeviceDataBrandIsSaved() {
+        getInstrumentation().waitForIdleSync();
         databaseAccessor.saveAllData(hm);
+        getInstrumentation().waitForIdleSync();
         Cursor c = readDeviceDataFromDatabase();
+        getInstrumentation().waitForIdleSync();
         c.moveToFirst();
+        getInstrumentation().waitForIdleSync();
         assertTrue(c.getString(c.getColumnIndex(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND)).equals("testBrand"));
+        getInstrumentation().waitForIdleSync();
     }
 
     public void testSaveAllDataReturnsFalseIfDataSavingFails() {

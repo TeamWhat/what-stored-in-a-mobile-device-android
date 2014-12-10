@@ -56,7 +56,7 @@ public class DeviceInfoCollector implements DataCollector {
         deviceInfoData.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_EXTERNAL_FREE_SPACE, freeExternalStorageSpace());
         deviceInfoData.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_EXTERNAL_TOTAL_SPACE, totalExternalStorageSpace());
 
-        // outer hashmap for consistency with other collectors
+        // Outer hashmap for consistency with other collectors
         data.put("0", deviceInfoData);
         return data;
     }
@@ -73,17 +73,32 @@ public class DeviceInfoCollector implements DataCollector {
     }
 
     private String freeExternalStorageSpace() {
-        long freeBytesExternal = externalStorage().getUsableSpace();
-        return "" + freeBytesExternal;
+        File extStorage = externalStorage();
+        if (extStorage != null) {
+            long freeBytesExternal = extStorage.getUsableSpace();
+            return "" + freeBytesExternal;
+        }
+        return "0";
     }
 
     private String totalExternalStorageSpace() {
-        long totalBytesExternal = externalStorage().getTotalSpace();
-        return "" + totalBytesExternal;
+        File extStorage = externalStorage();
+        if (extStorage != null) {
+            long totalBytesExternal = extStorage.getTotalSpace();
+            return "" + totalBytesExternal;
+        }
+        return "0";
     }
 
+    /**
+     * Get external storage if available
+     * @return null if not available
+     */
     private File externalStorage() {
-        return new File(mContext.getExternalFilesDir(null).toString());
+        if (mContext.getExternalFilesDir(null) != null) {
+            return new File(mContext.getExternalFilesDir(null).toString());
+        }
+        return null;
     }
 
     private File internalStorage() {

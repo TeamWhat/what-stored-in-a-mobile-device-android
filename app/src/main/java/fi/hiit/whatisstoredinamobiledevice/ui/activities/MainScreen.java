@@ -34,6 +34,7 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
         super.onCreate(savedInstanceState);
         firstTimeSettings();
         setContentView(R.layout.activity_main_screen);
+        getActionBar().setIcon(android.R.color.transparent);
 
         mSendDataProgressBar = (ProgressBar) findViewById(R.id.main_screen_send_data_progress_bar);
         mSendDataProgressBar.setVisibility(View.INVISIBLE);

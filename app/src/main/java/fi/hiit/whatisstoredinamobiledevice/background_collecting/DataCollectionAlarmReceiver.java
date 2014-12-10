@@ -13,7 +13,10 @@ import fi.hiit.whatisstoredinamobiledevice.data_handling.DataHandlerIntentServic
 import fi.hiit.whatisstoredinamobiledevice.data_handling.DataResultReceiver;
 import fi.hiit.whatisstoredinamobiledevice.network.ConnectivityChangeReceiver;
 
-
+/**
+ * For class purpose see https://developer.android.com/training/scheduling/alarms.html
+ * and https://developer.android.com/training/scheduling/wakelock.html#cpu
+ */
 public class DataCollectionAlarmReceiver extends WakefulBroadcastReceiver implements DataResultReceiver.Receiver {
     public static final int TRIGGER_WAIT = 0;
     private Context mContext;

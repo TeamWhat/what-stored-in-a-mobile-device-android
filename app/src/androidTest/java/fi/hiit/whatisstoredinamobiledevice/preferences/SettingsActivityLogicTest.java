@@ -74,6 +74,7 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
     @MediumTest
     public void testGenderSelectionMaleIsSaved() {
+        getInstrumentation().waitForIdleSync();
         mMua.selectMale();
         getInstrumentation().waitForIdleSync();
         String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_GENDER);
@@ -85,6 +86,7 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
     @MediumTest
     public void testGenderSelectionMaleIsSavedWhenSelectedTwice() {
+        getInstrumentation().waitForIdleSync();
         mMua.selectMale();
         getInstrumentation().waitForIdleSync();
 
@@ -104,6 +106,7 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
 
     @MediumTest
     public void testGenderSelectionMaleIsSavedAndValueNotFemale() {
+        getInstrumentation().waitForIdleSync();
         mMua.selectMale();
         getInstrumentation().waitForIdleSync();
 
@@ -119,6 +122,7 @@ public class SettingsActivityLogicTest extends ActivityInstrumentationTestCase2<
         String firstValueDefinedInXML = getStringValueDefinedInXML(R.string.gender_male_value);
         String secondValueDefinedInXML = getStringValueDefinedInXML(R.string.gender_female_value);
 
+        getInstrumentation().waitForIdleSync();
         mMua.selectMale();
         getInstrumentation().waitForIdleSync();
         String valueInSharedPrefs = getSharedPrefsStringValue(SettingsFragment.KEY_SETTINGS_USER_GENDER);

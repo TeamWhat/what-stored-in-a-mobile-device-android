@@ -22,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.background_collecting.DataCollectionAlarmReceiver;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsFragment;
 import fi.hiit.whatisstoredinamobiledevice.ui.fragments.Controls;
@@ -31,36 +32,33 @@ import fi.hiit.whatisstoredinamobiledevice.ui.fragments.ControlsPagerAdapter;
 public class FirstLaunchActivity extends FragmentActivity {
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
+    private DataCollectionAlarmReceiver mDCAR;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_time);
+        getActionBar().setIcon(android.R.color.transparent);
         mPager = (ViewPager) findViewById(R.id.first_time_screens);
         mPagerAdapter = new ControlsPagerAdapter(getFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         Controls firstTimeSettingsControls = new Controls();
-        SettingsFragment settingsFragment = new SettingsFragment();
         firstTimeSettingsControls.setPager(mPager);
         transaction.add(R.id.first_time_settings_controls, firstTimeSettingsControls);
         transaction.commit();
     }
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-// Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.options_menu, menu);
-        return true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+// Handle action bar item clicks here. The action bar will
+// automatically handle clicks on the Home/Up button, so long
+// as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        Intent selectedMenuOptionIntent = new Intent(this, SettingsActivity.class);
+        startActivity(selectedMenuOptionIntent);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//// Handle action bar item clicks here. The action bar will
-//// automatically handle clicks on the Home/Up button, so long
-//// as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//        Intent selectedMenuOptionIntent = new Intent(this, SettingsActivity.class);
-//        startActivity(selectedMenuOptionIntent);
-//        return id == R.id.action_settings || super.onOptionsItemSelected(item);
-//    }
     @Override
     public void onBackPressed() {
         if (mPager.getCurrentItem() == 0) {
@@ -126,10 +124,14 @@ public class FirstLaunchActivity extends FragmentActivity {
         editor.putString(SettingsFragment.KEY_SETTINGS_USER_EMAIL, emailEditText.getText().toString());
     }
 
-    // todo: SET ALARM IF DATA SENDING ENABLED HERE
     private void setSendDataPreference(SharedPreferences.Editor editor) {
         CheckBox sendDataCheckBox = (CheckBox) findViewById(R.id.sendDataCheckbox);
-        editor.putBoolean(SettingsFragment.KEY_SETTINGS_ENABLE_DATA_SENDING, sendDataCheckBox.isChecked());
+        boolean isDataSendingEnabled = sendDataCheckBox.isChecked();
+        editor.putBoolean(SettingsFragment.KEY_SETTINGS_ENABLE_DATA_SENDING, isDataSendingEnabled);
+        if (isDataSendingEnabled) {
+            mDCAR = new DataCollectionAlarmReceiver();
+            mDCAR.setDataCollectionAlarm(this);
+        }
     }
 
     private void setWifiPreference(SharedPreferences.Editor editor) {
