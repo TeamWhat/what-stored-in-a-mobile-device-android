@@ -51,16 +51,16 @@ public class FirstLaunchActivity extends FragmentActivity {
         getMenuInflater().inflate(R.menu.options_menu, menu);
         return true;
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-// Handle action bar item clicks here. The action bar will
-// automatically handle clicks on the Home/Up button, so long
-// as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        Intent selectedMenuOptionIntent = new Intent(this, SettingsActivity.class);
-        startActivity(selectedMenuOptionIntent);
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//// Handle action bar item clicks here. The action bar will
+//// automatically handle clicks on the Home/Up button, so long
+//// as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//        Intent selectedMenuOptionIntent = new Intent(this, SettingsActivity.class);
+//        startActivity(selectedMenuOptionIntent);
+//        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+//    }
     @Override
     public void onBackPressed() {
         if (mPager.getCurrentItem() == 0) {
@@ -88,7 +88,7 @@ public class FirstLaunchActivity extends FragmentActivity {
         setWifiPreference(editor);
         setFrequencyPreference(editor, res);
 
-        //initialize counter on how many times data has been sent
+        // Initialize counter on how many times data has been sent
         editor.putInt(MainScreen.KEY_DATA_SEND_COUNT, 0);
 
         editor.commit();

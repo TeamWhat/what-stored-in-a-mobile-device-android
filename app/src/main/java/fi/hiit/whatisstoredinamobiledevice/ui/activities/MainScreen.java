@@ -105,6 +105,8 @@ public class MainScreen extends Activity implements DataResultReceiver.Receiver 
 
         if(pref.getBoolean(KEY_FIRST_START, true)) {
             SharedPreferences.Editor editor = pref.edit();
+
+            // Set that the first time settings are not prompted anymore
             editor.putBoolean(KEY_FIRST_START, false);
             editor.commit();
 
