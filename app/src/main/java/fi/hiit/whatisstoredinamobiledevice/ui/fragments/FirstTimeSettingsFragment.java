@@ -62,7 +62,7 @@ public class FirstTimeSettingsFragment extends Fragment {
 
                             TextView dataSendingFrequencyTextView = (TextView) getView().findViewById(R.id.dataSendingFrequencyTextView);
                             dataSendingFrequencyTextView.setEnabled(false);
-                        }else {
+                        } else {
                             CheckBox sendDataOnWifiCheckBox = (CheckBox) getView().findViewById(R.id.sendDataOnWifiCheckbox);
                             sendDataOnWifiCheckBox.setEnabled(true);
 

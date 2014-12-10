@@ -44,7 +44,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
         <Spinner
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ageSelectionSpinner"
             android:entries="@array/ages_array"
@@ -62,7 +62,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
         <Spinner
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/countrySelectionSpinner"
             android:layout_below="@+id/countryQuestionTextView"
@@ -81,7 +81,7 @@
             android:layout_alignParentStart="true" />
 
         <EditText
-            android:layout_width="336dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
@@ -120,7 +120,7 @@
             android:id="@+id/dataSendingFrequencyTextView" />
 
         <Spinner
-            android:layout_width="151dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/dataSendingPeriodSelectionSpinner"
             android:entries="@array/frequency_array"
@@ -129,13 +129,12 @@
             android:layout_alignParentStart="true" />
 
         <Button android:text="@string/finish_button"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="finishButtonPressed"
             android:layout_alignBottom="@+id/dataSendingPeriodSelectionSpinner"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal" />
-
 
     </LinearLayout>
 </ScrollView>

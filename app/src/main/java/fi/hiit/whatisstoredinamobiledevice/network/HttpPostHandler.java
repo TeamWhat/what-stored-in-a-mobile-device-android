@@ -40,15 +40,15 @@ public class HttpPostHandler {
         this.mJSONUrl = SERVER_URL + "submit";
     }
 
+    public void setMainScreen(MainScreen m) {
+        mMainScreen = m;
+    }
+
     /**
      * Post a JSON to the backend server
      * @param jsonToSend
      * @return
      */
-    public void setMainScreen(MainScreen m) {
-        mMainScreen = m;
-    }
-
     public boolean postJSON(final JSONObject jsonToSend) {
         final RequestQueue queue = Volley.newRequestQueue(mContext, mHttpStack);
 
