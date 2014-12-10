@@ -2,9 +2,7 @@ package fi.hiit.whatisstoredinamobiledevice.network;
 
 import android.test.InstrumentationTestCase;
 
-/**
- * Created by eemihauk on 9.12.2014.
- */
+
 public class ConnectivityTest extends InstrumentationTestCase {
 
 
@@ -13,17 +11,6 @@ public class ConnectivityTest extends InstrumentationTestCase {
         super.setUp();
 
     }
-
-    @Override
-    public void tearDown() throws Exception {
-
-        super.tearDown();
-    }
-
-
-
-
-
 
 
 }

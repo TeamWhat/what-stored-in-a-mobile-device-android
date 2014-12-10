@@ -21,25 +21,23 @@ public class SendDataIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        System.out.println("SEND DATA INTENT STARTED");
+//        System.out.println("SEND DATA INTENT STARTED");
         Connectivity connectivity = new Connectivity(this);
 
         if (!connectivity.isConnectedAndIsWifiIfOnlyWifiSet()) {
             DataCollectionAlarmReceiver.completeWakefulIntent(intent);
             ConnectivityChangeReceiver.completeWakefulIntent(intent);
 
-            System.out.println("ConnectivityChangeReciever state: " + DataCollectionAlarmReceiver.isConnectivityChangeReceiverEnabled(this));
             DataCollectionAlarmReceiver.setConnectivityChangeReceiverState(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, this);
-            System.out.println("ConnectivityChangeReciever state: " + DataCollectionAlarmReceiver.isConnectivityChangeReceiverEnabled(this));
 
-            System.out.println("STOPPED SEND DATA INTENT AND ENABLED CCR - NO NETWORK");
+//            System.out.println("STOPPED SEND DATA INTENT AND ENABLED CCR - NO NETWORK");
         } else {
             JSONPackager jsonPkgr = new JSONPackager(this);
             HttpPostHandler httpPostHdlr = new HttpPostHandler(this, new HurlStack());
 
             JSONObject collectedDataJSON = jsonPkgr.createJsonObjectFromStoredData();
             httpPostHdlr.postJSON(collectedDataJSON, intent);
-            System.out.println("SENT POST");
+//            System.out.println("SENT POST");
         }
     }
 }

@@ -35,7 +35,6 @@ public class HttpPostHandler {
     private DatabaseAccessor mDatabaseAccessor;
 
     public static final String SERVER_URL = "http://pdp.cs.helsinki.fi/";
-//    public static final String SERVER_URL = "http://pickingdigitalpockets.herokuapp.com/";
 
 
     public HttpPostHandler(Context context, HttpStack httpStack) {
@@ -51,16 +50,15 @@ public class HttpPostHandler {
     }
 
 
-    // todo: check if you can stop the wakeful intent service as in this method
+
     /**
      * Post a JSON to the backend server
      * @param jsonToSend
      * @return
      */
-
     public boolean postJSON(final JSONObject jsonToSend, final Intent intentToStop) {
 
-        System.out.println("jsonToSend lenght: " + jsonToSend.toString().length());
+//        System.out.println("jsonToSend lenght: " + jsonToSend.toString().length());
 
         final RequestQueue queue = Volley.newRequestQueue(mContext, mHttpStack);
         JsonObjectRequest jsonRequest = getJsonObjectRequest(jsonToSend, intentToStop, queue);
@@ -90,7 +88,7 @@ public class HttpPostHandler {
                         mDatabaseAccessor = new SQLiteDatabaseAccessor(new DeviceDataOpenHelper(mContext));
                         mDatabaseAccessor.setAllSent();
 
-                        System.out.println(  "SUCCESSFUL RESPONSE, CCR DISABLED: " + DataCollectionAlarmReceiver.isConnectivityChangeReceiverEnabled(mContext) + ", INTENT STOPPED: " + intentToStop);
+//                        System.out.println(  "SUCCESSFUL RESPONSE, CCR DISABLED: " + DataCollectionAlarmReceiver.isConnectivityChangeReceiverEnabled(mContext) + ", INTENT STOPPED: " + intentToStop);
                     }
                 },
 
@@ -105,8 +103,8 @@ public class HttpPostHandler {
                             DataCollectionAlarmReceiver.completeWakefulIntent(intentToStop);
                         }
 
-                        System.out.println("ERRORED RESPONSE: " + volleyError.networkResponse.statusCode
-                                + "\nINTENT STOPPED: " + intentToStop);
+//                        System.out.println("ERRORED RESPONSE: " + volleyError.networkResponse.statusCode
+//                                + "\nINTENT STOPPED: " + intentToStop);
                     }
                 });
     }

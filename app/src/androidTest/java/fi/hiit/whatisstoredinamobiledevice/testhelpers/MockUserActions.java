@@ -30,7 +30,7 @@ public class MockUserActions {
 
     public void selectOption(int categoryId, int optionId) {
         testSoloObject.clickOnText(testActivity.getString(categoryId));
-        testSoloObject.waitForText("Cancel"); // todo; HARDCODE
+        testSoloObject.waitForText("Cancel"); // todo: HARDCODE
         testSoloObject.scrollListToTop(0);
         testSoloObject.clickOnText(testActivity.getString(optionId));
         testSoloObject.waitForText(testActivity.getString(R.string.title_activity_settings));
