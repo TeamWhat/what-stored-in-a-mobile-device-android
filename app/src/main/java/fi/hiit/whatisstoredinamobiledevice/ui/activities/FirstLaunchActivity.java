@@ -38,7 +38,6 @@ public class FirstLaunchActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_time);
-        getActionBar().setIcon(android.R.color.transparent);
         mPager = (ViewPager) findViewById(R.id.first_time_screens);
         mPagerAdapter = new ControlsPagerAdapter(getFragmentManager());
         mPager.setAdapter(mPagerAdapter);

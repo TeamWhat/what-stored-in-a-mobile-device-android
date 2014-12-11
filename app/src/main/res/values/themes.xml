@@ -9,7 +9,8 @@
     <!-- ActionBar styles -->
     <style name="MyActionBar"
         parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@color/blue</item>
+        <item name="android:background">@color/purple</item>
+        <item name="android:icon">@android:color/transparent</item>
     </style>
 
 </resources>

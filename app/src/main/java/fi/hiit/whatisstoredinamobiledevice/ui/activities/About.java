@@ -12,7 +12,6 @@ public class About extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        getActionBar().setIcon(android.R.color.transparent);
         String html = getString(R.string.about_message);
         html += " " + getString(R.string.licenses_message);
 

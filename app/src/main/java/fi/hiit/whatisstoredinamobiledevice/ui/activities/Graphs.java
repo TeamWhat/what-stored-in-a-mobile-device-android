@@ -34,7 +34,6 @@ public class Graphs extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphs);
-        getActionBar().setIcon(android.R.color.transparent);
         setSizePieChart();
         setCountPieChart();
     }
