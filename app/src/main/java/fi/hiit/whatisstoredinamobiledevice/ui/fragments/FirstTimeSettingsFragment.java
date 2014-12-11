@@ -43,9 +43,9 @@ public class FirstTimeSettingsFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //set default data sending frequency as weekly
+        //set default data sending frequency as Daily (index 0)
         Spinner dataSendingFrequencySpinner = (Spinner) getView().findViewById(R.id.dataSendingPeriodSelectionSpinner);
-        dataSendingFrequencySpinner.setSelection(1);
+        dataSendingFrequencySpinner.setSelection(0);
 
         final CheckBox sendDataCheckBox = (CheckBox) getView().findViewById(R.id.sendDataCheckbox);
 

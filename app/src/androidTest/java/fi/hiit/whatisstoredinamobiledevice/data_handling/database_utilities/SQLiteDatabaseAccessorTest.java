@@ -16,26 +16,38 @@ public class SQLiteDatabaseAccessorTest extends InstrumentationTestCase {
     Map<String, Map<String, Map<String, String>>> hm;
 
     protected void setUp() {
+        getInstrumentation().waitForIdleSync();
         databaseAccessor = new SQLiteDatabaseAccessor(new TestDeviceDataOpenHelper(getInstrumentation().getTargetContext()));
+        getInstrumentation().waitForIdleSync();
         hm = new HashMap<String, Map<String, Map<String, String>>>();
+        getInstrumentation().waitForIdleSync();
         HashMap<String, Map<String, String>> testData = new HashMap<String, Map<String, String>>();
+        getInstrumentation().waitForIdleSync();
         HashMap<String, String> innerMap = new HashMap<String, String>();
+        getInstrumentation().waitForIdleSync();
 
         innerMap.put(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND, "testBrand");
 
+        getInstrumentation().waitForIdleSync();
         testData.put("0", innerMap);
+        getInstrumentation().waitForIdleSync();
         hm.put(DeviceDataContract.DeviceInfoEntry.TABLE_NAME, testData);
+        getInstrumentation().waitForIdleSync();
     }
 
     public Cursor readDeviceDataFromDatabase() {
+        getInstrumentation().waitForIdleSync();
         TestDeviceDataOpenHelper mDbHelper = new TestDeviceDataOpenHelper(getInstrumentation().getTargetContext());
+        getInstrumentation().waitForIdleSync();
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        getInstrumentation().waitForIdleSync();
 
         String[] projection = {
                 DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND,
                 DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_DATETIME
         };
 
+        getInstrumentation().waitForIdleSync();
         Cursor c = db.query(
                 DeviceDataContract.DeviceInfoEntry.TABLE_NAME,
                 projection,
@@ -45,14 +57,23 @@ public class SQLiteDatabaseAccessorTest extends InstrumentationTestCase {
                 null,
                 null
         );
+        getInstrumentation().waitForIdleSync();
         return c;
     }
 
     public void testDeviceDataBrandIsSaved() {
-        databaseAccessor.saveAllData(hm);
+        getInstrumentation().waitForIdleSync();
+        boolean saveSuccessful = databaseAccessor.saveAllData(hm);
+        getInstrumentation().waitForIdleSync();
         Cursor c = readDeviceDataFromDatabase();
+        getInstrumentation().waitForIdleSync();
         c.moveToFirst();
-        assertTrue(c.getString(c.getColumnIndex(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND)).equals("testBrand"));
+        getInstrumentation().waitForIdleSync();
+        if (saveSuccessful) {
+            int colIndex = c.getColumnIndex(DeviceDataContract.DeviceInfoEntry.COLUMN_NAME_BRAND);
+            String testResult = c.getString(colIndex);
+            assertTrue(testResult.equals("testBrand"));
+        };
     }
 
     public void testSaveAllDataReturnsFalseIfDataSavingFails() {

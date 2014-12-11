@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:text="@string/settings_only_wifi_title"
             android:id="@+id/sendDataOnWifiCheckbox"
-            android:checked="true"
+            android:checked="false"
             android:layout_below="@+id/sendDataCheckbox"/>
 
         <TextView

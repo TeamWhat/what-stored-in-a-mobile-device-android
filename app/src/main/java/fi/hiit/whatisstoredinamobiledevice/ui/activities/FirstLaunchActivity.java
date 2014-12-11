@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -21,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
+import fi.hiit.whatisstoredinamobiledevice.background_collecting.DataCollectionAlarmReceiver;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsActivity;
 import fi.hiit.whatisstoredinamobiledevice.preferences.SettingsFragment;
 import fi.hiit.whatisstoredinamobiledevice.ui.fragments.Controls;
@@ -30,26 +32,23 @@ import fi.hiit.whatisstoredinamobiledevice.ui.fragments.ControlsPagerAdapter;
 public class FirstLaunchActivity extends FragmentActivity {
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
+    private DataCollectionAlarmReceiver mDCAR;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_time);
+        getActionBar().setIcon(android.R.color.transparent);
         mPager = (ViewPager) findViewById(R.id.first_time_screens);
         mPagerAdapter = new ControlsPagerAdapter(getFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         Controls firstTimeSettingsControls = new Controls();
-        SettingsFragment settingsFragment = new SettingsFragment();
         firstTimeSettingsControls.setPager(mPager);
         transaction.add(R.id.first_time_settings_controls, firstTimeSettingsControls);
         transaction.commit();
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-// Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.options_menu, menu);
-        return true;
-    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 // Handle action bar item clicks here. The action bar will
@@ -74,7 +73,7 @@ public class FirstLaunchActivity extends FragmentActivity {
     }
 
     public void finishButtonPressed(View view) {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(getPackageName() + "_preferences", Context.MODE_PRIVATE);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         SharedPreferences.Editor editor = pref.edit();
         Resources res = getResources();
@@ -87,8 +86,8 @@ public class FirstLaunchActivity extends FragmentActivity {
         setWifiPreference(editor);
         setFrequencyPreference(editor, res);
 
-        //initialize counter on how many times data has been sent
-        editor.putInt("data_send_count", 0);
+        // Initialize counter on how many times data has been sent
+        editor.putInt(MainScreen.KEY_DATA_SEND_COUNT, 0);
 
         editor.commit();
 
@@ -102,7 +101,7 @@ public class FirstLaunchActivity extends FragmentActivity {
         int idx = genderRadioGroup.indexOfChild(radioButton);
 
         if (radioButtonID == -1) {
-            editor.putString(SettingsFragment.KEY_SETTINGS_USER_GENDER, "Not selected");
+            editor.putString(SettingsFragment.KEY_SETTINGS_USER_GENDER, getString(R.string.not_selected_text));
         }else {
             String[] genderValues = res.getStringArray(R.array.gender_array_values);
             editor.putString(SettingsFragment.KEY_SETTINGS_USER_GENDER, genderValues[idx]);
@@ -127,7 +126,12 @@ public class FirstLaunchActivity extends FragmentActivity {
 
     private void setSendDataPreference(SharedPreferences.Editor editor) {
         CheckBox sendDataCheckBox = (CheckBox) findViewById(R.id.sendDataCheckbox);
-        editor.putBoolean(SettingsFragment.KEY_SETTINGS_ENABLE_DATA_SENDING, sendDataCheckBox.isChecked());
+        boolean isDataSendingEnabled = sendDataCheckBox.isChecked();
+        editor.putBoolean(SettingsFragment.KEY_SETTINGS_ENABLE_DATA_SENDING, isDataSendingEnabled);
+        if (isDataSendingEnabled) {
+            mDCAR = new DataCollectionAlarmReceiver();
+            mDCAR.setDataCollectionAlarm(this);
+        }
     }
 
     private void setWifiPreference(SharedPreferences.Editor editor) {

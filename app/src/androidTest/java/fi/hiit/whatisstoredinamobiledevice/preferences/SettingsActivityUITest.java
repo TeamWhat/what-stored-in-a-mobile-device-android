@@ -62,18 +62,28 @@ public class SettingsActivityUITest extends ActivityInstrumentationTestCase2<Set
 
     @MediumTest
     public void testGenderSummaryIsShownAfterSelectingFemale() {
+        getInstrumentation().waitForIdleSync();
         mua.selectMale();
+        getInstrumentation().waitForIdleSync();
         assertFalse(mua.checkTextDisplayed(R.string.gender_female));
+        getInstrumentation().waitForIdleSync();
         mua.selectFemale();
+        getInstrumentation().waitForIdleSync();
         assertTrue(mua.checkTextDisplayed(R.string.gender_female));
+        getInstrumentation().waitForIdleSync();
     }
 
     @MediumTest
     public void testGenderSummaryIsShownAfterSelectingMale() {
+        getInstrumentation().waitForIdleSync();
         mua.selectFemale();
+        getInstrumentation().waitForIdleSync();
         assertFalse(mua.checkTextDisplayed(R.string.gender_male));
+        getInstrumentation().waitForIdleSync();
         mua.selectMale();
+        getInstrumentation().waitForIdleSync();
         assertTrue(mua.checkTextDisplayed(R.string.gender_male));
+        getInstrumentation().waitForIdleSync();
     }
 
     @MediumTest
