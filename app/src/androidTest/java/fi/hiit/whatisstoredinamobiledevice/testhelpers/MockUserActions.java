@@ -36,8 +36,6 @@ public class MockUserActions {
         testSoloObject.waitForText(testActivity.getString(R.string.title_activity_settings));
     }
 
-
-
     public void selectMonthly() {
         selectOption(R.string.settings_data_sending_frequency_title, R.string.frequency_monthly);
     }
