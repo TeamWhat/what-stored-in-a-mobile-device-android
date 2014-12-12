@@ -17,6 +17,7 @@ import java.util.Map;
 
 import fi.hiit.whatisstoredinamobiledevice.R;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.UniqueIdentifier;
+import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ApplicationDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.AudioDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.ImageDataCollector;
 import fi.hiit.whatisstoredinamobiledevice.data_handling.data_collection.TextDataCollector;
@@ -71,7 +72,7 @@ public class Graphs extends Activity {
         xVals.add("Audio (kB)");
         xVals.add("Text files (kB)");
 
-        PieDataSet pieDataSet = new PieDataSet(yVals, "File sizes");
+        PieDataSet pieDataSet = new PieDataSet(yVals, "");
         int[] colorsi = new int[] {R.color.red, R.color.blue, R.color.yellow, R.color.green} ;
         pieDataSet.setColors(colorsi, this);
         PieData data = new PieData(xVals, pieDataSet);
@@ -86,13 +87,15 @@ public class Graphs extends Activity {
         yVals.add(new Entry(count(DeviceDataContract.ImageDataEntry.TABLE_NAME, ImageDataCollector.imageColumnNames), 1));
         yVals.add(new Entry(count(DeviceDataContract.AudioDataEntry.TABLE_NAME, AudioDataCollector.audioColumnNames), 2));
         yVals.add(new Entry(count(DeviceDataContract.TextDataEntry.TABLE_NAME, TextDataCollector.textColumnNames), 3));
+        yVals.add(new Entry(count(DeviceDataContract.ApplicationDataEntry.TABLE_NAME, ApplicationDataCollector.applicationDataColumnNames), 4));
         ArrayList<String> xVals = new ArrayList<String>();
         xVals.add("Videos");
         xVals.add("Images");
         xVals.add("Audio");
         xVals.add("Text files");
+        xVals.add("Applications");
 
-        PieDataSet pieDataSet = new PieDataSet(yVals, "File counts");
+        PieDataSet pieDataSet = new PieDataSet(yVals, "");
         int[] colorsi = new int[] {R.color.red, R.color.blue, R.color.yellow, R.color.green} ;
         pieDataSet.setColors(colorsi, this);
         PieData data = new PieData(xVals, pieDataSet);

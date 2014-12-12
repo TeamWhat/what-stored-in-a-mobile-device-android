@@ -121,6 +121,7 @@
     <string name="main_screen_data_not_sent">Data has not been sent</string>
     <string name="main_screen_data_sent_once">Data has been sent once</string>
     <string name="not_selected_text">Not selected</string>
-
+    <string name="size_pie_chart_title">File sizes</string>
+    <string name="count_pie_chart_title">File counts</string>
 
 </resources>
