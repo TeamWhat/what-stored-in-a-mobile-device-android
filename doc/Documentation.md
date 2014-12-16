@@ -78,7 +78,21 @@ Architecture
 
 ### Android
 
-The app consists of...
+The Android application consists of two main parts, the UI and background data collection.
+
+#### UI
+
+The UI consists of the parts that the user can interact with, such as settings and graphs.
+
+#### Background data collection
+
+The background data collection is the automated system of user device data collection and their sending to the reasearch server. This part of the application can be disabled by the user from the settings. 
+
+[background-data-collection-diagram]
+
+The DataCollectionAlarmReceiver is the class responsible for starting the scheduled task of data collection. The task is repeated either daily, weekly or monthly according to the setting selected by the user. Because the Android OS clears all scheduled tasks on shutdown, the DataCollectionBootReceiver starts it again with the DataCollectionAlarmReceiver when the system starts up (if the user has enabled data collection and sending). At the moment, the data sending frequency is counted from the system startup rather than from a certain time and date in order to avoid clogging the backend server with requests. After the data sending scheduled task has been set (either after enabling data sending or after system startup), the first collection is started after 5 minutes of delay.
+
+
 
 ### Back end
 
