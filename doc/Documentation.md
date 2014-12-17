@@ -73,6 +73,11 @@ $ exit
 # supervisorctl start rails
 ```
 
+### Creating and deleting a user for the backend
+
+
+
+
 Architecture
 ------------
 
