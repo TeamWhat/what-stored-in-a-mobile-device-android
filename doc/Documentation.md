@@ -110,3 +110,11 @@ Calabash, mockito, robotium...
 ### Back end
 
 Rspec, cucumber, factory girl...
+
+Known bugs
+----------
+
+- Share might not work
+- Changeing data sending frequency does not come in to effect until the device restarts or data sending setting is checked and unchecked
+- If a POST request is too large, the backend wont accept the data
+- Device collects and sends data after system restart no matter what the data sending frequency option is (only if data sending is enabled)
