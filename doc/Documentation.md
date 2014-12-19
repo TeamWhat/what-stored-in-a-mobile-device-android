@@ -87,17 +87,19 @@ The Android application consists of two main parts, the UI and background data c
 
 #### UI
 
-The UI consists of the parts that the user can interact with, such as settings and graphs.
+The UI consists of the parts that the user can interact with, such as settings and graphs. If the user opens the application for the first time, the user is shown the first time settings. On the MainScreen user can select to collect and send data, or to open the Graphs page. From the context menu on the top of the screen the user can open Settings or the About page. 
 
 #### Background data collection
 
 The background data collection is the automated system of user device data collection and their sending to the reasearch server. This part of the application can be disabled by the user from the settings. 
 
-[background-data-collection-diagram]
+![Background data collection diagram](background-data-collection-diagram.png)
 
 The DataCollectionAlarmReceiver is the class responsible for starting the scheduled task of data collection. The task is repeated either daily, weekly or monthly according to the setting selected by the user. Because the Android OS clears all scheduled tasks on shutdown, the DataCollectionBootReceiver starts it again with the DataCollectionAlarmReceiver when the system starts up (if the user has enabled data collection and sending). At the moment, the data sending frequency is counted from the system startup rather than from a certain time and date in order to avoid clogging the backend server with requests. After the data sending scheduled task has been set (either after enabling data sending or after system startup), the first collection is started after 5 minutes of delay.
 
+The DataHandlerIntentService is the service that collects the user device data on a separate thread. DataHandler is the class that has the method to collect all data by calling the getData() method of all classes that implement the DataCollector interface. The database_utilities package has the necessary classes to save the collected data on the devices local SQLite database as in [Androids own guides](https://developer.android.com/training/basics/data-storage/databases.html).
 
+The SendDataIntentService is the service that sends the collected data to the server when network connectivity is aquired. It uses the HttpPostHandler to send a http POST request containing the data in the JSON format.
 
 ### Back end
 
@@ -106,11 +108,9 @@ Backend is a ruby on rails server...
 Testing
 -------
 
-We have tested using...
-
 ### Android
 
-Calabash, mockito, robotium...
+The Android application has automated tests. Most were unit tests for settings and the different data collectors, using Mockito for object mocking and the Robotium library for feature tests to mimic user interactions. The application also had integration tests for common use cases made with Calabash. These tests were run on several different devices and emulators. The application was also tested manually with devices ranging from 4.3 inch phones to 10.5 inch tablets, with Android versions 4.1.2, 4.4.2, 4.4.4 and 5.0. The manual testing consisted of testing the stability of the apps UI and the working of the background data sending by leaving the test device on with network connectivity for several days.  
 
 ### Back end
 
