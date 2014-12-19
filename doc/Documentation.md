@@ -105,7 +105,7 @@ The SendDataIntentService is the service that sends the collected data to the se
 
 ### Back end
 
-Backend is a ruby on rails server...
+Backend is a ruby on rails server. Each mobile device that sends data is a unique "Subject" in the database. A "Collection" is a single set of data collected from a Subject. A Subject can have multiple Collections. A Collection contains "Application", "Image", "Audio", "Video" and "Text" data of the Subjects mobile device. "Email" is the list of emails of participating people that have entered their emails on their mobile devices and shared data with the server. "User" list contains the user credentials that one can login with. 
 
 ![Backend diagram](backend-architechture.png)
 
