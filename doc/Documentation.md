@@ -75,7 +75,17 @@ $ exit
 
 ### Creating and deleting a user for the backend
 
-
+```
+$ sudo su
+# su tkt_pdp
+$ cd /home/tkt_pdp/app/
+$ bundle exec rails c
+> User.create username:"usernamehere", password:"passwordhere", password_confirmation:"passwordhere"
+> exit
+$ exit
+# exit
+```
+The password must be at least 8 characters long.
 
 
 Architecture
@@ -120,7 +130,7 @@ You can run the calabash tests with the command
 ```
 $ ./gradlew build
 $ calabash-android resign app/build/outputs/apk/app-release-unsigned.apk
-$ calabash-android run app/build/outputs/apk/app-release-unsigned.a
+$ calabash-android run app/build/outputs/apk/app-release-unsigned.apk
 ```
 Other tests can be run as their test suite documentation instructs.
 
