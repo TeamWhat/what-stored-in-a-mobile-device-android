@@ -6,7 +6,7 @@ what-stored-in-a-mobile-device-android
 
 Links to servers:
 
-[Deployment server](http://pdp.cs.helsinki.fi/) (only works in University's network)
+[Deployment server](http://pdp.cs.helsinki.fi/)
 
 [Development server](http://pickingdigitalpockets.herokuapp.com/)
 
