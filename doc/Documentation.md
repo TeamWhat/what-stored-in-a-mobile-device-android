@@ -74,17 +74,25 @@ $ exit
 ```
 
 ### Creating and deleting a user for the backend
-
+To create a user:
 ```
 $ sudo su
 # su tkt_pdp
 $ cd /home/tkt_pdp/app/
 $ bundle exec rails c
 > User.create username:"usernamehere", password:"passwordhere", password_confirmation:"passwordhere"
-> exit
-$ exit
-# exit
 ```
+
+To delete a user:
+```
+$ sudo su
+# su tkt_pdp
+$ cd /home/tkt_pdp/app/
+$ bundle exec rails c
+> u = User.find_by username:"usernamehere"
+> u.destroy
+```
+
 The password must be at least 8 characters long. The ruby on rails application uses the "Devise" gem to handle user accounts.
 
 
