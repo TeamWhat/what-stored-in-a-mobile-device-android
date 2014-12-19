@@ -121,7 +121,7 @@ DataCollectionAlarmReceiver is responsible for starting the scheduled data colle
 
 DataHandlerIntentService is a service that collects the device data. Because the collection takes some time, it has its own thread. DataHandler collects all data by calling the getData() method of all the classes that implement the DataCollector interface. The database_utilities package has the necessary classes for saving the collected data on the devices local SQLite database as described in the offical [Android guide](https://developer.android.com/training/basics/data-storage/databases.html).
 
-SendDataIntentService is responsible for sending the collected data to the server when a network connection is acquired. It uses HttpPostHandler to send an http POST request containing the data in JSON format. JSONPackager creates a valid JSON object from the data on the local SQLite database. UniqueIdentifier creates a unique id for the mobile device that will anonymously associate the collected data with the specific mobile device on the backend.
+SendDataIntentService is responsible for sending the collected data to the server when a network connection is acquired. It uses HttpPostHandler to send an HTTP POST request containing the data in JSON format. JSONPackager creates a valid JSON object from the data on the local SQLite database. UniqueIdentifier creates a unique id for the mobile device that will anonymously associate the collected data with the specific mobile device on the backend.
 
 ### Back end
 
@@ -134,7 +134,7 @@ Testing
 
 ### Android
 
-The Android application has unit tests for settings and the different data collectors, using Mockito for object mocking, and the Robotium library for feature tests to mimic user interactions. There are also integration tests (made with Calabash) for common use cases. Tests were run on several different devices and emulators. The application was also tested manually with devices ranging from 4.3 inch phones to 10.5 inch tablets, with Android versions 4.1.2, 4.4.2, 4.4.4 and 5.0. The manual testing consisted of testing the stability of the UI and the background data sending by leaving the test device on with network connectivity for several days.
+The Android application has unit tests for settings and the different data collectors, using Mockito for object mocking, and the Robotium library for mimicing user interactions. There are also integration tests (made with Calabash) for common use cases. Tests were run on several different devices and emulators. The application was also tested manually with devices ranging from 4.3 inch phones to 10.5 inch tablets, with Android versions 4.1.2, 4.4.2, 4.4.4 and 5.0. Background data sending was tested by leaving the test device on with network connectivity for several days. The stability of the user interface was tested manually aswell.
 
 Unit tests can be run with:
 
@@ -166,8 +166,8 @@ Running integration tests:
 $ bundle exec cucumber
 ```
 
-Known bugs
-----------
+Known problems
+--------------
 
 -	Sharing might not work
 -	Changing data sending frequency does not come in to effect until the device restarts or data sending setting is checked and unchecked
