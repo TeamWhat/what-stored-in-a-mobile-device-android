@@ -85,7 +85,7 @@ $ bundle exec rails c
 $ exit
 # exit
 ```
-The password must be at least 8 characters long.
+The password must be at least 8 characters long. The ruby on rails application uses the "Devise" gem to handle user accounts.
 
 
 Architecture
@@ -137,7 +137,8 @@ Other tests can be run as their test suite documentation instructs.
 
 ### Back end
 
-Rspec, cucumber, factory girl...
+The backend rails server has automated tests. Unit and feature tests are handled by Rspec and integration tests by Cucumber. Rspec uses factory girl to create stub test data.
+
 
 Known bugs
 ----------
