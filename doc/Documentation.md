@@ -114,7 +114,16 @@ Testing
 
 ### Android
 
-The Android application has automated tests. Most were unit tests for settings and the different data collectors, using Mockito for object mocking and the Robotium library for feature tests to mimic user interactions. The application also had integration tests for common use cases made with Calabash. These tests were run on several different devices and emulators. The application was also tested manually with devices ranging from 4.3 inch phones to 10.5 inch tablets, with Android versions 4.1.2, 4.4.2, 4.4.4 and 5.0. The manual testing consisted of testing the stability of the apps UI and the working of the background data sending by leaving the test device on with network connectivity for several days.  
+The Android application has automated tests. Most were unit tests for settings and the different data collectors, using Mockito for object mocking and the Robotium library for feature tests to mimic user interactions. The application also had integration tests for common use cases made with Calabash. These tests were run on several different devices and emulators. The application was also tested manually with devices ranging from 4.3 inch phones to 10.5 inch tablets, with Android versions 4.1.2, 4.4.2, 4.4.4 and 5.0. The manual testing consisted of testing the stability of the apps UI and the working of the background data sending by leaving the test device on with network connectivity for several days.
+
+You can run the calabash tests with the command 
+```
+$ ./gradlew build
+$ calabash-android resign app/build/outputs/apk/app-release-unsigned.apk
+$ calabash-android run app/build/outputs/apk/app-release-unsigned.a
+```
+Other tests can be run as their test suite documentation instructs.
+
 
 ### Back end
 
