@@ -89,6 +89,8 @@ The Android application consists of two main parts, the UI and background data c
 
 The UI consists of the parts that the user can interact with, such as settings and graphs. If the user opens the application for the first time, the user is shown the first time settings. On the MainScreen user can select to collect and send data, or to open the Graphs page. From the context menu on the top of the screen the user can open Settings or the About page. 
 
+![Android UI diagram](android-UI.png)
+
 #### Background data collection
 
 The background data collection is the automated system of user device data collection and their sending to the reasearch server. This part of the application can be disabled by the user from the settings. 
@@ -104,6 +106,8 @@ The SendDataIntentService is the service that sends the collected data to the se
 ### Back end
 
 Backend is a ruby on rails server...
+
+![Backend diagram](backend-architechture.png)
 
 Testing
 -------
