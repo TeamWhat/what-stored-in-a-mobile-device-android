@@ -134,7 +134,7 @@ Testing
 
 ### Android
 
-The Android application has unit tests for settings and the different data collectors, using Mockito for object mocking, and the Robotium library for mimicing user interactions. There are also integration tests (made with Calabash) for common use cases. Tests were run on several different devices and emulators. The application was also tested manually with devices ranging from 4.3 inch phones to 10.5 inch tablets, with Android versions 4.1.2, 4.4.2, 4.4.4 and 5.0. Background data sending was tested by leaving the test device on with network connectivity for several days. The stability of the user interface was tested manually aswell.
+The Android application has unit tests for settings and the different data collectors, using Mockito for object mocking, and the Robotium library for mimicking user interactions. There are also integration tests (made with Calabash) for common use cases. Tests were run on several different devices and emulators. The application was also tested manually with devices ranging from 4.3 inch phones to 10.5 inch tablets, with Android versions 4.1.2, 4.4.2, 4.4.4 and 5.0. Background data sending was tested by leaving the test device on with network connectivity for several days. The stability of the user interface was tested manually aswell.
 
 Unit tests can be run with:
 
