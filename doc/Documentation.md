@@ -101,7 +101,7 @@ The DataCollectionAlarmReceiver is the class responsible for starting the schedu
 
 The DataHandlerIntentService is the service that collects the user device data on a separate thread. DataHandler is the class that has the method to collect all data by calling the getData() method of all classes that implement the DataCollector interface. The database_utilities package has the necessary classes to save the collected data on the devices local SQLite database as in [Androids own guides](https://developer.android.com/training/basics/data-storage/databases.html).
 
-The SendDataIntentService is the service that sends the collected data to the server when network connectivity is aquired. It uses the HttpPostHandler to send a http POST request containing the data in the JSON format.
+The SendDataIntentService is the service that sends the collected data to the server when network connectivity is aquired. It uses the HttpPostHandler to send a http POST request containing the data in the JSON format. JSONPackager is the class that creates a valid JSON object from the data on the local SQLite database. UniqueIdentifier class creates a unique id for the mobile device that will anonymously connect the collected data with the specific mobile device on the backend.  
 
 ### Back end
 
