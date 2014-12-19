@@ -103,19 +103,19 @@ Architecture
 
 ### Android
 
-The Android application consists of two main parts, the UI and background data collection.
+The Android application consists of two main parts, the User interface and background data collection.
 
-#### UI
+#### User Interface
 
 The UI consists of the parts that the user can interact with, such as settings and graphs. If the user opens the application for the first time, a one time questionnaire is presented to the user. Answering the questions is optional, and they provide basic information about the user such as gender, age, and email. These answers can be changed later on in the Settings menu. On the MainScreen the user can select to collect and send data, or to open the Graphs page. From the context menu on the top of the screen the user can open Settings or the About page.
 
-![Android UI diagram](android-UI.png)
+![Android User Interface](android-UI.png)
 
 #### Background data collection
 
 The background data collection automatically collects data and sends it to the research server. It can be disabled from the settings.
 
-![Background data collection diagram](background-data-collection-diagram.png)
+![Background Data Collection](background-data-collection-diagram.png)
 
 DataCollectionAlarmReceiver is responsible for starting the scheduled data collection. It is repeated either daily, weekly, or monthly depending on the setting selected by the user. Because the Android OS clears all scheduled tasks on shutdown, the DataCollectionBootReceiver starts it again with the DataCollectionAlarmReceiver when the system starts up (if the user has enabled data collection and sending). At the moment, the sending time is counted from the system startup rather than from a certain specific time and date in order to avoid clogging the server with requests. After starting the scheduled sending, the first collection is started after a five minute delay.
 
@@ -127,14 +127,14 @@ SendDataIntentService is responsible for sending the collected data to the serve
 
 The backend is a Ruby on Rails server. Each mobile device that sends data is a unique "Subject" in the database. A "Collection" is a single set of data collected from a subject. A Subject can have multiple collections. A collection contains "Application", "Image", "Audio", "Video" and "Text" data of the Subjects mobile device. "Email" is a list of emails of participating people that have entered their emails on their mobile devices and shared data with the server. "User" list contains the user credentials for researchers.
 
-![Backend diagram](backend-architechture.png)
+![Backend Architechture](backend-architechture.png)
 
 Testing
 -------
 
 ### Android
 
-The Android application has unit tests for settings and the different data collectors, using Mockito for object mocking, and the Robotium library for mimicking user interactions. There are also integration tests (made with Calabash) for common use cases. Tests were run on several different devices and emulators. The application was also tested manually with devices ranging from 4.3 inch phones to 10.5 inch tablets, with Android versions 4.1.2, 4.4.2, 4.4.4 and 5.0. Background data sending was tested by leaving the test device on with network connectivity for several days. The stability of the user interface was tested manually aswell.
+The Android application has unit tests for settings and the different data collectors, using Mockito for object mocking, and the Robotium library for mimicking user interactions. There are also integration tests (made with Calabash) for common use cases. Tests were run on several different devices and emulators. The application was also tested manually with devices ranging from 4.3 inch phones to 10.5 inch tablets, with Android versions 4.1.2, 4.4.2, 4.4.4 and 5.0. Background data sending was tested by leaving the test device on with network connectivity for several days. The stability of the user interface was tested manually as well.
 
 Unit tests can be run with:
 
